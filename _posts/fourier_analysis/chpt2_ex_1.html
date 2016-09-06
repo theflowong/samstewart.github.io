@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax TeX Test Page</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+
+</head>
+<body>
+<h2>Chapter 2: Exercises</h2>
+<h4>Exercise 1</h4>
+<p>
+Suppose $f$ is a $2 \pi $-periodic and integrable function on any finite interval. Prove that if $ a, b \in \mathbb{R}$, then
+\[
+	\int_a^b f(x) = \int_{a + 2\pi}^{b + 2 \pi} f(x) = \int_{a - 2 \pi}^{b - 2 \pi} f(x).
+\]
+
+<!-- Article idea: mathematics and the mindset of extremism -->
+Also prove that
+\[
+	\int_{- \pi}^\pi f(x + a) dx = \int_{- \pi}^\pi f(x) dx = \int_{-\pi + a}^{\pi + a} f(x) dx.
+\]
+
+<h4>Answer</h4>
+Graphically, the first claim is obvious. Since the function itself is invariant under shifts of $2 \pi$, then the area under the curve must also be invariant under shifts of $2 \pi$. Consider the special case $f(x) = \sin(x)$ shown in the interactive diagram below. Drag $a$ and $b$ and observe how the area of the region under the curve stays constant.
+<!-- TODO; insert an interactive graphic that allows the user to move the endpoints of the integration region and observe what happens to the area under the curve -->
+We justify the first claim with two changes of variables: $x = x + 2 \pi$ and $x = x - 2 \pi$. The first change gives
+\[
+\int_a^b f(x)  dx = \int_{a + 2\pi}^{b + 2\pi} f(x - 2\pi) dx.
+\]
+The periodicity of $f$ gives $f(x - 2\pi) = f(x)$ so 
+\[
+	\int_a^b f(x) dx = \int_{a + 2 \pi}^{b + 2\pi} f(x) dx
+\]
+as desired. Similarly, we can deduce that
+\[
+	\int_a^b f(x) dx = \int_{a - 2 \pi}^{b - 2\pi} f(x).
+\]
+
+The second statement is not quite so clear. The following graphic shows that integrating from $- \pi + a$ to $\pi + a$ is the same as integrating from $-\pi$ to $\pi$ by periodicity. The shaded parts show the missing area when integrating over the two different intervals, but note that they are the same.
+<!-- TODO: insert an interactive graphic that shows the two different areas -->
+Symbolically, we can rewrite the integral as
+\[
+\int_{-\pi + a}^{\pi + a} f(x) dx  = \int_{-\pi + a}^\pi f(x)dx + \int_\pi^{\pi + a} f(x) dx.
+\]
+It then remains to show that
+\[
+	\int_\pi^{\pi + a} f(x) dx = \int_{-\pi}^{-\pi + a} f(x) dx.
+\]
+Using the first statement of the question with $a = -\pi$ and $b = -\pi + a$, we have as desired
+\[
+	\int_{-\pi}^{-\pi + a} f(x) dx = \int_\pi^{\pi + a} f(x) dx.
+\]
+</p>
+
+</body>
+</html>

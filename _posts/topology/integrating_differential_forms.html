@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Van Kampen's Theorem</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+\(
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+<body>
+<h2>Why integrate differential forms?</h2>
+Recall how we constructed differential forms. We started with covectors and used the wedge product to assemble covectors, which measure signed length, into higher rank differential forms, which measure signed volume. But since the tangent space is a local construction, the cotangent space is also a local construction. Hence, our volume measurement is inherently local. At a given point, we measure only a parallelopiped in $T_p M$.
+<!-- Ex: diagram of surface with local parallelogram -->
+However, we can add up these infinitely small volumes via an integral to find the volume of a given region. As a concrete example, return to the case of a function $f : \R \to \R$.  
+<h2>Property of Differential Forms</h2>
+<h2>Integrating differential forms in $\R^n$</h2>
+As with many definitions in differential geometry, we start in $\R^n$ and then extend to an arbitrary manifold $M$ via charts. This strategy is reasonable since a manifold is essentially stretched copies of $\R^n$ glued together. 
+
+Let $M$ be a compact  $n$-dimensional manifold. Then we define the integral of a smooth $n$-form $\omega = f dx^1 \wedge \cdots \wedge dx^n$$ as
+\[
+	\int_M \omega = \int_M f dx^1 dx^2 \cdots dx^n.
+\]
+In other words, we just erase the wedges. Theoretically, we've tied this theory to Lebesgue theory since the integral on the right requires definition. In this sense, all our work has accomplished little: we haven't actually defined a new integral. Instead, differential forms allows us to transfer the well-established integration theory in $\R^n$ to an arbitrary manifold $M$, and gives us algebraic tools for handling coordinate changes.
+<h2>Integrating differential forms on an arbitrary manifold $M$</h2>
+
+<h2>Example computation</h2>
+Consider $M = S^2$ with orientation given by $N = x \partial_x + y \partial_y + z \partial_z$ and the 2-form $\omega = x dy \wedge dz + y dz \wedge dx + z dx \wedge dy$. Using our above theory, the embedding of $\S^2$ into $\R^3$ by $F : [0, 2 \pi] \times [0, \pi] \to \R^3$ where 
+\[
+	(x, y, z) = F(\theta, \phi) = (\cos \theta \sin \phi, \sin \theta \sin \phi, \cos \phi)
+\]
+	allows us to compute
+\[
+	\int_{S^2} \omega = \int_{F(S^2)} F^* \omega 
+	\]
+	Computing the pullback of $\omega$ in pieces
+	\[
+		\begin{aligned}
+			F^* dx &= - \sin \sin \phi d \theta + \cos \theta \cos \phi d\phi \cr
+			F^*dy  &= \cos \theta \sin \phi d \theta + \sin \theta \cos \phi d \phi \cr
+			F^* dz &= - \sin \phi d \phi
+		\end{aligned}
+	\]
+	so then pulling back the two forms gives
+	\[
+		\begin{aligned}
+			F^*(dy \wedge dz) &=-\cos \theta \sin^2 \phi d\theta \wedge d\phi \cr
+			F^*(dz \wedge dx) &= \sin \theta \sin^2 \phi d\phi ^ d\theta \cr
+			F^*(dx \wedge dy) = \sin \phi \cos \phi d \phi ^ d \theta
+		\end{aligned}
+	\]
+
+<!-- article idea: projection of 4D sphere into 3 space with WebGL -->
+<!-- article idea: distinction between object and its manifestation (embedding of topological space, maps and matrix representations) -->
+
+<h2>Integrals as paring between differential forms and manifold</h2>
+From the linearity properties described above, we can view the integral as a duality pairing between differential forms and manifolds. In the same way that differential forms are dual to the tangent space, so are differential forms globally dual to the manifold. More precisely, one can construction a functional for any $n$-form $\omega$ on $M$ by
+\[
+	\int_M \omega.
+\]
+This reiterates the concept that finding length (or by extension volume) is dual to the actual structure of the manifold itself.
+</body>
+</html>

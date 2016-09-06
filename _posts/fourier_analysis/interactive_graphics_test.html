@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MathJax TeX Test Page</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.5/jsxgraphcore.js"></script>
+
+
+</head>
+<body>
+
+<div id="box" class="jxgbox" style="width: 500px; height: 500px"></div>
+<script type="text/javascript">
+
+
+	var board = JXG.JSXGraph.initBoard('box', {axis: true, boundingbox: [-10, 2, 10, -2]});
+
+
+
+	var a_point = board.create('point', [-Math.PI, 0], {name:'a', size:2});
+
+	var a_line = board.create('line', 
+			[[
+			function() {
+				return a_point.X();
+			}, 
+			board.getBoundingBox()[1]
+			], 
+			[
+			function() { 
+				return a_point.X(); 
+			}, 
+			board.getBoundingBox()[3]]], 
+			{
+				strokeColor:'#ff9999', 
+				strokeWidth:2, 
+				dash:2
+			});
+
+	var b_point = board.create('point', [Math.PI, 0], {name:'b', size:2});
+
+	var b_line = board.create('line', [[function() {return b_point.X();}, board.getBoundingBox()[1]], [function() { return b_point.X(); }, board.getBoundingBox()[3]]], {strokeColor:'#ff9999', strokeWidth:2, dash:2});
+
+
+	var left_f  = board.create('functiongraph', [ Math.sin, board.getBoundingBox()[0], function() { return a_point.X(); }], {strokewidth:2})
+	
+	var middle_f  = board.create('functiongraph', [ Math.sin, function() { return a_point.X(); }, function() { return b_point.X(); }], {strokeColor: '#ffcccc', strokewidth:2})
+
+	// TODO: covert fontsize to coordinates.
+	var area_text = board.create('text', [0, board.getBoundingBox()[1] - .5, 
+			
+			function() { 
+
+				var area = JXG.Math.Numerics.NewtonCotes([a_point.X(), b_point.X()], Math.sin);
+				return 'Area: ' + area.toFixed(2); 
+				}], {fontSize:24});
+
+
+	console.log(area);
+
+	var right_f  = board.create('functiongraph', [ Math.sin, function() { return b_point.X(); }, board.getBoundingBox()[10]], {strokewidth:2})
+
+
+</script>
+</body>
+</html>

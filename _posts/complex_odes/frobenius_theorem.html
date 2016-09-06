@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Frobenius's Method</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../style.css" />
+\(
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+
+</head>
+<body>
+
+<h2>Solutions to ODEs with Complex Coefficients</h2>
+Consider a differential equation of the form
+\[
+a(z) y'' + b(z) y' + c(z)y = 0
+\]
+where $a, b, c$ are meromorphic functions in $\C$. Without loss of generality, we can normalize the first coefficient so that the equation becomes
+\[
+	y'' + P(z) y' + Q(z) = 0.
+\]
+<!-- Q: what is the geometric meaning of poles? -->
+<!-- Q: why does so much of the theory of complex analysis revolve around rotating around poles? -->
+General existence theorems tell us that analytic solutions exist, assuming $P$ and $Q$ don't have too many poles. The Frobenius method enables us to calculate the solutions explicitly. 
+
+<h2>The General Theorem</h2>
+We are interested in solutions at the point $z_0$ but we can only expect local existence, as the following example shows.
+<!-- TODO: insert example of local existence -->
+
+First, we must understand how the equation behaves at the point $z_0$. Since $P$ and $Q$ are meromorphic, and not necessarily entire, the equation may have a singularity at $z_0$. The worst we allow is $P$ to have a pole of order one and $Q$ to have a pole of order two. 
+
+If $P$ and $Q$ are analytic at $z_0$, then we call $z_0$ an <strong>ordinary point</strong>. If either $P$ or $Q$ are not analytic, we call $z_0$ a <strong>regular singular point</strong> (this is in contrast to an <strong>irregular singular point</strong> where $P$ and $Q$ have higher order poles).
+
+In the case of a <strong>ordinary point</strong>, we have the following existence theorem
+<div class="theorem">
+	If $z_0$ is a regular point, then the ODE has a solution of the form
+	\[
+		y = c_1 y_1(x) + c_2 y_2(x)
+	\]
+	with $y_1, y_2$ analytic. The solution itself has a radius of convergence at least the distance from $z_0$ to the nearest singular point of the equation.	
+</div>
+<!-- Q: why is it significant that the indicial equation is r(r - 1) = 0? -->
+We can find these two solutions using the Frobenius method outlined below.
+
+In the case of a <strong>regular singular point</strong>, then we have the following existence theorem
+<!-- Q: why does the indicial equation control everything? -->
+<!-- Q: what does the difference between the roots matter? Why does the integer business matter? -->
+<!-- Q: what does the equation mean when the coefficients blow up? -->
+<div class="theorem">
+	If $z_0$ is a regular singular point, then the ODE has one analytic solution of the form
+	\[
+		y_1(x) = (x - x_0)^{r_1} \sum_{k = 0}^\infty a_k (x - x_0)^k
+	\]
+	where $r_1$ is a root of the indicial equation.
+
+	The second, linearly independent, solution breaks into several cases. 
+	<ol>	
+		<li>If $r_1 - r_2 \notin \Z^+$, then
+		\[
+			y_2(x) = (x - x_0)^{r_2} \sum_{k = 0}^\infty a_k(x - x_0)^k.
+		\]
+		</li>
+		<li>
+		If $r_1 - r_2 \in \Z^+$, then maybe
+		\[
+			y_2(x) = (x - x_0)^{r_2} \sum_{k = 0}^\infty a_k (x - x_0)^k
+		\]
+			or
+		\[
+			y_2(x) = y_1(x) \ln(\abs{x - x_0}) + (x - x_0)^{r_2} \sum_{k = 0}^\infty b_k (x - x_0)^k
+			\]
+			</li>
+		<li>If $r_1 = r_2$, then
+		\[
+			y_2(x) = = y_1(x) \ln(\abs{x - x_0}) + (x - x_0)^{r_2 + 1} \sum_{k = 0}^\infty b_k (x - x_0)^k.
+		\]
+		</li>
+	</ol>
+</div>
+	<h2>The Frobenius Method</h2>
+	<!-- Q: why do different geometries lead to different bases of polynomials? -->
+	Consider Bessel's equation, which appears in many situations (for example, solving the heat equation on the disk)
+	\[
+		y'' + \frac{1}{x} y' + \left( 1 - \frac{1}{4x^2} \right) y = 0
+	\]
+	We can see that $x_0 = 0$ is a regular singular point.	From the above theory, we know that a power series solution
+	\[
+		y = \sum_{k = 0}^\infty a_k x^{k + r}
+	\]
+	exists and convergences at any point $x \neq 0$ with radius of convergence at least $\abs{x}$. Frobenius's method allows us to find this solution. Computing the necessary derivatives of $y$ and plugging them back into the equation, we obtain
+	\[
+		\sum_{k = 0}^\infty (k + r - 1)(k + r) a_k 4x^k + (k + r) a_k 4x^k + 4a_k x^{k + 2} - a_k x^k = 0.
+	\]
+	Re-indexing the third sum with $k = k + 2$ gives
+	\[
+		\sum_{k = 0}^\infty (k + r - 1)(k + r) 4 a_k x^k + 4 a_k (k + r) x^k - a_k x^k + \sum_{k = 2}^\infty 4 a_{k - 2} x^k = 0.
+		\]
+	Expanding the first two terms gives
+	\[
+		a_0 (4r^2 - 1) + a_1( 4r^2 + 8r + 3)x + \sum_{k = 2}^\infty (4(k + r)^2 - 1) a_k + 4a_{k - 2} ) x^k = 0
+	\]
+	Assuming that $a_0 \neq 0$, then since the polynomials form a basis for analytic functions, we must have that each coefficient is zero. This immediately gives $4r^2 -1 = 0$ so $r_2 = -1/2, r_1 = 1/2$ (note: we call $4r^2 - 1 = 0$ the indicial equation). Then $8 a_1 = 0$ so $a_1$ is also zero. Finally, we have
+	\[
+		a_k = \frac{-1}{(k + 1)k} a_{k - 2}
+		\]
+	Since $a_1 = 0$, then all odd co-efficients are automatically zero. Guessing the pattern gives
+	\[
+		a_{2m} = \frac{(-1)^m}{(2m + 1)!} a_0
+	\]
+	Hence we have one of two solutions
+	\[
+		y = a_0 x^{1/2} \sum_{m = 0} \frac{(-1)^m}{(2m + 1)!} a_0.
+	\]
+	But we still have $r_1 = -1/2$. In this case $(4r^2 + 8r + 3)a_1 = 0 \, a_1 = 0$ so $a_1$ is unconstrained. Then solving the recurrence relation from $(4(k + r)^2 - 1)a_k + 4a_{k - 2} = 0$ gives the odd coefficients as
+	\[
+		a_{2m + 1} = \frac{(-1)^m a_1}{(2m + 1)!}
+	\]
+	and the even coefficients are
+	\[
+	a_{2m} = \frac{(-1)^m}{(2m)!} a_0.
+	\]
+	Then the solution is
+	\[
+		y = a_0 x^{-1/2} \sum_{m = 0}\frac{(-1)^m a_1}{(2m)!} x^{2m} + a_1 x^{-1/2} \frac{(-1)^m}{(2m + 1)!} a_0 x^{2m + 1}.
+	\]
+	The first term in this series is linearly independent of the solution for $r_2 = 1/2$ which is represented by the second term. Hence, the above equation is the general form for the solution. We can simplify by recognizing the power series for $\sin$ and $\cos$ so that
+	\[
+		y = \frac{a_0}{\sqrt{x}} \cos x + \frac{a_1}{\sqrt{x}} \sin x.
+	\]
+</body>
+</html>

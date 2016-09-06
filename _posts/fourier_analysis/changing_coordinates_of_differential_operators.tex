@@ -1,0 +1,318 @@
+%23: 7, Munkres \textsection 24: 1, 3, 10e
+% v0.04 by Eric J. Malm, 10 Mar 2005
+\documentclass[12pt,letterpaper,boxed]{jhwhw}
+
+\author{Sam Stewart}
+\title{Changing Coordinates}
+% set 1-inch margins in the document
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{marginnote}
+\usepackage{float}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+\makeatletter
+\DeclareRobustCommand{\pder}[1]{%
+  \@ifnextchar\bgroup{\@pder{#1}}{\@pder{}{#1}}}
+\newcommand{\@pder}[2]{\frac{\partial#1}{\partial#2}}
+\makeatother
+\newcommand{\pdev}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdevII}[2]{\frac{\partial^2 #1}{\partial {#2}^2}}
+\newcommand*{\pd}[3][]{\ensuremath{\frac{\partial^{#1} #2}{\partial #3}}}
+
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+% \newtheorem{lemma}[section]{Lemma}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+% Note: for other writers, please take a look at the shortcuts I have already defined above.
+
+% TODO: employ roman numerals in the 
+\begin{document}
+Changing coordinates is one of the simplest, yet most useful, mathematical operations. Changing coordinates is exactly what mathematics is about: a slight but advantageous change of perspective. There is no ``objective coordinate'' system. We prefer to think in Cartesian coordinates because of our interactions from the physical world, but there is no fundamental reason why we choose a ``straight'' coordinate system. 
+
+Indeed, a different coordinate system can greatly simplify the computations of a problem. One tries to pick a coordinate system that respects the symmetries of the problem. For example, solving Laplace's equation on the disk with Dirichlet boundary conditions practically begs for polar coordinates. The radial symmetry suggests polar coordinates.
+
+This principle holds in infinite dimensions as well. To solve the wave equation, we use the translation invariance of the time and space derivatives and use ``Fourier coordinates'' (also known as Fourier series) for $L^2$. The problem becomes an infinite set of ODEs. In this coordinate system, we manage to diagonalize the derivatives. There are two perspectives that lead us to this choice of coordinates. Firstly, we want to take advantage of the translation invariance. Secondly, we wish to decompose the problem into many smaller ones, namely solving an eigenvalue problem. In both cases, the solution is to pick an advantageous set of coordinates. This is an extension of the larger idea in math of focusing on the relevant details. In some sense, the wrong coordinate system obscures the underlying problem: changing coordinates reveals the important details. Of course, there is the implicit intuition that the problem indeed \textit{has} some simple structure: it may be that no change of coordinates leads to an improvement.
+
+% Q: what is the relation between a good choice of coordinates and a spectrum?
+% Q: why does decomposing into eigenspaces always lead to a simpler choice of coordinates? Can we see this from transforming the Laplacian?
+% Q: is there a way to describe the action of the Laplacian without resorting to coordinates?
+% Q: how many orthogonal coordinate systems are there?
+% Q: can every orthogonal coordinate system be realized as a conformal mapping?
+% Q: what is the relationship between basis and coordinates?
+% Q: can vector spaces be curved?
+% Q: what is tensor analysis?
+
+In this writeup, we wish to transform the Laplacian from Cartesian coordinates on $\R^2$. In this coordinate system, the operator is given by
+\[
+	\Delta = \partial_x^2 + \partial_y^2.
+\]
+In polar coordinates, the operator becomes
+\[
+	\Delta = \partial_r^2 + \frac{1}{r} \partial_r + \frac{1}{r^2} \partial_\theta.
+\]
+We will discuss the geometric meaning of the new expression, and provide a surprising  five ways to compute the change of coordinates. This article includes some interactive graphics aimed at giving the reader a better geometric intuition. One can approach coordinate changes from many different perspectives and there are accordingly many different ways to compute. In the end, the computations represent different formalisms -- there is no magic. With that said, one wonders at how a slight notational upgrade leads to a shockingly simple computation. To illustrate this, we order the derivations by length. The final computation with differential forms is (unsurprisingly) the shortest.
+
+\subsection{The Chain Rule}
+The first approach is the most natural and requires little theory beyond elementary calculus. The coordinate change from polar to Cartesian coordinates is given by
+\[
+	\phi(r, \theta) = (r \cos \theta, r \sin \theta),
+\]
+and thus from polar to Cartesian by
+\[
+	\phi^{-1}(x, y) = \lrparen{\sqrt{x^2 + y^2}, \arctan y/x}.
+\]
+The following figure demonstrates the coordinate change. As you move the mouse, note how the basis at each point in the Cartesian system transforms to a basis at each point in the polar system.
+
+% TODO: write javascript code for plotting change from polar to cartesian coordinate
+Now we simply use the chain rule to convert from Cartesian to polar coordinates. By symmetry, it suffices to convert $u_{xx}$ and then replace the occurrences of $x$ with $y$.
+We repeat the chain rule several times
+\[
+	\begin{aligned}
+		u_{xx} &= \lrparen{ u_r r_x + u_\theta \theta_x }_x \cr
+        		&= \lrparen{u_r r_x }_x + \lrparen{ u_\theta \theta_x }_x \cr
+		       &= u_r r_{xx} + u_{rx} r_x + \theta_{xx} u_\theta + u_{\theta x} \theta_x \cr
+		       &=  u_r r_{xx} + \lrparen{ u_{rr} r_x + u_{\theta r} \theta_x } r_x + \theta_{xx} u_\theta + u_{\theta x} \theta_x \cr
+		       &=  r_{xx} u_r + u_{rr} r_x^2 + u_{\theta r} \theta_x r_x + \theta_{xx} u_\theta + \lrparen{ u_{r \theta} r_x + u_{\theta \theta} \theta_x } \theta_x \cr
+		       &= r_{xx} u_r + r_x^2 u_{rr} + 2 \theta_x u_{\theta r} r_x + \theta_{xx} u_\theta + u_{\theta \theta} \theta_x^2
+	\end{aligned}
+\]
+We now compute each of the coefficients in the above expression
+\[
+	\begin{aligned}
+		r_x &= \frac{y}{\sqrt{x^2 + y^2}} \cr
+		r_y &= \frac{x}{\sqrt{x^2 + y^2}} \cr
+		r_{xx} &= \frac{y^2}{(x^2 + y^2)^{3/2}} \cr
+		r_{yy} &= \frac{x^2}{(x^2 + y^2)^{3/2}} \cr
+		\theta_x &= \frac{-y}{x^2 + y^2} \cr
+		\theta_y &= \frac{x}{x^2 + y^2} \cr
+		\theta_{xx} &= \frac{2xy}{(x^2 + y^2)^2} \cr
+		\theta_{yy} &= \frac{-2xy}{(x^2 + y^2)^2}
+	\end{aligned}
+\]
+Converting each expression to polar coordinates gives
+\[
+	\begin{aligned}
+		r_x &= \cos \theta \cr
+		r_y &= \sin \theta \cr
+		r_{xx} &= \frac{\sin^2 \theta}{r} \cr
+		r_{yy} &= \frac{\cos^2 \theta}{r} \cr
+		\theta_x &= \frac{-\sin \theta}{r} \cr
+		\theta_y &= \frac{\cos \theta}{r} \cr
+		\theta_{xx} &= \frac{2 \sin \theta \cos \theta}{r^2} \cr
+		\theta_{yy} &= \frac{-2 \sin \theta \cos \theta}{r^2}.
+	\end{aligned}
+\]
+Combining our expression for $u_{xx}$ with the same expression for $u_{yy}$ (obtained by replacing occurrences of $x$ with occurrences of $y$) gives
+\[
+	u_{xx} + u_{yy} = (r_{yy} + r_{xx}) u_r + (r_x^2 + r_y^2) u_{rr} + 2(\theta_x r_x + \theta_y r_y) u_{\theta r} + (\theta_{xx} + \theta_{yy}) u_\theta + (\theta_x^2 + \theta_y^2) u_{\theta \theta}.
+\]
+Computing each of the coefficients gives
+\[
+	\begin{aligned}
+		r_{xx} + r_{yy} &= \frac{1}{r} \cr
+		r_x^2 + r_y^2 &= 1 \cr
+		2(\theta_x r_x + \theta_y r_y) &= 0 \cr
+		\theta_{xx} + \theta_{yy} &= 0 \cr
+		\theta_x^2 + \theta_y^2 &= 0.
+	\end{aligned}
+\]
+Then finally we have
+\[
+	\Delta u = u_{xx} + u_{yy} = u_{rr} + \frac{1}{r} u_r + \frac{1}{r^2} u_{\theta \theta}.
+\]
+We also wish to compute the area element in polar coordinates. Since
+\[
+	\begin{aligned}
+		u_x &= u_r r_x + u_\theta \theta_x \cr
+		u_y &= u_r r_y + u_\theta \theta_y,
+	\end{aligned}
+\]
+then
+\[
+	\begin{aligned}
+		\abs{u_x}^2 + \abs{u_y}^2 &= u_r^2(r_x^2 + r_y^2) + 2(r_x \theta_x + r_y \theta_y) u_r u_\theta + (\theta_x^2 + \theta_y^2) u_\theta^2 \cr
+				       	&= \abs{u_r}^2 + \abs{u_\theta}^2 \frac{1}{r^2}.
+	\end{aligned}
+\]
+The above computation is long and involved, with plenty of points for error. \textbf{The main idea is simple: the chain rule tells one how each coordinate varies with respect to the new coordinate system}. The rest is merely mechanical computation. From this perspective, this approach is the most natural. If such computations were done after the advent of computers, it might have sufficed. After all, such mechanical manipulation is perfect for a computer algebra system. But, math is not finished when the computation is done, instead, we try to bundle together similar ideas in the hope of finding a simpler computation. For some reason, stepping up one level of generality often leads to greatly simplified details.
+
+\subsection{Orthogonal Coordinates}
+Pursuing a slightly more general perspective, polar coordinates can be viewed as a special case of orthogonal coordinates. Before defining orthogonal coordinates, we should define what we mean by ``coordinates.'' 
+
+\begin{definition}[Coordinate]
+	Let $\phi(q_1, \ldots, q_n) : \R^n \to \R^n$ describe a point in space. Then at a given point, we define a local coordinate system $e_i$ by
+	\[
+		e_i = \pd{\phi}{q^i}.
+	\]
+\end{definition}
+In other words, the coordinates are the tangent vectors to the ``grid lines'' (curves where only one $q_i$ varies) as can be seen in the following figure for polar coordinates.
+% TODO: interactive graphic of coordinate vectors with grid lines
+
+For polar coordinates, we have
+\[
+	e_1 = (\cos \theta, \sin \theta), \quad e_2 = (-r \sin \theta, r \cos \theta).
+\]
+Note that in the above figure, the coordinates intersect at right angles. In other words, the coordinates are orthogonal. Indeed,
+\[
+	e_1 \cdot e_2 = -r \sin \theta \cos \theta + r \sin \theta \cos \theta = 0.
+\]
+Thus, it's reasonable to call such a system a set of  \textit{orthogonal coordinates}. 
+\begin{definition}[Unit Coordinates]
+	Let $e_i$ be a set of coordinates. Define $h_i = \abs{e_i}$. Then we call
+	\[
+		\overline{e}_i = \frac{e}{h_i}
+	\]
+	unit coordinates since they have unit length.
+\end{definition}
+For example, in the case of polar coordinates, we have $h_1 = 1, h_2 = r$ and $e_1 = (\cos \theta, \sin \theta), e_2 = (-\sin \theta, \cos \theta)$.
+
+In orthogonal coordinates we have that
+\[
+	d\phi = \pd{}{q^i} dq^i = e_i dq^i.
+\]
+Since the differential of a scalar function $f$ is
+\[
+	df = \nabla f \cdot d \phi = \nabla f \cdot e_i dq^i.
+\]
+The del operator then becomes
+\[
+	\nabla = \frac{e_i}{h_i^2} \pd{}{q^i}.
+\]
+In two dimensions, the divergence is thus given by
+\[
+	\nabla \cdot F = \frac{1}{h_1 h_2} \lrparen{ \pd{\lrparen{ F_1 h_2 }}{q^1}  + \pd{(F_2 h_1)}{q^2} }
+\]
+Since $\Delta f = \nabla \cdot \nabla f$ then
+\[
+	\Delta f = \frac{1}{h_1 h_2} \lrparen{ \pd{}{q^1} \lrparen{ \frac{h_2}{h_1} \pd{f}{q_1} } + \pd{}{q^2} \lrparen{ \frac{h_1}{h_2} \pd{f}{q^2}}}
+\]
+
+Using this expression, we can immediately compute the Laplacian in polar coordinates as
+\[
+	\begin{aligned}
+		\Delta f &= \frac{1}{r} \lrparen{ \pd{}{r} \lrparen{ r \pd{}{r} } + \pd{}{\theta} \lrparen{ \frac{1}{r} \pd{}{\theta} }} \cr
+		&= \frac{1}{r} \lrparen{ \pd{}{r} + r \pd[2]{}{r} + \frac{1}{r} \pd[2]{}{\theta} }\cr
+		&= \pd[2]{}{r} + \frac{1}{r} \pd{}{r} + \frac{1}{r^2} \pd[2]{}{\theta}.
+	\end{aligned}
+\]
+% Q: why is abstraction so successful in solving problems? That's an article in and of itself.
+% Q; How does math and science piggyback off of our linguistic capabilities?
+% Q: why is there this dichotomy between coordinate free and coordinate expressions? How does this relate to programming / physics / science / life / linguistics / music?
+
+Although the theoretical setup was much longer, the final computation was quite short. There is, always, such a trade-off between the descriptive power of a theory and the cost of transmission. While a general theory subsumes makes the individual computations simpler, work is conserved. The complexity of the individual cases has simply moved to the complexity of the general theory. The hope is that the individual cases are similar enough that abstracting the overlapping components is worth the time. It is of course more difficult to learn a general theory then a few simple rules of calculation. This is exactly because learning the general theory involves understanding the shared messy details of each problem. It is amazing that humans are able to work at a higher level of generality. Perhaps this ties back to our linguistic capabilities. \textbf{The main point is that we can derive general formula for the differential operators in curvelinear coordinates}. 
+
+\subsection{Variational Formula}
+Our third approach is even simpler. Using either basic differential geometry or the Calculus of Variations, one can derive that for a Riemannian manifold with metric $g$, the Laplacian is given by
+\[
+	\Delta f = \frac{1}{\sqrt{\abs{g}}} \partial_i \lrparen{ \sqrt{\abs{g}} g^{ij} \partial_j f }.
+\]
+where we use the Einstein summation convention, $\abs{g}$ denotes the determinant of the matrix representation of $g$, and $g^{ij}$ represents the $(i,j)$th entry of the inverse of the representation of $g$. For this computation, we need only find the metric $g$ for polar coordinates. We can view the change of coordinates
+\[
+	\phi(r, \theta) = (r \cos \theta, r \sin \theta)
+\]
+as an immersion. For this special case, the matrix for the metric simply becomes
+\begin{equation*}\label{eq:laplacian_general_coordinates}
+	g = \nabla \phi \lrparen{ \nabla \phi }^T
+\end{equation*}
+Computation gives
+\[
+	\begin{aligned}
+		\nabla \phi \lrparen{ \nabla \phi }^T &= 
+		\begin{bmatrix*}
+			\cos \theta & \sin \theta \cr
+			-r \sin \theta & r \cos \theta
+		\end{bmatrix*}
+		\begin{bmatrix*}
+			\cos \theta & -r \sin \theta \cr
+			\sin \theta & r \cos \theta
+		\end{bmatrix*} \cr
+		&=
+		\begin{bmatrix*}
+			1 & 0 \cr
+			0 & r^2
+		\end{bmatrix*} \cr
+		&= g
+	\end{aligned}
+\]
+Using Eq~\ref{eq:laplacian_general_coordinates} thus gives
+\[
+	\begin{aligned}
+		\Delta &= \frac{1}{r} \lrparen{\partial_r \lrparen{r \partial_r} + \partial_\theta \lrparen{r \frac{1}{r^2} \partial_\theta}} \cr
+			&= \frac{\partial_r  + r \partial_r^2 + \frac{1}{r} \partial_\theta^2 } \cr
+			&= \partial_r^2 + \frac{1}{r} \partial_r + \frac{1}{r^2} \partial_\theta^2.
+	\end{aligned}
+\]
+% Q: what does the Laplacian in coordinates formula tell us about the Laplacian?
+% Q: is there a coordinate free definition of the Laplacian?
+% Q: why do we seek coordinate free descriptions of a theory?
+% Q: Article idea: geometric series represent self-similar processes.
+% Q: Solving recurrence inequality for analyzing Euler convergence.
+% Q: article ideas:
+%	1. Why all norms are equivalent in finite dimensional space
+%	2. The connection between basis and charts / atlases in differential geometry
+%	3. The spectral theorem for matrices
+%	4. Spectral theory as classification
+This computation is shorter than the previous section. Indeed, the general formula presented here encompasses the special case of orthogonal coordinates on $\R^n$. Naturally, the exchange is the intimidating theoretical machinery of Riemannian geometry which encompasses the complexity of many different geometries, but once one learns this, the computations are simpler. Strangely, one learns the general theory precisely by computing the messy special cases. The usefulness of the theory then lies in its application to \textit{new} computations: once one has computed a few cases, the general approach becomes clear. Learning a \textit{perspective} gives one a \textit{procedure} to apply in many seemingly disparate cases.
+
+\subsection{Hodge Duality}
+% TODO: write article on hodge duality
+The final computation is the simplest, but also requires the most formalism. 
+\end{document}

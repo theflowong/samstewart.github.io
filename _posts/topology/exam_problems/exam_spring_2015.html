@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UMN Manifolds &amp; Topology Exam - Spring 2015</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<link rel="stylesheet" type="text/css" href="../../style.css" />
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+\(
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\RP}{{\mathbb{RP}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+<body>
+
+<h2>Part A</h2>
+<ol>
+	<li>
+	<ul>
+		<li>
+			<p><em>Define the fundamental group $\pi_1(X, x)$ of a space with basepoint</em></p>
+			<p>	
+			<div class="main_idea">
+				See <a href="the_fundamental_group.html">what is the fundamental group?</a>.
+			</div>
+			
+			<div class="formalism">
+				<p>
+				<div class="definition">
+					Let $(X, x)$ be a topological space with a basepoint, and $f, g$ be two loops at that basepoint. Consider the equivalence relation $\sim$ where $f \sim  g$ if and only if there is a homotopy between $f$ and $g$. Let $G$ be the group of loops at $x$ with the operation of concatenation. Then we define
+					\[
+						\pi_1(X, x) = G / \sim
+					\]
+					This object is a group.
+				</div>
+				</p>
+			</div>
+		</li>
+		<li>
+			<p>
+			<em>
+				Show that there is an isomorphism
+				\[
+					\pi_1(X \times Y, (x, y)) \to \pi_1(X, x) \times \pi_1(Y, y).
+				\]
+			</em>
+			</p>
+
+			<p>
+			<!-- article idea: mathematics, abstraction, and grouping -->
+				<div class="main_idea">
+					A loop in the product space is also a loop in each coordinate. 
+					<!-- Insert interactive graphic of T^2 projected down to S^1 and S^1 -->
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+					We claim the following is an isomorphism $\Phi : \pi_1(X \times Y, (x, y)) \to \pi_1(X, x) \times \pi_1(Y, y)$
+					\[
+						\Phi([\gamma]) = ([P_X(\gamma)], \, [P_Y(\gamma)])
+					\]
+					with $P_X, P_Y$ projections onto $X$ and $Y$. We sketch the justification 
+					<ul>
+						<li>
+						<h4>Well-defined</h4>
+						The projections are continuous, so composing them with homotopies produces another homotopy.
+						</li>
+						<li>
+						<h4>Homomorphism</h4>
+						The projections are homomorphisms under concatenation.
+						</li>
+						<h4>Surjective</h4>
+						Any path in $X$ or $Y$ is a path in $X \times Y$ with the do-nothing path in the opposite coordinate.
+						<li>
+						<h4>Injective</h4>
+							If a path in $X \times Y$ is homotopic to zero in $X$ and $Y$ <em>individually</em>, then we can combine the two homotopies into a new homotopy for the whole path to zero by homotopying the first coordinate to zero, and then the second.
+						</li>
+					</ul>
+				</div>
+				</div>
+			</p>
+		</li>
+		<li>
+			<p>
+			<em>
+				If $a,b, p$ are distinct elements in $\R^2$, describe the fundamental group $\pi_1(\R^2 \backslash \{ a, b \})$ in terms of generators and relations.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					The doubly punctured plane <a link="deformation_retract.html">deformation retracts</a> to $S^1 \vee S^1$ and thus has fundamental group
+					\[
+						\Z * \Z = &lt; a, b &gt;.
+					\]
+					<!-- Insert graphic of retract of plane to two circles from Munkres. p. 361 -->
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+					We can construct a special map called a deformation retract between $\R^2 \backslash \{ a, b \}$ and $S^1 \vee S^1$.
+					<div class="definition">
+						Let $A$ be a subset of $X$. We call $A$ a deformation retract of $X$ if there is a homotopy between a retract of $X$ into $A$ and the identity map. More precisely, $A$ is a deformation retract of $X$ if there exists a homotopy $H : X \times [0, 1] \to X$ such that
+						<ul>
+							<li>$H(x,0) = x$</li>
+							<li>$H(a, t) = a$ for $a \in A$</li>
+							<li>$H(x, 1) \in A$ for all $x \in X$</li>
+						<ul>
+					</div>
+					The earlier interactive graphic describes this map. We then apply the following theorem from Munkres (58.3, p 361)
+					<div class="theorem">
+						Let $A$ be a deformation retract of $X$; let $x_0 \in A$. Then the inclusion map
+						\[
+							j :(A, x_0) \to (X, x_0)
+						\]
+						induces an isomorphism of fundamental groups.	
+					</div>
+					One can prove with <a href="van_kampen_theorem.html">Van Kampen Theorem</a> that $\pi_1(S^1 \vee S^1) = &lt; a, b &gt;$. With the above theorem, this implies that $\pi_1(\R^2 \backslash \{ a, b \}) = &lt; a, b &gt;$.
+				</div>
+				</div>
+			</p>
+		</li>
+		<li>
+			<p>
+			<em>
+				Give an example of a nontrivial element in $\pi_1(\R^2 \backslash \{a, b \}, p)$ whose images in $\pi_1(\R^2 \backslash \{a \}, p)$ and $\pi_1(\R^2 \backslash \{ b \}, p)$ are both trivial.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					Consider the loop $aba^{-1}b^{-1}$ as shown
+					<!-- diagram of figure eight loop -->
+					But in $\R^2 \backslash \{a\}$, this is simply $aa^{-1} = 1$
+					<!-- diagram of unhooking and retracting loop to zero -->	
+					One can repeat the same construction for $\pi_1(\R^2 \backslash \{ a, b \})$. 
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+						How to formalize the homotopy between $a a^{-1}$ and the identity?						
+					</div>
+				</div>
+			</p>
+		</li>
+
+	</ul>
+	</li>
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+					Suppose $X$ and $Y$ are spaces (not necessarily connected). Define what it means for a map $p : Y \to X$ to be a covering map.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					See <a href="covering_spaces.html">what are covering spaces?</a>.
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+						Let $p : Y \to X$ be a continuous surjective map. Then we say $Y$ is a covering space of $X$ if for any $x_0 \in X$ there exists a neighborhood $U$ such that
+						\[
+							p^{-1}(U) = \bigcup_\alpha V_\alpha
+						\]
+						where the $V_\alpha$ are pairwise disjoint and open in $Y$. If this condition holds, we call $p$ a <strong>covering map</strong> and say that $x_0$ is <strong>evenly covered</strong>.
+					</div>
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				If $X$ is connected with a chosen basepoint $x \in X$, state (without proof) the classification of covering space $Y \to X$ where $Y$ is connected.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					See <a href="classification_covering_spaces.html">classifying covering spaces</a>
+				</div>
+
+				<div class="formalism">
+			</div>
+			</p>
+		</li>
+
+
+		<li>
+			<p>
+			<em>
+				If $X$ is connected, define what it means for a covering space $Y \to X$ to be a universal cover of $X$. Describe a universal cover of $S^1 \times $\RP^2$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					We can cover $S^1$ by $\R$. Hence we can cover $T^2 = S^1 \times S^1$ by $\R^2$. We can cover $\RP^2$ by $\S^2$ by identifying antipodal points.
+					<!-- interactive diagram of antipodal points -->
+					Thus, we can cover $S^1 \times \RP^2$ by $\R \times S^2$. A universal cover $E$ of a space $X$ is a cover of all other covers of $X$. An equivalent definition is that $E$ is simply connected. Since both $\R$ and $S^2$ are simply connected, then $\R \times \S^2$ must be simply connected.
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+						Need to add basic facts about $\pi_1$ functor respecting cross products and the equivalence of definition of universal cover and being simply connected.	
+					</div>
+				</div>
+			</p>
+		</li>
+	</ul>
+	</li>
+
+
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				Define the degree of a continuous self-map $f : S^n \to S^n$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					Intuitively, the degree of a map is an integer that counts the number of times it winds one loop around the circle. Thus, the degree of $z \to z^n$ is $n$, the degree of the identity is $1$, and the degree of a reflection is $-1$, the degree of the antipodal map is $1$ (it is the composition of two reflections).
+					See <a href="fundamental_group_of_the_circle.html">computing the fundamental group of the circle</a>.
+				</div>
+
+				<div class="formalism">
+					Let $f : S^n \to S^n$ be a continuous self map of the circle. Then we have an induced automorphism $f^*$ on $H^n(S^n) = \Z$. Since $\Z$ is cyclic, the map $f^*$ is uniquely determined by $f^*(1) = n$. We call $n$ the degree of $f$.
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				If $f$ and $g$ are continuous self-maps of $S^n$, determine the degree of $g \circ f$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					Composition simply speeds up the trajectory around the circle. For example, if $f(z) = z^2$ with degree two  and $g(z) = z^3$ with degree three then $g \circ f = z^6$ with degree $6 = 3 \circ 2$. The degree is clearly not additive since $f = g = z$ gives $f \circ g = z$ with degree $1 = 1 \cdot 1 \neq 1 + 1 = 2$.
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+						By the properties of the functor between topological spaces and groups, we know that $g \circ f$ induces a map $(g \circ f)^* = g^* \circ f^*$. Then by definition the degree of this map is
+						\[
+							\begin{aligned}
+						(g^* \circ f^*)(1) &= g^*(f^*(1)) \cr
+								   &= g^*(\textrm{deg}(f)) \cr
+								   &= \textrm{deg}(f) g^*(1) \cr
+								   &= \textrm{deg}(f) \textrm{deg}(g)
+							\end{aligned}
+						\]
+				</div>
+			</div>
+			</p>
+		</li>
+
+
+		<li>
+			<p>
+			<em>
+				For $n \geq 1$, give an example of a continuous map $S^n \to S^n$ of degree two.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					For $n =1$, just take the map $z \mapsto z^2$ that maps the circle back on itself twice. For higher dimensions, we need a more complicated construction
+					<!-- todo: describe higher construction with some pictures -->
+				</div>
+		
+				<div class="formalism">
+					<div class="proof">
+						Coming soon.
+					</div>
+				</div>
+			</p>
+		</li>
+	</ul>
+	</li>
+
+
+</ol>
+
+<h2>Part B</h2>
+<ol>
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				Give the definition of a smooth coordinate atlas on a manifold $M$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					A smooth atlas is nothing but a collection of maps from open sets of the manifold $M$ to open sets of $\R^n$. A manifold is simply a collection of copies of $\R^n$ stitched together. As an example, consider $S^1$ divided into three sets with the projection maps on each set.
+					<!-- insert canonical figure of S^1 with projection maps -->
+
+				</div>
+
+				<div class="formalism">
+					Let $U_\alpha$ be a collection of open sets that cover $M$. We call $\phi_\alpha : U_\alpha \to \R^n$ a smooth atlas if 
+					<ul>
+						<li>$\phi_\alpha$ is a homeomorphism between $U_\alpha$ and $\phi_\alpha(U_\alpha)$</li>
+						<li>If $U_\alpha \cap U_\beta \neq \emptyset$, then $\phi_\alpha \circ \phi_\beta^{-1} : \phi_beta(U_\alpha \cap U_\beta) \to \phi_\alpha(U_\alpha \cap U_\beta)$ is a diffeomorphism (compatability condition)</li>
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				Give a (coordinate-free) definition of a smooth vector field on $M$ (assuming the definition of a smooth real-valued function is given).
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					A smooth vector field is simply a vector field where each coordinate is locally smooth. For example, the vector field $(y, -x)$ smoothly swirls around the origin in the manifold $\R^2$
+					<!-- insert vector plot of field (y, -x) -->
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+						The definition of a smooth vector field depends on two dependent ideas.
+						<div class="definition">
+							For manifolds $M$ and $N$, we call a map $F : M \to N$ smooth if for every set of smooth charts $(\phi, U), (\xi, V)$ where $U \subset M, V \subset N$ we have that $\xi \circ F \circ \phi^{-1} : \phi(U \cap F^{-1}(V) \to \phi(V)$ is a smooth map.
+						</div>
+						<div class="definition">
+							The tangent bundle $TM$ of a manifold $M$ is defined by
+							\[
+								TM = \coprod_p T_p M.
+							\]
+						</div>
+						<div class="definition">
+							A smooth vector field on a manifold $M$ is a smooth map $F : M \to TM$ such that $F(p) = X_p \in T_p M$.
+						</div>	
+					</div>
+			</div>
+			</p>
+		</li>
+
+		<!-- article idea: the Weierstrass approximation theorem -->
+		<li>
+			<p>
+			<em>
+				Suppose $M$ has an immersion $f : M \to \R^{n + 1}$, and let $p$ be the projection from $\R^{n + 1}$ to $\R^n$ defined by $p(x_0, \ldots, x_n) = (x_1, \ldots, x_n)$. Give a necessary and sufficient condition on tangent spaces for the composite $p \circ f$ to be an immersion.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					<!-- todo: describe higher construction with some pictures -->
+				</div>
+		
+				<div class="formalism">
+					<div class="proof">
+						Coming soon.
+					</div>
+				</div>
+			</p>
+		</li>
+		<li>
+			<p>
+			<em>
+				State the Whiteney embedding theorem on embeddings and immersions of $m$-dimensional smooth manifolds $M$ into $\R^k$ (if you know multiple versions, state only the weak Whitney embedding/immersion theorems).
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					For $n =1$, just take the map $z \mapsto z^2$ that maps the circle back on itself twice. For higher dimensions, we need a more complicated construction
+					<!-- todo: describe higher construction with some pictures -->
+				</div>
+		
+				<div class="formalism">
+					<div class="proof">
+						Coming soon.
+					</div>
+				</div>
+			</p>
+		</li>
+	
+	</ul>
+	</li>
+
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				Calculate th exterior derivative $d$ of the $1$-form
+				\[
+					xyt \, dx + e^{zt} dy - \cos(xy) dt
+				\]
+				on $\R^4$ (with coordinates $(x,y,z,t)$).
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				Suppose $\omega = P dx + Q dy + R dz$ is a smooth $1$-form on an open subset $U \subset \R^3$ (i.e. $P, Q, R$ are smooth functions on $U$). Describe the exact relationship between $d\omega$ and teh curl $(A, B, C) = \nabla \times (P, Q, R)$ of the associated vector field.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+				</div>
+			</div>
+			</p>
+		</li>
+
+
+		<li>
+			<p>
+			<em>
+				Let $M = \R^3 \backslash (0, 0, 0)$. For which values of $k$ does there exist a smooth $k$-form $\omega$ on $M$ such that $d\omega = 0$, but $\omega \neq d\tau$ for any $(k - 1)$-form.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+		
+				<div class="formalism">
+					<div class="proof">
+					</div>
+				</div>
+			</p>
+		</li>
+	</ul>
+	</li>
+
+
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				State Stokes' theorem for smooth, compact manifolds with boundary.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				Suppose $\omega$ is a smooth $k$-form on $M$ with $d\omega = 0$, and let $W$ be a smooth, compact $(k+1)$-dimensionall manifold whose boundary $\partial W$ decomposes as a disjoint union of submanifolds $N_1$ and $N_2$. For a smooth map $f : W \to M$, describe the relationship between the integrals $\int_{N_1} \omega$ and $\int_{N_2} \omega$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+				</div>
+			</div>
+			</p>
+		</li>
+
+
+		<li>
+			<p>
+			<em>
+				Give an example showing that the condition $d \omega = 0$ is necessary in the above.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+		
+				<div class="formalism">
+					<div class="proof">
+					</div>
+				</div>
+			</p>
+		</li>
+	</ul>
+	</li>
+
+
+</ol>
+</body>
+</html>

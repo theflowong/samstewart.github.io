@@ -1,0 +1,311 @@
+%23: 7, Munkres \textsection 24: 1, 3, 10e
+% v0.04 by Eric J. Malm, 10 Mar 2005
+\documentclass[12pt,letterpaper,boxed]{jhwhw}
+
+\author{Sam Stewart}
+\title{Introduction to Fourier Analysis Summer Study}
+% set 1-inch margins in the document
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{marginnote}
+\usepackage{float}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+% \newtheorem{lemma}[section]{Lemma}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+% Note: for other writers, please take a look at the shortcuts I have already defined above.
+
+% TODO: employ roman numerals in the 
+\begin{document}
+\problem{1}
+If $z = x + iy$ is a complex number with $x, y \in \R$, we define
+\[
+	\abs{z} = (x^2 + y^2)^{1/2}
+\]
+and call this quantity the modulus or absolute value of $z$.
+
+\begin{enumerate}
+	\item What is the geometric interpretation of $\abs{z}$?
+	\item Show that if $\abs{z} = 0$, then $z = 0$.
+	\item Show that if $\lambda \in \R$, then $\abs{\lambda z} = \abs{\lambda} \abs{z}$, where $\abs{\lambda}$ denotes the standard absolute value of a real number.
+	\item If $z_1$ and $z_2$ are two complex numbers, prove that
+		\[
+			\abs{z_1 z_2} = \abs{z_1}\abs{z_2} \textrm{ and } \abs{z_1 + z_2} \leq \abs{z_1} + \abs{z_2}
+		\].
+	\item Show that if $z \neq 0$, then $\abs{1/z} = 1/\abs{z}$.
+\end{enumerate}
+
+\solution
+\begin{enumerate}
+	\item The quantity $\abs{z}$ represents the distance in the complex plane from $0 + i0$ to $x + iy$.
+	\item Assume that $\abs{z} = 0$. Then $z \conj{z} = 0$ so by the fact that $\C$ is a field, we have $z = 0$ or $\conj{z} = 0$. If $\conj{z} = 0$ then since conjugation is an order two automorphism, we have $z = 0$.
+	\item Let $\lambda \in \R$ and $z \in \C$. Then
+	\begin{align*}
+		\abs{\lambda z} &= \sqrt{\lambda z \conj{\lambda z}} \cr
+				&= \sqrt{\lambda z \conj{\lambda} \conj{z}} \cr
+				&= \sqrt{\lambda z \lambda \conj{z}} \cr
+				&= \sqrt{\lambda^2 z \conj{z}} \cr
+				&= \abs{\lambda} \abs{z}.
+	\end{align*}
+	\item Let $z_1, z_2 \in \C$. Then we have
+		\begin{align*}
+			\abs{z_1 z_2} &= \sqrt{z_1 z_2 \conj{z_1 z_2}} \cr
+				      &= \sqrt{z_1 z_2 \conj{z_1} \conj{z_2}} \cr
+				      &= \sqrt{z_1 \conj{z_1} z_2 \conj{z_2}} \cr
+				      &= \sqrt{z_1 \conj{z_1}} \sqrt{z_2 \conj{z_2}} \cr
+				      &= \abs{z_1} \abs{z_2}.
+		\end{align*}
+
+	\item By Problem 2, we have that $\abs{z} = \sqrt{z \conj{z}}$. Using the fact that conjugation is a field automorphism, we have
+		\[
+			\abs{1/z} = \sqrt{\frac{1}{z} \frac{1}{\conj{z}}} = \frac{1}{\abs{z}}
+		\].
+\end{enumerate}
+
+\problem{2}
+If $z = x + iy$ is a complex number with $x, y \in \R$, we define the complex conjugate of $z$ by
+\[
+	\conj{z} = x - iy.
+\]
+
+\begin{enumerate}
+	\item What is the geometric interpretation of $\conj{z}$?
+	\item Show that $\abs{z}^2 = z \conj{z}$.
+	\item Prove that if $z$ belongs to the unit circle, then $1/z = \conj{z}$.
+\end{enumerate}
+
+\solution
+\begin{enumerate}
+	\item Conjugation reflects the complex number about the real axis in the complex plane.
+	\item Computation shows that
+		\[
+			z \conj{z} = (x + iy)(x - iy) = x^2 + y^2 = \abs{z}^2.
+		\]
+	\item Assume that $\abs{z} = 1$. Then
+		\[
+			\frac{1}{z} = \frac{\conj{z}}{z \conj{z}} = \frac{\conj{z}}{\abs{z}^2} = \conj{z}.
+		\]
+\end{enumerate}
+
+\problem{4}
+For $z \in \C$, we define the complex exponential by
+\[
+	e^z = \sum_{n = 0}^\infty \frac{z^n}{n!}.
+\]
+
+\begin{enumerate}
+	\item Prove that the above definition makes sense, by showing that the series converges for every complex number $z$. Moreover, show that the convergence is uniform on every bounded subset of $\C$.
+	\item If $z_1, z_2$ are two complex numbers, prove that $e^{z_1} e^{z_2} = e^{z_1 + z_2}$.
+	\item Show that if $z$ is purely imaginary, that is, $z = iy$ with $y \in \R$, then
+		\[
+			e^{iy} = \cos y + i \, \sin y.
+		\]
+	      This is Euler's identity.
+	\item More generally,
+		\[
+			e^{x + iy} = e^x (\cos y + i \sin y)
+		\]
+	      whenever $x, y \in \R$, and show that
+	      \[
+		      \abs{e^{x + iy}} = e^x.
+	      \]
+\end{enumerate}
+
+\solution
+\begin{enumerate}
+	\item We first show pointwise convergence. By properties of the norm, we have
+		\[
+			\abs{\frac{z^n}{n!}} = \frac{\abs{z}^n}{n!}.
+		\]
+		The Ratio Test shows that
+		\[
+			\sum_{n = 0}^\infty \frac{\abs{z}^n}{n!} < \infty,
+		\]
+		so by Problem 3c we have that
+		\[
+			\sum_{n = 0}^\infty \frac{z^n}{n!}
+		\]
+		converges. 
+
+		For uniform convergence, we apply the Weierstrass M-Test. Let $S$ be a bounded subset of $\C$. Then for any  $z \in S$, we have $\abs{z} \leq C \in \R$. Hence,
+		\[
+			\abs{\frac{z^n}{n!}} \leq \frac{C^n}{n!}.
+		\]
+		Again by the Ratio Test, we see the series
+		\[
+			\sum_{n = 0}^\infty \frac{C^n}{n!}
+		\]
+		converges. By the Weierstrass M-Test, this implies that
+		\[
+			\sum_{n = 0}^\infty \frac{z^n}{n!}
+		\]
+		converges absolutely and uniformly on $S$.
+	\item Let $z = iy$ with $y \in \R$. Then by definition
+		\begin{align*}
+			e^{iy} &= \sum_{n = 0}^\infty \frac{(iy)^n}{n!} \cr
+			&= \sum_{n \text{ even}} \frac{(-1)^{n/2} y^n}{n!} + \sum_{n \text{ odd}} \frac{(-1)^{(n - 1)/2} i y^n}{n!} \cr
+			&= \cos(y) + i \sum_{n \text{ odd}} \frac{(-1)^{(n - 1)/2} i y^n}{n!} \cr
+			&= \cos(y) + i \sin(y).
+		\end{align*}
+	\item By Problem 4b, we have that
+		\[
+			e^{x + iy} = e^x e^{iy}.
+		\]
+	      Euler's identity then gives us
+	      \[
+		      e^{x + iy} = e^x (\cos(y) + i \sin(y)).
+	      \]
+	      Problem 1d shows that
+	      \[
+		      \abs{e^{x + iy}} = \abs{e^x (\cos(y) + i \sin(y))} = \abs{e^x} \abs{(\cos(y) + i \sin(y))} = e^x \cdot 1 = e^x.
+	      \]
+\end{enumerate}
+
+\problem{10}
+We look for a solution of the steady-state heat equation $\Delta u = 0$ in the rectangle $R = \{ (x, y) \mid 0 \leq x \leq \pi, 0 \leq y \leq 1 \}$ that vanishes on the vertical sides of $R$, and so that
+\[
+	u(x, 0) = f_0(x) \text{ and } u(x, 1) = f_1(x),
+\]
+where $f_0$ and $f_1$ are initial data which fix the temperature distribution on the horizontal sides of the rectangle.
+
+Use separation of variables to show that if $f_0$ and $f_1$ have Fourier expansions
+\[
+	f_0(x) = \sum_{k = 1}^\infty A_k \sin kx \text{ and } f_1 = \sum_{k = 1}^\infty B_k \sin(kx)
+\]
+then
+\[
+	u(x, y) = \sum_{k = 1}^\infty \left( \frac{\sinh k(1 - y)}{\sinh k} A_k + \frac{\sinh ky }{\sinh k} B_k \right) \sin kx.
+\]
+
+\solution
+Assume that $u = F(x) G(y)$ and plug this into $\Delta u = 0$. We get
+\[
+	G(y) F''(x) + F(x) G''(y) = 0.
+\]
+Separation of variables then gives
+\[
+	\frac{-F''(x)}{F(x)} = \frac{G''(y)}{G(y)}.
+\]
+Both sides must be equal to a constant $\lambda$ because they depend on different variables so we obtain the following system
+\[
+	\begin{cases}
+		F'' + \lambda F &= 0 \cr
+		G'' - \lambda G &= 0
+	\end{cases}
+\]
+Due to the boundary conditions in $x$, we want $F(x)$ to be periodic, so we rule out the case $\lambda < 0$. Assume that $\lambda = m^2$. We have the following two solutions
+\[
+	\begin{aligned}
+		F(x) &= A \cos mx + B \sin mx \cr
+		G(y) &= \frac{C_2 e^{my} - C_1 e^{-my}}{m}
+	\end{aligned}
+\]
+The boundary conditions $u(0, y) = u(\pi, y) = 0$ forces $A = 0$. If $B \neq 0$, then $\sin mx = 0$ so $m$ must be an integer.
+
+Now we use the two remaining boundary conditions to determine $C_1$ and $C_2$ (after absorbing the constant $B$). We have
+\[
+	\begin{aligned}
+		u(x, 0) &=  \sin mx \left( \frac{C_2  - C_1 }{m} \right) = f_0 = \sum_{m = 1}^\infty A_m \sin(m x) \cr
+		u(x, 1) &=  \sin mx \left( \frac{C_2 e^{m} - C_1 e^{-m}}{m} \right) = f_1 = \sum_{k = 1}^\infty B_m \sin mx.
+	\end{aligned}
+\]
+Using the uniqueness of Fourier coefficients (or just multiplying both sides by $\sin mx$ and integrating), gives
+\[
+	\begin{aligned}
+		\frac{C_2 e^m - C_1 e^{-m}}{m} &= B_m \cr
+		\frac{C_2 - C_1}{m} &= A_m.
+	\end{aligned}
+\]
+Solving for $C_1$ and $C_2$ gives the following (slight nasty) expressions
+\[
+	\begin{aligned}
+		C_1 &= \frac{\left( B_m - A_m e^m \right) m}{2 \sinh m} \cr
+		C_2 &= \frac{A_m m (2 \sinh(m) - e^m) + B_m}{2 \sinh m}.
+	\end{aligned}
+\]
+Summing and combining the coefficients of $A_m$ and $B_m$ gives, after some algebra,
+\[
+	\begin{aligned}
+		G(y) &= \frac{C_2 e^{my} - C_1 e^{-my}}{m} \cr
+		     &= \frac{\sinh m(1 - y)}{\sinh m} A_m + \frac{\sinh{my}}{\sinh{m}} B_m.
+	\end{aligned}
+\]
+The final solution is thus
+\[
+	u(x, y) = \sum_{m = 1}^\infty \sin mx \left( \frac{\sinh m(1 - y)}{\sinh m} A_m + \frac{\sinh{my}}{\sinh{m}} B_m \right).
+\]
+
+\problem{10}
+Show that the expression of the Laplacian
+\[
+	\Delta = \partial_x^2 + \partial_y^2
+\]
+is given in polar coordinates by the formula
+\[
+	\Delta = \partial_r^2 + \frac{1}{r} \partial_r + \partial{1}{r^2} \partial_\theta^2.
+\]
+Also, prove that
+\[
+	\abs{\partial_x u }^2 + \abs{\partial_y u}^2 = \abs{\partial_r u}^2 + \frac{1}{r^2} \abs{\partial_\theta u}.
+\]
+\solution
+Please see document \url{changing_coordinates_of_differential_operators.tex}.
+\end{document}

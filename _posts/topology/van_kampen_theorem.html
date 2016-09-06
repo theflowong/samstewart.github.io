@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Van Kampen's Theorem</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+\(
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+<body>
+<h2>Why we need Van Kampen's theorem</h2>
+
+<h2>Computing a simple example</h2>
+In this section, we discuss the simplest version of Van Kampen's theorem through an example. Consider the topological space $S^1 \bigvee S^1 = X$. Graphically, this looks like a figure eight
+<!-- insert picture of S^1 wedge S^1-->
+and topologically this is nothing but the quotient of $S^1 \coprod S^1$ with a single point identified. We wish to compute the fundamental group of $X$.  Playing around, its clear that we can loop around the left lobe arbitrarily many times, and likewise with the right lobe. Hence, we have the elements $a^n$ and $b^n$ in $\pi_1(X)$ at least. Is this enough? Perhaps we need only count the number of times we go around each bulb. If this is the case, we should have $\pi_1(X) = \Z \times \Z$, an abelian group. 
+
+While perhaps intuitively clear, this is false. Traversing $a$ and then $b$ is different from traversing $b$ and then $a$. That is, $ab = ba$; the group is not commutative. The following diagram shows the problem. The path $ab$ twists one direction, while the path $ba$ twists the other direction.
+<!-- insert figure showing the two figure eights and their twists in different directions -->
+In fact, the two cyclic groups $\pi_1(S_1)$ of the components of the wedge product are <em>insufficient</em> to describe the entire group $\pi_1(X)$ - the <em>interaction</em> of the two lobes generates far more paths than either lobe could on its own. We can see that the order matters: $ab^2a^3$ is distinct from $a^4b^2$, so we need to track more than the number of times we loop around each lobe. 
+
+<h2>The Free Group</h2>
+This interaction between the two lobes is the motivation for a free group. For our purposes, we need only consider two cyclic groups with generators $a$ and $b$. Then the cyclic group is simply all words formed from $a$ and $b$ (after cancellation). For example, $aba, a^2b^3ab, b^2a^5b^7$ are in the group, as are $ab^3 b^{-1} a = ab^2 a$. The cancellation of adjacent letters is geometrically equivalent to ignoring paths on a lobe that retract to the identity
+<!-- insert path that retracts to identity -->
+
+<h2>Computing the fundamental group of $S^1 \bigvee S^1$</h2>
+For our above example, we can describe each path as ordered combinations of powers of $a$ and $b$, exactly as in the free group. Thus $\pi_1(X) = \Z * \Z$ where we label the generators for each copy of $\Z$, $a$ and $b$. But note that $\pi_1(S^1) = \Z$, so in fact $\pi_1(X) = \pi_1(S^1) * \pi_1(S^1)$. One can check that $\pi_1(S^1) \leq \pi_1(X)$. The result is completely intuitive. Combining two topological spaces together should combine the fundamental groups. The free product is much bigger than either individual group since there are far more possible paths in $S^1 \bigvee S^1$ than in $S^1$ alone.  
+
+Our current version of the theorem thus looks like this
+\[
+	\begin{theorem}[Simple Van Kampen's Theorem}
+		 Let $X = U \cup V$ where $U$ and $V$ are path-connected open sets and $U \cap V$ are path connected. Then $\pi_1(X) = \pi_1(U) * \pi_1(V)$.
+	 \end{theorem}
+\]
+
+<h2>Dealing with redundancy</h2>
+In our above example, the overlap between our two circles is only a single point. Since the only path in this overlap is the identity, one intuitively sees that we do not &quot; double count &quot; paths in the intersection because there are no nontrivial paths to overcount! However, the overlap might be more complex. Consider the torus $T^2 = SS^1 \times S^1$ represented as a quotient in $\R^2$. Then we can partition the fundamental domain into sets $U$ and $V$ as follows
+<!-- Draw pictures of fundamental doamin partitioned into the necessary sets , U, V, U \cap V -->
+
+Embedded in three-space, this becomes
+<!-- draw picture of donut with squares out at opposing sides -->
+
+What is the relationship between $\pi_1(U), \pi_1(V)$ and $\pi_1(T^2)$? The problem is that the previous theorem no longer holds. But examining $U$, we see that $U$ can be contracted to a point, while examining $V$, we see that it deformation retracts to $S^1 \bigvee S^1$
+<!-- Insert graphic of V deformation retracting (via fundamental paralelogram) -->
+
+Our earlier theorem would imply that
+\[
+	\pi_1(X) = \pi_1(U) * \pi_1(V) = 1 * \Z * Z = \Z * \Z.
+
+\]
+But we know that $\pi_1(T^2) = \Z \times \Z$; we need only count the number of times we loop around the hole and the frosting of the donut. The problem is $\Z * \Z$ is too large. It's too large because it's not abelian, while $\Z \times \Z$ is abelian. That is, from a single basepoint in $T^2$, we cannot distinguish $ab$ (around hole and then around surface) from $ba$ (around surface and then around whole). We are essentially &quot; double counting &quot; paths.
+
+The reason the free product double counts paths is because <em>indivdually</em> $U$ and $V$ cannot see the structure of their overlap. Thus, a path that looks like a figure that is a circle in $U \cap V$ and a figure eight in $V$ is actually trivial when included into $X$.
+<!-- Insert picture of circle in U \cap V and figure eight in V, but trivial path in X-->
+We can formalize this in the language of algebraic topology as follows. If we start with the natural inclusions between $U \cap V, U, V$, and $X$ and then apply the $\pi_1$ functor, we get the following diagram
+<!-- Insert commutative diagram going from topological inclusions to homomorphism inclusion -->
+The inclusions describe the idea of reinterpreting a path in $U \cap V$ as a path in $V$ or $U$. In our example, when included into $X$, the circle path became trivial. This is an example of a bigger phenomenon: namely, paths in $U \cap V$ that appear distinct when viewed only in $U$ or $V$, can be identical when viewed in the whole space $X$. Thus, we wish to combine paths that satisfy
+\[
+	j_1 \circ i_1([ \gamma ]) = j_2 \circ i_2([ \gamma ]).
+	\]
+Alternatively, we can draw the following diagram
+<!-- Insert commutative diagram like on p 252 in Lee's book -->
+Phrased in this language, we want to eliminate paths in the kernel of $\Phi$. This kernel contains elements such that $i_1([\gamma]) = i_2([\gamma])$ or $i_1([\gamma]) i_2([\gamma])^{-1} = 1$ for $[\gamma] \in \pi_1(U \cap V)$. Since we wish to place these paths in the same equivalence class, we mod the full free product group $\pi_1(U) * \pi_1(V)$ by this kernel. The next version of Van Kampen's theorem states this result.
+
+\begin{theorem}[Basic Van Kampen's Theorem]
+Let $X = U \cup V$ where $X$ is a path-connected space and $U, V$ are open path-connected sets. Then we have that $\pi_1(U) * \pi_1(V) / N = \pi_1(X)$ where
+\[
+	N = \{ \pi_1(i_1(\gamma)) \pi_1(i_2(\gamma))^{-1} \mid \gamma \in \pi_1(U \cap V) \}
+\]
+\end{theorem}
+
+We can demonstrate this theorem on our example. Since $\pi_1(U) = 1$, then we need only worry about $i_2$. The fundamental group $\pi_1(U \cap V) = \Z$ is cyclic, so if we can find where the generator is mapped, then we have completely described the map. Take the generator looping around the removed square and map it into $V$. Then as shown below, this path traverses the entire figure-eight of $V$
+
+<!-- insert path mapping from U \cap V to V traversing as a figure eight -->
+and gives $a^{-1} b^{-1} a b$. Hence, our normal subgroup is 
+\[
+	N = \< 1, a^{-1} b^{-1} a b \>.
+\]
+One way to interpret a quotient is to imagine that all the elements in $N$ now represent the identity element. Thus, in $\pi_1(U) * \pi_1(V) / N$, we have that $a^{-1}b^{-1} ab = 1$, and this is precisely the constraint that $ab = ba$, or, the group is abelian (we have computed the abelianization of the free product). The abelianization of $\Z * \Z$ is $\Z \times \Z$, precisely the fundamental group of $T^2$. 
+
+<h2>Main idea</h2>
+The main idea of Van Kampen's theorem is simple: if you can decompose a space $X$ into pieces, then you can assemble $\pi_1(X)$ from the fundamental groups of the individual pieces. This is similar to the first isomorphism theorem in elementary algebra. 
+<h2>General theorem</h2>
+The above example nicely illustrated the central idea behind Van Kampen's theorem. For reference, the result stated above is a special case of a more general theorem.
+
+\begin{theorem}
+If $X$ can be decomposed into open, path-connected $A_\alpha$ and $A_\alpha \cap A_\beta$ is also path-connected, then the induced homomorphism $\Phi : *_\alpha \pi_1(A_\alpha) \to \pi_1(X) / N$ where
+\[
+	N = \< i_{\alpha \beta}(w) i_{\beta \alpha}^{-1}(w) \mid w \in \pi_1(A_\alpha \cap A_\beta) \>
+\]
+is an isomorphism. Note that $\Phi$ is always surjective.
+\end{theorem}
+<!-- why is everything path connected? -->
+<!-- are we double counting, or just removing redundent paths?  -->
+</body>
+</html>

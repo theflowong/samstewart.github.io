@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UMN Manifolds &amp; Topology Exam - Spring 2015</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<link rel="stylesheet" type="text/css" href="../../style.css" />
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+\(
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\RP}{{\mathbb{RP}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+<body>
+
+<h2>Part A</h2>
+<ol>
+	<li>
+	<ul>
+		<li>
+			<p><em>Define what it mean for two paths $\alpha, \beta : [0, 1] \to X$, with the same start points and the same end points, to be homotopic. Show that this is an equivalence relation.</em></p>
+			<p>	
+			<div class="main_idea">
+				See <a href="the_fundamental_group.html">what is the fundamental group?</a>.
+			</div>
+			
+			<div class="formalism">
+				<p>
+				<div class="definition">
+					Let $\alpha, \beta : [0, 1] \to X$ such that $\alpha(0) = \beta(0) = x_0 \in X$ be loops in $X$. We say that $\alpha$ is homotopic to $\beta$ if there exists a function $H : [0, 1] \times [0, 1] \to X$ such that the following hold
+					<ol>
+						<li>H(0, \cdot) = \alpha</li>
+						<li>H(1, \cdot) = \beta</li>
+						<li>$H$ is continuous</li>
+					</ol>
+				</div>
+				We sketch the proof that this is an equivalence relation
+				<ul>
+					<li><h4>Reflexivity</h4> </ br>
+					Simply consider the identity homotopy $H(t, x) = \alpha(x)$.
+					</li>
+					<li><h4>Symmetry</h4> </ br>
+					Let $H$ be the homotopy between $\alpha$ and $\beta$. Then $\widetilde{H} = H(1 - t, x)$ is a homotopy between $\beta$ and $\alpha$ since $1 - t$ is a continuous function.
+					</li>
+					<li><h4>Transitivity</h4> </ br>
+					Let $H_1$ be the homotopy between $\alpha$ and $\beta$, and $H_2$ the homotopy between $\beta$ and $\gamma$. Then $\widetilde{H}(x, t) = H_1$ for $t \in [0, 1/2]$ and $\widetilde{H}(x, t) = H_2$ for $t \in (1/2, 1]$ is a homotopy between $\alpha$ and $\gamma$.
+					</li>
+	
+				</p>
+			</div>
+		</li>
+		<li>
+			<p>
+			<em>
+				Define what it means for a space to be simply connected.
+			</em>
+			</p>
+				<div class="main_idea">
+					Simply connected means the space has no holes. See <a href="the_fundamental_group.html">what is the fundamental group?</a>. 
+				</div>
+
+				<div class="formalism">
+					<div class="definition">
+						If $X$ is a path connected space, we say that $X$ is simply connected if
+						\[
+							\pi_1(X, x_0) = 1.
+						\]
+						That is, the fundamental group of $X$ is trivial.
+					</div>
+				</div>
+	
+			<p>
+		</p>
+		</li>
+		<li>
+			<p>
+			<em>
+				Give a complete statement of the Seifert-van Kampen theorem relating the fundamental groups of $U, V, U \cup V$, and $U \cap V$, including all necessary assumptions.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					See <a href="van_kampen_theorem.html">What does Van Kampen's Theorem Really Say</a>
+				</div>
+
+				<div class="formalism">
+					<div class="theorem">
+						Let $X = U \cup V$ be a path-connected space with $U, V$ open path-connected subsets such that $U \cap V$ is path connected. Then the fundamental group of $X$ is given by
+					\[
+						\pi_1(X, x_0) = \pi_1(U, u_0) * \pi_1(V, v_0) / N
+					\]
+					where $*$ denotes the free product and $N$ is generated by the set
+					\[
+						\{ \pi_1(i_U)(\gamma)\pi_1(i_V)(\gamma)^{-1} \mid \gamma in \pi_1(U \cap V, y_0) \}.
+					\]	
+					where $i_U, i_V$ are the inclusion maps from $U, V$ to $X$, respectively.
+					</div>
+				</div>
+	
+		</p>
+		</li>
+		<li>
+			<p>
+			<em>
+				Describe the fundamental group of the Klein bottle using generators and relations.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					Decompose $\R^2$ into two halves $U, V$ with an overlapping strip in the middle.
+					<!-- diagram of two strips -->
+					Compute the fundamental group of both halves via a circle retract
+					<!-- Diagram of interactive circle retract -->
+					and see that both halves have fundamental group $\Z * \Z$. By Van Kampen's theorem, we have that
+					\[
+						\pi_1(\R^2 \backslash \{ (-1, 0), (1, 0) \}, 0) = \pi_1(U, (-1, 0)) * \pi_1(V, (1, 0)) = \Z * \Z
+					\]. We don't need to worry about the quotient group since the intersection $U \cap V$ is simply connected.
+				</div>
+
+				<div class="formalism">
+					<div class="theorem">
+						The fundamental group is
+						\[
+							\pi_1(\R^2 \backslash \{ (-1, 0), (1, 0) \}, 0) = \Z * \Z.
+						\]
+					</div>
+					<div class="proof">
+						Let $U = \{ (x, y) \in \R^2 \mid x &lt;  1 \}$ and $V = \{ (x, y) \in \R^2 \mid x &gt; -1 \}$. Then $U \cap V = \{ (x, y) \mid x \in [-1, 1] \}$. One can show that $U$ and $V$ are homeomorphic to $\R^2 \backslash \{ (0, 0) \}$. By constructing a deformation retract from $\R^2 \backslash \{ (0, 0) \}$ to $S^1$, we can see that
+						\[
+							\pi_1($\R^2 \backslash \{ (0, 0) \}$) = \pi_1(S^1) = \Z.
+						\]
+						Thus, $\pi_1(U) = \pi_1(V) = \Z$. Since $U \cap V$ is a convex set in $\R^2$, it is simply connected. Hence, in the statement of Van Kampen's Theorem, we have $N = 1$. Hence we can conclude from Van Kampen's Theorem that
+						\[
+							\pi_1($\R^2 \backslash \{ (0, 0) \}$) = \pi_1(U) * \pi_1(V) / N = \Z* \Z / 1 = \Z * \Z.
+						\]
+					</div>
+				</div>
+			</p>
+		</li>
+
+	</ul>
+	</li>
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				Suppose $p : X' \to X$ and $q Y' \to Y$ are covering maps. Show that $p \times q : X' \times Y' \to X \times Y$ is a covering map.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+					</div>
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				Give an example of a map $f : X \to Y$ which is a local homemorphism but not a covering map.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					The real line with two origins (call it $X$)  with the map that sends every point to itself and both origins to zero, is a local homeomorphism but not a covering map. The following diagram shows that it is a local homeomorphism.
+					<!--interactive diagram that finds neighborhood around each point so that the map is a homeomorphism into R -->
+					However, it is not a covering map because any neighborhood of $0$ in $\R$ lifts to a neighborhood that contains both origins. No matter how small you make the interval, the two lifted intervals are identical except for the two distinct origins.
+					<!-- diagram allowing one to adjust the interval sides and see how they lift -->
+				</div>
+
+				<div class="formalism">
+							
+				</div>
+			</p>
+		</li>
+
+
+		<li>
+			<p>
+			<em>
+				If $X$ is path-connted and locally path connected with chosen basepoint $x \in XX$, state (without proof) the classification of covering spaces $Y \to X$ where $Y$ is connected.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+					</div>
+				</div>
+			</p>
+		</li>
+	</ul>
+	</li>
+
+
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				Calculate the homology groups of the torus $S^1 \times S^1$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					See <a href="what_is_homology.html">what is homology?</a>. Build the torus from one $0$-simplex, three $1$-simplices, and two $2$-simplices as follows
+					<!-- insert diagram of simplicial complex of the torus. Label the vertices.-->
+					The first homology group $H_0 = \Z$ since the space is connected. Since the torus is path connected, then $H_1 = \pi_1 = \Z \times \Z = \Z \oplus \Z$. Finally, we have $H_2 = \langle \lambda_1 - \lambda_2 \rangle / \langle 0 \rangle = \Z$. Hence, the homology is
+				       \[
+			       			H_k(T) = \begin{cases}
+				 			\Z & \textrm{ if } k = 0, 2 \cr		
+							\Z \oplus \Z & \textrm { if } k = 1
+							\end{cases}
+					\]
+				</div>
+
+				<div class="formalism">
+					From first definitions alone we can compute the homology group. We start by computing the kernels and images of the boundary maps.
+					\[
+						\begin{aligned}
+							\textrm{ker } \partial_0 &= \Z \cr	
+							\textrm{img } \partial_0 &= 0 \cr	
+							\textrm{ker } \partial_1 &= \langle a, b, c \rangle \cr	
+							\textrm{img } \partial_1 &= \langle 0 \rangle \cr
+							\textrm{ker } \partial_2 &= \langle \lambda_1 - \lambda_2 \rangle \cr	
+							\textrm{img } \partial_2 &= \langle a + b - c\rangle 	 \cr
+							\textrm{ker } \partial_3 &= 0 \cr	
+							\textrm{img } \partial_3 &= 0\rangle 	
+	
+						\end{aligned}
+					\]
+					Note that $\textrm{ker } \partial_2$ because
+					\[
+						\partial_2(p \lambda_1 + q \lambda_2) = (p + q)(a + b - c) = 0.
+					\]
+					Since $a + b - c$ is a element of the basis $\{ a, b, a + b - c \}$ for $C_1$, then $p + q = 0$ so $p = -q$.	
+					With this information we can compute the homology groups as follows
+					\[
+						\begin{aligned}
+						H_0 &= \frac{\Z}{0} = \Z \cr
+						H_1 &= \frac{\textrm{ker } \partial_1}{\textrm{img } \partial_2} = \frac{\langle a, b, c \rangle}{\langle a + b - c \rangle} = \Z \oplus \Z \oplus \Z / \Z = \Z \oplus \Z \cr
+						H_2 &= \frac{\textrm{ker } \partial_2}{\textrm{img } \partial_3} = \frac{\langle \lambda_1 - \lambda_2 \rangle}{0} = \Z
+						\end{aligned}		
+					\]
+					Thus, the homology of the torus is
+				        \[
+			       			H_k(T) = \begin{cases}
+				 			\Z & \textrm{ if } k = 0, 2 \cr		
+							\Z \oplus \Z & \textrm { if } k = 1
+							\end{cases}
+					\]
+	
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				For $n \geq 1$, let $i$ be the inclusion $S^{n -1} \to D^n$. Show that there is no continuous map $r : D^n \to S^{n - 1}$ such that $r \circ i = id$. (You may take the homology of these spaces as known, so long as you state them correctly).
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					If such a map existed, then $r$ would be a retract from $D^n$ to $S^{n-1}$ which is unlikely. In the special case of $D^2$ to $S^1$, the problem is clear. The disk $D^2$ is simply connected while $S^1$ is not. The retraction includes $\pi_1(S^1) = \Z$ into $\pi_1(D^2) = 1$ which is impossible.
+
+					The problem is that we cannot deform the space $D^2$ to $S^1$ without tearing it since $S^1$ has a hole while $D^2$ does not.
+					<!-- insert diagram showing tearing of open sets --> 
+				</div>
+
+				<div class="formalism">
+					Note: for the purpose of this proof, assume that all homology is reduced homology. That is, points have trivial homology (see Hatcher p. 110).
+					<div class="proof">
+						Assume towards a contradiction that there is a retraction $r : D^n \to S^{n - 1}$. Then we know that $r \circ i = \textrm{id}$ induces homomorphisms
+						       \[
+						       		(r \circ i)^* = r^* \circ i^* = \textrm{id}_{H_k(S^n)}
+							\]
+							so we have the following exact chain sequence
+							<!-- exact sequence diagram connecting H_{n - 1}(S^{n- 1} \to H_{n-1}(D^n) \to H_{n - 1}(S^{n-1} -->
+							But the composition $r^* \circ i^*$ cannot be equal to the identity because it factors through $H_{n - 1}(D^n) = 0$ with $H_{n - 1}(S^{n - 1}) = \Z$.
+
+					</div>
+			</div>
+			</p>
+		</li>
+
+
+		<li>
+			<p>
+			<em>
+				For $n > 0$, define the degree of a continuous map $S^n \to S^n$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					<p>
+					The general definition (stated below) generalizes the simple idea that the degree of $f$ measures how many times it winds a loop of $S^1$ around $S^1$. 	
+					</p>
+					<p>
+					For example, the degree of the identity is $1$, the degree of $z \mapsto z^2$ is two, the degree of a reflection is $-1$, and the degree of the antipodal map is $1$ (a rotation by $pi$, so homotopic to the identity). 
+					</p>	
+					<p>
+					Most importantly, the maps $f$ and $g$ are homotopic if and only if they have the same degree. Hence, we can see that the fundamental group of $S^1$ is indeed $\Z$. This construction is earlier than the fundamental group description.  </p>
+				</div>
+		
+				<div class="formalism">
+					<div class="definition">
+						Since $f$ is a continuous map, it induces a map $f^* : H_k (S_n) \to H_k(S_n)$. For $k = n$, we have $H_n(S_n) = \Z$. We call $n = f^*(1)$ the degree of $f$.	
+					</div>
+				</div>
+			</p>
+		</li>
+	</ul>
+	</li>
+
+
+</ol>
+
+<h2>Part B</h2>
+<ol>
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				State Sards' theorem.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+					<div class"definition">
+						Let $U$ be a set in $M$. Let $(U_i, \phi_i)$ be a collection of charts whose domains cover $U$. Then if $\phi_i(U \cap U_i)$ has measure zero in $\R^n$, then $U$ has measure zero.
+					</div>
+					<div class="definition">
+						Let $F : M \to N$ be a smooth function with $\textrm{dim } M &gt; \textrm{dim }N$. We say that $p$ is a critical value of $F$ if there exists $x \in F^{-1}(p)$ such that $dF_x$ not surjective.
+					</div>
+					<div class="theorem">
+						If $F : M \to N$ is a smooth function, then the set of critical values of $F$ has measure zero in $N$.
+					</div>
+				</div>
+			</p>
+		</li>
+		<!-- article idea: what is the minimum standard for proof / truth? How important is rigor over communication? Tradeoff between rigor and communication -->	
+		<li>
+			<p>
+			<em>
+				Define $f : \R^3 \to \R$ by
+				\[
+					f(x,y,z) = x^2 + y^2 - z^4 + 2z^2
+				\]
+				Find all the singular points and singular value of $f$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+						By definition, we are looking for points $p$, such that $df_p = \nabla f(p) = 0$. Computation gives $df = \nabla f = (2x, 2y, 4z(1 - z^2))$ with $\nabla f = 0$ for critical point
+						\[
+							(0, 0,0), \; (0, 0, 1), \; (0, 0, -1).
+						\]
+						These give critical values $0, 1, 1$ respectively. In agreement with Sards' theorem, the measure of the set of critical values is zero.
+					</div>
+				</div>
+			</p>
+		</li>
+
+		<!-- article idea: the Weierstrass approximation theorem -->
+		<!-- TODO: ask Jorin about this problem -->
+		<li>
+			<p>
+			<em>
+				Suppose we have a smooth map $f : \R \to \R^{n + 1}$, of the form
+				\[
+					f(t) = (x_0(t), \ldots, x_n(t)).
+				\]
+				Let $p$ be the projection from $\R^{n + 1}$ to $\R^n$ defined by $p(x_0, \ldots, x_n) = (x_1, \ldots, x_n)$. Give precise conditions on $f$ so that $f$ is an immersion but $p \circ f$ is not.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					The problem is that a nonzero tangent vector in $\R^2$ might have zero components, that is project downward to a zero vector in $\R$. As an example, consider the map
+					\[
+						f(t) = (\cos t, \sin t)
+					\]	
+					<!-- slider for t and draws circle in \R^2 with tangent vector field that is traced out as user moves the mouse -->
+					<p>
+					Notice that the tangent vector does not vanish.	On the other hand, the projection
+					\[
+						p \circ f = \sin t
+					\]	
+					<!-- slider for t that also traces out tangent vector -->
+					has places with zero tangent vector which correspond to points where the tangent vector on $S^1$ is either horizontal or vertical
+					<!-- graphic with both images together. -->
+					At the points where the tangent vector is zero, the function is not an immersion. Hence, the right condition is that the gradient of $f$ does not vanish while the gradient of $(x_1, \ldots, x_n)$ does vanish.
+					
+				</div>
+		
+				<div class="formalism">
+					<div class="proof">
+						Assume that
+						\[
+							df = \nabla f = \begin{bmatrix}
+								x_0' \cr
+								x_1' \cr
+								\vdots \cr
+								x_n'
+							\end{bmatrix} \neq 0
+						\]
+						and that there exists a point $t_0$ such that
+						\[
+							d(f \circ p) = 
+							\begin{bmatrix}
+								x_1'(t_0) \cr
+								\vdots \cr
+								x_n'(t_0)
+							\end{bmatrix} = 0.
+						\]
+						By definition $df$ is injective since it is nonzero, yet $d(f \circ p)$ is not injective at the point $t_0$. Hence, $f$ is an immersion but $p$ is not.
+					</div>
+				</div>
+			</p>
+		</li>
+
+	</ul>
+	</li>
+
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				Calculate the Lie brack of the following vector fields on $\R^3$:
+				\[
+					\begin{aligned}
+						\partial_x + y \partial_y + 2(x + y^2) \partial_z \cr
+						\partial_y + 2y \partial_z
+					\end{aligned}
+				\]
+				Do there exist integral surfaces for this vector field? (In other words, for any point $p$, does there exist a smooth surface $S$ in $\R^3$ containing $p$ whose tangent space at any point $q \in S$ is spanned by these vector fields?)
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+					You should read <a href="what_is_the_lie_bracket.html">what is the Lie bracket</a> and <a href="what_does_frobenius_theorem_say.html">what does the Frobenius theorem say</a>. For this problem, we are looking for a two dimensional surface that has tangent vectors $X = \partial_x + y \partial_y + 2(x + y^2) \partial_z, Y = \partial_y + 2y \partial_z$ at every point. As described in the above article on the Frobenius theorem, this means we need $[X_p, Y_p] \elem \textrm{span } (X_p, Y_p)$. Computation in coordinates via
+					\[
+						[X, Y] = (X \, Y^i - Y \, X^i)\partial_{x^i}
+					\]
+					gives
+					\[
+						[X, Y] = -Y
+					\]
+					which is in the span of $X, Y$. Since $X, Y$ always form a basis of $\R^2$, they form a tangent distribution (see <a href="tangent_distribution.html">tangent distribution</a>), in fact an <em>involutive</em> distrubtion. By Frobenius' theorem, the involutive distributions precisely characterize the completely integrable surfaces. Hence, the answer to the original question is yes.
+				</div>
+				
+				<div class="formalism">
+					<div class="definition">
+						Let $M$ be a smooth manifold and $D$ a subset of the tangent bundle $TM$ with corresponding projection map $\pi : E \to M$. Then we call $D$ a <em>tangent distribution</em> if $D$ satisfies the following
+						<ol>
+							<li>$D$ is a submanifold of $TM$</li>
+							<li>For $p \in M$, then $\pi^{-1}(p)$ is a subspace of $T_p M$</li>
+							<li>$D$ is a smooth vector bundle over $M$</li>
+						</ol>
+					</div>
+
+					<div class="definition">
+						We say that a tangent distribution is <em>involutive</em> if for any sections $X, Y$ (vector fields) of $D$, their Lie bracket $[X,Y]$ is also a section of $D$.	
+					</div>
+					
+					<p>
+					Since $X = \partial_x + y \partial_y + 2(x + y^2) \partial_z, Y = \partial_y + 2y \partial_z$ form a basis for an affine two-dimensional subspace at every point, they describe a tangent distribution $D$. To see that an integral surface exists, by Frobenius' theorem it suffices to check that $D$ is involutive.
+					</p>
+
+					<p>
+					In coordinates the Lie bracket is given by
+					\[
+						[X, Y] = (X \, Y^i - Y \, X^i)\partial_{x^i} = X \, Y^i \partial_{x^i} - Y \, X^i \partial_{x^i}.
+					\]
+					Our computation is thus
+					\[
+						\begin{aligned}
+							[X,Y] &= (X(0)\partial_x + X(1) \partial_y + X(2y)\partial_z) - (Y(1)\partial_X + Y(y)\partial_y + Y(2(x + y^2))) \partial_z \cr
+							&= 0 + 0 + 2y\partial_z - (0 + \partial_y + 4y\partial_z) \cr
+							&= - \partial_y - 2y\partial_z \cr
+							&= -Y
+					\]
+					Hence, $D$ is involutive so there exists an integral surface.
+					</p>
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				Calculate the exterior derivative of the $1$-form
+				\[
+					(2x - y)dx + \sin(\cos(zt))dy
+				\]
+				on $\R^4$.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+				</div>
+
+				<div class="formalism">
+					<div class="proof">
+					</div>
+			</div>
+			</p>
+		</li>
+
+
+		<li>
+			<p>
+			<em>
+				Consider the following statement: if $\omega$ is a smooth $k$-form on a smooth manifold $M$, then $\omega \wedge \omega = 0$. Either prove this statement or give a counterexample.
+			</em>
+			</p>
+
+			<p>
+				<div class="main_idea">
+
+				</div>
+		
+				<div class="formalism">
+					<div class="proof">
+						This statement is false in general. Consider the differential form
+						\[
+							\omega = dx \wedge dy + dz \wedge dt
+						\]
+						and note that
+						\[
+							\begin{aligned}
+								\omega \wedge \omega &= (dx \wedge dy + dz \wedge dt) \wedge (dx \wedge dy + dz \wedge dt) &= 0 + (dx \wedge dy \wedge dz \wedge dt) + (dz \wedge dt \wedge dx \wedge dy) + 0
+										     &= 2dx \wedge dy \wedge dz \wedge dt
+							\end{aligned}
+						where the last step followed since we preformed an even permutation on the elements in the term $dz \wedge dt \wedge dx \wedge dy$ to rewrite it as $dx \wedge dy \wedge dz \wedge dt$.
+					</div>
+				</div>
+			</p>
+		</li>
+	</ul>
+	</li>
+
+
+	<li>
+	<ul>
+		<li>
+			<p>
+			<em>
+				State Stokes' theorem for smooth, compact manifolds with boundary.
+			</em>
+			</p>
+
+			<p>
+			<div class="main_idea">
+				See <a href="what_does_stokes_theorem_say.html">what does Stokes' theorem say?</a>
+			</div>
+
+			<div class="formalism">
+				<div class="theorem">
+					Let $M$ be a smooth, compact, orientable manifold with boundary and $\omega$ a smooth $(n-1)$-form on $M$. Then
+					\[
+						\int_M d\omega = \int_{\partial M} \omega
+					\]
+				</div>
+			</p>
+		</li>
+	
+		<li>
+			<p>
+			<em>
+				Let $M = \R^3 \backslash \{ (x, 0, 0) \mid x \in \R \}$. For which values of $k$ does there exist a smooth $k$-form $\omega$ on $M$ such that $d\omega = 0$, but $\omega \neq d\tau$ for any $(k - 1)$-form $\tau$?
+			</em> </p> <p> <div class="main_idea"> The space has one hole surrounding the $x$-axis. We can deformation retract the entire space onto $S^1$ as follows <!-- interactive deformation retract of space onto S^1. First project onto the y-z plane, then use x / |x| to projecto to the circle -->					
+				</div>
+<div class="formalism"> <div class="proof"> <p> We claim that we can deformation retract the space $\R^3 \backslash \{ x, 0, 0 \}$ to $S^1$ via the following map. First, project a every point onto the $y-z$ plane via $\pi(x, y, z) = (0, y, z)$. Then, map each point to $S^1$ via $p(0, y, z) = (y, z) / (y^2 + z^2)$. Clearly both maps are continuous and leave $S^1$ fixed so their composition is continuous and leaves $S^1$ fixed.  </p> <p> Since cohomology is a topological invariant, we have shown that because $\R^3 \backslash \{ x, 0, 0 \}$ is homotopy equivalent to $S^1$, then \[	H^n_{dR}($\R^3 \backslash \{ x, 0, 0 \})$ = H^n_{dR}(S^1).  \] We know <a href="homology_of_the_circle.html">the homology of the circle</a> is \[ H^n_{dR}(S^1) = \begin{cases} \R & \text{ if } n = 0, 1 \cr 0 \text{ otherwise }	\end{cases} \] so non-exact $k$-forms exist precisely for $k = 0, 1$.  </p> </div> </div> </div> </p> </li> <li> <p> <em> State the Whitney embedding theorem on embeddings and immersions of $m$-dimensional smooth manifolds $M$ into $\R^k$ (if you know multiple versions, state the weak Whitney embedding/immersion theorems.) </em> </p> <p> <div class="main_idea"> See <a href="what_the_whitney_embedding_theorems_say.html">what the Whitney embedding theorems say</a>.
+				</div>
+		
+				<div class="formalism">
+					We state the various forms of the theorem below.
+					<div class="theorem">
+						<em>Weak Whitney Immersion Theorem</em>
+						Every smooth $n$-manifold can be smoothly immersed into $\R^{2n}$.
+					</div>
+					<!-- RP^m cannot be embedded into (2m - 1) space is m = 2^k -->
+					<div class="theorem">
+						<em>Strong Whitney Immersion Theorem</em>
+						If $n &gt; 1$, every smooth $n$-manifold can be smoothly immersed into $\R^{2n - 1}$.
+					</div>
+					<!-- if n = 1 then S^1 cannot be immersed into R. If n = 0, then the statement makes no sense. Can it be immersed? -->
+					<div class="theorem">
+						<em>Weak Whitney Embedding Theorem</em>
+						Every smooth $n$-manifold can be smoothly embedded into $\R^{2n + 1}$.
+						<!-- You can immerse the figure eight in \R^2 but can embed it in \R^3-->
+					</div>
+					<div class="theorem">
+						<em>Strong Whitney Embedding Theorem</em>
+						If $n &gt; 0$, every smooth $n$-manifold can be smoothly embedded into $\R^{2n}$. 
+					</div>
+						<!-- you can immerse the klein bottle in \R^3 (n = 2) -->
+	
+				</div>
+			</p>
+		</li>
+	</ul>
+	</li>
+
+
+</ol>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>What is spectral theory?</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<link rel="stylesheet" type="text/css" href="../style.css" />
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+\(
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+<body>
+	
+<h2>What is spectral analysis?</h2>
+<p>
+The simplest linear operator is multiplication. That is
+\[
+	Tx = \lambda x.
+\]
+Represented as a matrix acting on $\R^2$, this looks like
+\[
+	T = \begin{bmatrix}
+		\lambda & 0 \cr
+		0       & \lambda 
+	    \end{bmatrix}
+\]
+As in <a href="decomposition_and_classification_in_math.html">many other branches of math</a>, we hope to <em>decompose</em> more complicated objects (linear operators) in terms of these canonical objects (multiplication operators). In the finite dimensional case, we wish to decompose some general class of matrices into multiplication matrices. 
+</p>
+
+<p>
+This decomposition is geometrically equivalent to finding a coordinate system where the linear operator acts by multiplication in the coordinate directions. Or, using the matrix representation, we wish to find a basis where the linear operator is diagonalized.
+</p>
+
+<p>
+As it turns out, for a large class of matrices, this coordinate system is known: it consists of the directions that the linear operator acts on with simple scaling (i.e. by multiplication). We call this coordinate system the eigenvectors, the amount of scaling in each direction the eigenvalues, and the collection of eigenvalues the spectrum. Spectral analysis, then, is nothing but finding in which directions and how a linear operator scales space.
+</p>
+
+<!-- Article idea: what is a normal subgroup -->
+<p>
+This is a larger theme in mathematics: we try to understand the behavoir of a complicated object by examining how it acts in simple special cases. We often hope that these special cases combine to form a complete description of the more complicated objects. In our case, the simplest action of a linear operator on a vector is multiplication or scaling. We hope that large classes of linear operators are just clever combinations of successive scalings. Amazingly, this is the case for large classes of operators in both finite and infinite dimensional spaces.
+</p>
+
+<p>
+An example in $V = \R^2$ will illustrate the above discussion. We will study a linear operator that exchanges the two basis vectors $e_1, e_2$ and scales them both by $2$. Graphically, the operator acts as follows
+<!-- diagram of x,y flipping and being scaled by 2 -->
+As a matrix, we can represent this action as
+\[
+	T = 
+	\begin{bmatrix}
+		0 & 2 \cr
+		2 & 0		
+	\end{bmatrix}
+\]
+This operator <em>almost</em> acts by simple multiplication; except that it flips the coordinate directions. Shockingly, we will see that viewed in the proper coordinates, this is still nothing but multiplication. Equivalently, we will find a transformation $U$ such that $U T U^{-1}$ is a diagonal matrix. 
+</p>
+
+<p>
+As discussed earlier, the proper coordinates are precisely the directions that $T$ scales. How do we find those directions? We solve the following linear system
+\[
+	Tv = \lambda v
+\]
+where $\lambda \in \R$. This problem has two degrees of the freedom: the directions that $T$ acts on by scaling (represented by $v$), and the extent of the scaling (represented by $\lambda$).
+</p>
+
+<p>
+At first glance, one might think that we should first find the directions that $T$ acts on by scaling, and <em>then</em> find the scaling constants. However, since each scaling direction with scale amount $\lambda$ forms a line, any point on that line is also a direction that $T$ acts on by scaling by $\lambda$. There are more scaling directions then there are scaling amounts. Thus, we start by finding the scaling amounts.
+</p>
+
+<p>
+We wish to solve $Tv = \lambda v$ but we only know how to solve homogeneous systems of the form $Ax = 0$. One can simply rewrite $(T - \lambda I)x = 0$ and then apply our existing theory. From the <a href="invertible_matrix_theorem.html">invertible matrix theorem</a>, we know that $(T - \lambda I)x = 0$ has nontrivial solutions if and only if $\textrm{det}(T - \lambda I) = 0$ (see <a href="why_the_determinant_is_useful.html">why the determinant is so useful</a>). For our example, we have
+\[
+	\textrm{det}(T) = \lambda^2 - 4 = 0,
+\]
+so $\lambda = \pm 2$. Graphically, this means that we have one direction that $T$ scales by $2$ and one direction that $T$ scales by $-2$. Solving the equations $Tx = 2x$ and $Tx = -2x$ gives
+\[
+v_0 = \frac{1}{\sqrt{2}} \begin{bmatrix}
+		1 \cr
+		1
+	      \end{bmatrix}, \quad
+	v_1 = \frac{1}{\sqrt{2}}\begin{bmatrix}
+		-1 \cr
+		1
+	      \end{bmatrix}
+\]
+Where we have normalized $v_0, v_1$ and shown the new basis below 
+<!-- figure of rotated basis -->
+</p>
+<!-- article idea: how does change of basis work -->
+<p>
+In this coordinate system, the operator $T$ simply scales the axes: from the right perspective, $T$ is nothing but
+\[
+	T = \begin{bmatrix}
+	2 & 0 \cr
+	0 & -2
+	\end{bmatrix}
+\]
+Equivalently, we have diagonalized $T$ in this coordinate system. To relate the matrix representing $T$ in the standard coordinate system $e_1, e_2$ to this rotated coordinate system $v_0, v_1$, we simply compute the change of basis matrix $A$. From the above figure, the transformation taking $e_0, e_1$ to $v_0, v_1$ is clearly a rotation by $\theta = 45^\circ$ or $\theta = \pi / 4$. From a general two dimensional rotation matrix and accounting for normalization, we thus have
+\[
+A = \frac{1}{\sqrt{2}} \begin{bmatrix}
+		\cos \theta & -\sin \theta \cr
+		\sin \theta & \cos \theta
+	\end{bmatrix}
+	= \frac{1}{\sqrt{2}}\begin{bmatrix}
+		1 & -1 \cr
+		1 & 1
+	\end{bmatrix}.
+\]
+The inverse $A^{-1}$ is a rotation back by $\theta = -45^\circ$ or $\theta = -\pi/4$, so
+\[
+A = \frac{1}{\sqrt{2}}  \begin{bmatrix}
+		\cos \theta & -\sin \theta \cr
+		\sin \theta & \cos \theta
+	\end{bmatrix}
+	= \frac{1}{\sqrt{2}} \begin{bmatrix}
+		1 & 1 \cr
+		-1 & 1
+	\end{bmatrix}.
+\]
+To see that $T$ is diagonalized in the $v_0, v_1$ coordinates, we see that $T$ decomposes as $A D A^{-1}$ where 
+\[
+	D = \begin{bmatrix}
+		2 & 0 \cr
+		0 & -2
+	    \end{bmatrix}
+\]
+Graphically, consider now the action of $T$ on $e_0$. We know that it sends it to $2 e_1$, but now we can see how this is really just a series of scalings. Since $T = A D A^{-1}$, we have that $Te_0 = A D (A^{-1}e_0)$. 
+</p>
+
+<p>
+The action $A^{-1} e_0$ expresses $e_0$ in the $v_0, v_1$ coordinates. Thus
+\[
+	A^{-1}e_0 = \frac{1}{\sqrt{2}} [1 \; -1],
+\]
+with the coordinates relative to the $v_0, v_1$ basis. That is,
+\[
+	e_0 = \frac{1}{\sqrt{2}} v_0 - \frac{1}{\sqrt{2}} v_1
+\]
+Graphically, we have decomposed $e_0$ into its parts along $v_0$ and $v_1$.
+<!-- figure of e_0 projected along each new coordinate axis and then added together -->
+</p>
+
+<p>
+Now that we are in the $v_0, v_1$ coordinate system, our transformation $T$ looks like
+\[
+	D = \begin{bmatrix}
+		2 & 0 \cr
+		0 & -2
+	\end{bmatrix}
+\]
+Since we have decomposed $e_0$ into the directions where $T$ acts by scaling, to compute the action of $T$, we simply scale the first coordinate by $2$ and the second coordinate by $-2$. Thus
+\[
+	D A^{-1}e_0 = \frac{1}{\sqrt{2}} [2 \; 2]
+\]
+<!-- picture of $v_0, v_1$ scaling by 2 and -2 -->
+</p>
+
+<p>
+This transformation happened in the $v_0, v_1$ coordinate system, so we must now convert $e_0$ back into its representation in the $e_0, e_1$ coordinate system via $A$. Computation gives
+\[
+	A D A^{-1}e_0 = \begin{bmatrix}
+		0 \cr
+		2
+		\end{bmatrix}
+\]
+which is exactly the action of $T$ on $e_0$. Amazing!
+</p>
+
+<p>
+Thus, the decomposition showed that in the proper coordinates, the action of $T$ as a flip and scaling by $2$ was in fact simply a combination of two scalings in the right coordinate system
+<!-- one big graph of the three steps of the transformation. -->
+As we hoped, we were able to decompose $T$ into a series of operations in terms of the simplest linear operators -- the scalings. 
+</p>
+
+<p>
+<h4>The general case</h4>
+This simple example is a good model for a larger class of matrices called self-adjoint or Hermitian matrices. Every self-adjoint matrix $A$ is simply a collection of scalings in the right coordinate system. In particular, the coordinate system is the set of eigenvectors (properly normalized), and the scaling matrix is simply a matrix with the eigenvalues of $A$ on the diagonal.  Though not immediately clear from the formal definition, a self-adjoint matrix is one that stretches the coordinate axes in a proper rotated coordinate system.
+
+The formal statement of this theorem is here for reference
+<!-- Q: why is self adjoint the right definition for diagonalizability? -->
+<!-- TODO: add option to expand it -->
+<!-- article idea: why are all norms on a finite dimensional space equivalent? -->
+<!-- todo: rewrite article as hermitian matrices being rotation plus scale -->
+<!-- q: is there a connection between the definition of self adjoint and the dual space geometry? -->
+<div class="definition">
+	The adjoint of a $n \times n$ matrix $A$ is the matrix $A^*$ such that
+	\[
+		\langle Ax, y \rangle = \langle x, A^* y \rangle 
+	\]
+</div>
+<div class="definition">
+	We call a $n\times n$ matrix $A$ self adjoint if $A = A^*$.
+</div>
+<div class="theorem">
+	Let $A$ be a self-adjoint $n \times n$ matrix. Then there exists a unitary matrix $U$ and diagonal matrix $D$ such that
+	\[
+		A = UDU^{-1}.
+	\]
+</div>
+</p>
+<!--todo: write about decomposition into projections -->
+
+<p>
+
+<!-- TODO: add rotation matrix example -->
+<! -- article idea: solving ODEs with linear algebra is the same as looking at the directions in which it acts by scaling -->
+<!-- article ideas: spectral theorem -->
+<!-- idea: make proofs collapse. The web can immitate our mental hierarchical organization. -->
+<!-- Hermitian matrices are nothing but operators that scale subspaces (hence decomposition of V) -->
+<!-- what does the spectral theorem say: http://www.jstor.org/stable/pdf/2313117.pdf?_=1471272914794 -->
+<h2>The problems in infinite dimensions</h2>
+In finite dimensions, there are only two reasons why 
+
+<!-- are eigenvalues always isolated? -->
+<!-- intuitively why are there only finitely many eigenvalues? -->
+
+<ul>
+	<li><h4>Point Spectra</h4></li>
+	<li><h4>Eigenvalues</h4>
+		Examples: left shift operator has only eigenvalues (not discrete set) and no continuous spectra.
+	</li>
+
+	<li><h4>Approximate Spectra</h4></li>
+	<li>
+		<h4>Continuous Spectra</h4>
+			Examples: right shift operator has only continuous spectra and no eigenvalues.	
+	</li>
+
+</ul>
+
+<h2>The Shift Operator</h2>
+<!-- under the l^2 norm, does the shift operator actually do anything?-->
+<p>
+Let's examine the space $X = \ell^2$ with the shift operators
+\[
+	Rx = (0, x_0, x_1, \ldots), \quad Lx = (x_1, x_2, \ldots).
+\]
+</p>
+
+<p>
+We claim that the spectrum is $D^1 \subset \C$. To see this, it's enough to show this is true for $L$. Geometrically, $L$ moves each point <em>closer</em> to the origin since it deletes one coordinate. In fact, if $x_0 = 0$, then $L$ is unitary. Hence $\norm{L} = 1$. In fact, for any finite $n$, if we truncate the first $n$ coordinates, then $L$ is an isometry. Hence $\norm{L^n} = 1$. 
+</p>
+
+<p>
+This means that $L$ does not stretch the infinite dimensional parallelpiped spanned by $e_i$. That is,<a href="computing_the_spectral_radius.html">our formula for the spectral radius</a> gives
+\[
+	R_\sigma  = \lim_{n \to \infty} \norm{L^n}^{1/n} = 1
+\]
+so we have established that the spectrum of $L$ lies within $D^1$.
+</p>
+
+<p>
+<!-- find geometric reason for this -->
+We don't know yet that $\sigma(L) = D^1$, but we can do this constructively. If $\abs{\lambda} &lt;  1$ then we can construct the sequence
+\[
+	a_n = \lambda^n a_0
+\]
+in $\ell^2$ for any $a_0$ (you can check that the sum converges). This sequence describes an eigenfunction for $\lambda$ since
+\[
+	L(a_0, a_1, \ldots) = (a_1, a_2, \ldots) = (\lambda a_0, \lambda^2  a_0, \lambda^3 a_0, \ldots) = (\lambda a_0, \lambda a_1, \lambda a_2, \ldots) = \lambda (a_0, a_1, a_2, \ldots).
+\]
+Every $\lambda$ inside the unit disk is an eigenvalue. To see that the boundary points are also eigenvalues, we simply note that since the resolvant set is open, the spectrum must be closed. The closure of the interior of the unit disk is of course the entire unit disk.
+</p>
+
+<p>
+The left and right shift operators are closely related so we can now compute the spectrum of $R$. Using the general definition of the transpose given by
+\[
+	(Mx, y) = (x, M' y)
+\]
+then one can verify that $R$ and $L$ are transposes of each other. Since moving into the dual space (taking the transpose), does not change the spectrum, then $\sigma(R) = \sigma(L)$.
+</p>
+
+<p>
+However, it is important to note that $\sigma(R)$ does not have any eigenvalues $\abs{\lambda} \neq 1$ since $R$ preserves the unit sphere. Why can't it have eigenvectors with $\abs{\lambda} = 1$?
+</p>
+<h2>Volterra Integral Operators</h2>
+Consider the operator $V$ on $C[0,1]$ that acts as
+\[
+	(Vx)(s) = \int_0^s x(r)dr.
+\]
+In other words, it finds the signed area under the curve $x(r)$. One can quickly see that there are no eigenvalues since a scaling of $x$ has units of length, while $Vx$ has units of length squared. How do we eliminate the other parts of the spectrum? In the end, the spectrum simply contains $\lambda = 0$.
+
+In general, for a continuous function $K(s, t)$, one can define a Volterra operator
+\[
+	K\, f(x) = \int_0^s K(s, t) f(t) dt
+\]
+from $C[0, 1]$ to $C[0, 1]$. As before, a quick check of units eliminates the possibility of eigenvalues. 
+
+<h2>Arbitrary discrete spectrum</h2>
+If we take $X = \ell^2$ and a bounded seqeuence $(\lambda_n)$ of complex numbers, then the operator
+\[
+	Mx = (\lambda_0 a_0, \lambda_1 a_1, \ldots)
+\]
+has as its spectrum the closure of $(\lambda_n)$ in the complex plane. Each $\lambda_n$ is an eigenvalue since any $(a_n)$ with only the $n$th component nonzero, is mapped by $M$ to the same vector scaled by $\lambda_n$. The spectrum is closed, so we know it contains the closure of $(\lambda_n)$. 
+<h2>Fourier Transform</h2>
+
+</body>
+</html>

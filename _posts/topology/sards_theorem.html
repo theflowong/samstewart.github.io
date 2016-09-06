@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UMN Manifolds &amp; Topology Exam - Spring 2015</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<link rel="stylesheet" type="text/css" href="../../style.css" />
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+\(
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\RP}{{\mathbb{RP}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+<body>
+<h2></h2>
+
+<h2>Why Sards theorem is important</h2>
+<p>
+Consider the smooth function $f : \R^2 \to \R^+$ given by $f(x,y) = x^2 + y^2$.
+</p>
+<!-- insert three dimensional graph of the surface -->
+<p>
+Pre-images of points in $\R^+$ are precisely circles of a given radius. For example, the set $f^{-1}(\Z)$ is
+</p>
+<!-- graphic of circles with integer radius -->
+<p>
+The differential of $f$ is simply the gradient $\nabla f = (2x, 2y)$. The implicit function theorem tells us that $f^{-1}(r)$ is a manifold when $\nabla f \neq 0$. Since $\nabla f = 0$ only at $r = 0$, then one can see that most values of $r$ give pre-images which are manifolds.
+</p>
+<!-- todo: write article on level sets of functions -->
+<p>
+Sards' theorem tells us that this holds in general. If $f : \R^2 \to \R$ is a smooth function, then excepting a set of measure zero, for any $x \in \R$, we have that $f^{-1}(x)$ is a submanifold of $\R^2$. 
+</p>
+<p>
+
+We call the points where $f^{-1}(x)$ is not a manifold critical <em>values</em> and the points <em>in</em> the preimage critical <em>points</em>. The distinction is important because while there are few critical values, there can be many critical points. As an example, consider the smoothed step function $f: \R \to \R$
+<!-- diagram of smoothed heaviside function -->
+The derivative $f'$ is zero for most of the positive axis and zero for most of the negative axis. Hence, these 
+
+</p>
+<h2>Genericity</h2>
+In mathematics, one often says 
+</body>

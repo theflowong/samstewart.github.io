@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Van Kampen's Theorem</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<link rel="stylesheet" type="text/css" href="../style.css" />
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+\(
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+<body>
+<h2>Introduction</h2>
+How many other covering structures exist? Again, as discussed before, each covering space represents a way of unwrapping $S^1$. These unwrappings are determined by the symmetries of $S^1$: the helix covering for example represents the rotational invariance of the circle through any number of turns. Since we are considering symmetries, you can imagine that group theory is involved, but instead of looking at groups of homeomorphisms on the space, we look at groups of paths: the fundamental group and its subgroups. While we are unable to determine the ways to unwrap $S^1$ just by looking, pushing the picture through the algebraic converter $\pi_1$ (also called a functor), we hope to obtain a clearer picture.
+
+<h2>What is the relationship between the fundamental group of the covering and base space?</h2>
+Although the covering space is bigger than the base space, it is topologically simpler. This is because we have unwrapped the more contorted base space and thus removed the problematic holes that plague examples like $S^1$. The helix as a covering space, for example, is simply connected since unlike $S^1$, there is nothing to wind around. Thus, the fundamental group of the covering space is smaller and in fact should be contained within the fundamental group of the base space. While we don't know the nature of the containment yet, we hope that the fundamental group of the covering space can be viewed as a subgroup of the base space.
+
+<h2>Why do we require path connected and locally path connected?</h2>
+
+<h2>Why do we want to classify all covering spaces?</h2>
+
+<h2>The right notion of equality</h2>
+
+<p>
+As with many classification results, we have to decide how to distinguish between spaces. Too fine, and our theorems will be riddled with cases; too rough, and our theorems will be trivial. We need to select the definition that best fits the level of resolution we have on the algebraic side. 
+</p>
+
+<p>
+Consider our favorite space $S^1$. We already have one covering for it: $\R$ represented as a helix as discussed in <a href="covering_spaces.html">covering spaces</a>
+<!-- copied interactive diagram in space -->
+But we can cut this covering into pieces and obtain distrinct covers. For example, let $E = S^1$ embedded in $\C$ and $p(z) = z^2$. Graphically, this corresponds to taking only the first two levels of the full helix
+<!-- interactive diagram of helix with only two twists -->
+Should we consider this a distinct covering?
+</p>
+
+<p>
+Now consider $S^1$ embedded in $\C$ at twice the normal scale via the embedding $z \mapsto 2 z$. Then we have the covering map $z \mapsto (z/2)^2$. Analytically, this looks different, but graphically this is simply the same helix with two twists as before, but now at a different scale
+<!-- interactive diagram of helix with two twists at double scale -->
+Should we consider this also a distinct embedding? 
+</p>
+
+<p>
+No! Scaling the covering space is not any different from a topological perspective. On the other hand, there is a topological  distinction between the full helix and the helix with only two twists: for example, the former is simply connected while the latter is not. 
+</p>
+
+<p>
+A first definition of equivalence might then be simple homeomorphism between the covering spaces. That is, two covering spaces $E$ and $E'$ are equivalent if they are homeomorphic. This certainly distinguishes between the scaled cirlces and the full helix. 
+<!-- insert example explaining why simple homeomorphism is not enough -->
+
+Hence, our stronger defintion of equivalence requires the following diagram to commute
+<!-- commutative diagram showing definition of equivalent covering spaces -->
+
+<!-- mention restriction theorem to see that we can indeed chop up the universal cover to get smaller covers -->
+
+
+<!-- q: why is it that homotopy groups capture some kind of symmetry? -->
+<h2>How does $\pi_1$ allow us to see the covering spaces?</h2>
+<p>
+The amazing fact is that translating the geometric picture into an algebraic picture via $\pi_1$ enables us to completely reconstruct every covering space up to the notion of equality we described in the previous section. The fundamental group and its simple notions of loops captures both the number of holes in the space, but also the number of ways to unwrap it.
+</p>
+<p>
+More precisely, it turns out that every subgroup of $\pi_1(B, b_0)$ roughly corresponds to a particular covering space. Morever, this correspondence is a <em><a href="what_is_galois_theory.html">Galois correspondence</a></em>. In the same way that the symmetries of a polynomial captured by the Galois group correspond to properties of the roots, so do the presence of holes of a topological space correspond to covering spaces. Moreover, we have a partial ordering on the covering spaces: does space $E$ cover space $E'$? In this sense, the correspondence is <em>inclusion reversing</em>: if the subgroup of $E$ in $\pi_1(B, b_0)$ is contained in the subgroup of $E'$, then their positions reverse and $E'$ covers $E$.
+</p>
+
+<p>
+The picture we have is the following
+<!-- Insert cartoon picture of correspondence -->
+To show this is a valid correspondence, we need to argue the following
+<ol>
+	<li>It is well defined. Two equivalent covering spaces map to the same subgroup of $\pi_1(B, b_0)$.</li>
+	<li>It is injective. Only one covering space (up to equivalence) maps to each subgroup of $\pi_1(B, b_0)$</li>
+	<li>It is surjective. There is a covering space that corresponds to each subgroup of $\pi_1(B, b_0)$</li>
+</ol>
+These properties describe a bijection between the subgroups of $\pi_1(B, b_0)$ and the covering spaces of $B$. One might call this a dictionary, much like the dictionary <a href="what_hilberts_nullstellstaz_says.html">in algebraic geometry</a> between varieties and ideals, or like the dictionary in <a href="what_is_galois_theory.html">in Galois theory</a> between field extensions via roots of a polynomial and its Galois group. 
+</p>
+
+<p>
+Let's take our favorite example of $S^1$ and push it through the theory. <a href="computing_the_fundamental_group_of_the_circle.html">We know that</a> $\pi_1(S^1, 0) = \Z$ and that since $\Z$ is cylic, all the subgroups are of the form $n \Z$. We claim we can reconstruct the covering spaces from these groups, but we need to know more about the actual correspondence.
+</p>
+
+<p>
+Consider the covering space $E = \R$. Then the correspondence simply takes paths in $\R$ at basepoint $e_0$, folds them down to $S^1$ via the covering map $p$, and then converts the new path in $S^1$ to a group element in $\pi_1(S^1, b_0)$. We know that $\pi_1$ converts continuous maps to homomorphisms of groups, so in fact we imbed $\pi_1(E, e_0)$ into $\pi_1(B, b_0)$ as a subgroup. This is the correspondence we discussed above. Symbolically then, for a given covering space $E$, we have the corresponding subgroup $H$ given by
+\[
+	H = \pi_1(p)(\pi_1(E, e_0)).
+\]
+
+Applying this to our example, we have
+\[
+	H = \pi_1(p)(\{ \textrm{id} \}) = \{ \textrm{id} \}
+\]
+so $H$ is simply $1$ in $\pi_1(S^1, b_0) = \Z$. 
+
+<h2>The map is well-defined</h2>
+Coming soon.
+
+<!-- need example of group with normal subgroup -->
+In our example, the fundamental group of the base space was abelian. The correspondence becomes slightly more complicated when the fundamental group is non-abelian. Instead of equivalent covering spaces mapping to <em>equal</em>  subgroups, they map to <em>conjugate</em> subgroups. 
+
+<!-- explain the offset by conjugation issue -->
+
+<!-- how do we know that a simply connected covering is indeed a covering of all other coverings? -->
+<h2>The map is injective</h2>
+Coming soon.
+<h2>The map is surjective</h2>
+Coming soon.
+</body>
+
+</html>

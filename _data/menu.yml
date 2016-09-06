@@ -7,10 +7,11 @@
 - title: "CV"
   href: "/cv/"
 
+- title: "Research"
+  href: "/research/"
+
+- title: "For Students"
+  href: "/for-students/"
+
 - title: "Miscellany"
   href: "/miscellany/"
-  subcategories:
-    - subtitle: "Item 1"
-      subhref: "/miscellany/item-1/"
-    - subtitle: "Item 2"
-      subhref: "/miscellany/item-2/"

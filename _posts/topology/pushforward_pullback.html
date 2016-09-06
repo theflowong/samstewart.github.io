@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Van Kampen's Theorem</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../style.css" />
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+
+\(
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+
+<body>
+<h2>Introduction</h2>
+These are just some sketchy notes about the fundamental concepts of pushforwards and pullbacks in differential geometry.
+
+The two notions are dual to each other. In general, the following objects pushforward
+<!--  Q: why can't vector fields pull back / why differential forms push forward? -->
+<ul>
+	<li>Vectors (so velocity fields)</li>
+	<li>Points and curves </li>
+	<li>Tangent bundles</li>
+</ul>
+and the following objects pullback
+<ul>
+	<li>Functions</li>
+	<li>Tensor fields (in particular differential forms).</li>
+	<li>Covectors (so differential forms)</li>
+</ul>
+
+<h2>Pushforward in coordinates</h2>
+In differential geometry, one develops a coordinate free expression. But to compute, we must return to coordinates. Thus, assuming our manifold $M$ has coordinates $x^i$ and our manifold $N$ has coordinates $y^i$, then we have
+\[
+	\begin{aligned}
+		(F_*  \partial_{x_k} )(f) &= 1 \cdot \partial_{x_k} (f \circ F) \cr
+		  	       		  &= \partial_{y_j} f \partial_{x_k} F^j \cr
+					  &= \left( \partial_{x_k} F^j \partial_{y_j} \right) f.
+	\end{aligned}
+\]
+Thus, represented as a matrix with respect to a basis for the tangent plane, we have that $F_*$ acts as
+\[
+	F_* X = \nabla F \cdot X.
+\]
+In other words, the pushforward is nothing but multiplying by the Jacobian. In the special case of $M = N = \R$, we have
+\[
+	f_* X = f' X,
+\]
+so that if $f(p) = 2p$ then $f_* X = 2 X$, capturing exactly our earlier idea of scaling the vector field. Thus, one can interpret the derivative as describing locally how much to scale vector fields when transforming them.
+
+<h2>Why we need to define the pushforward and the pullback</h2>
+In general, modern mathematics studies not only structures, but maps <em>between</em> these structures (in many cases the structures themselves can be defined in terms of maps). In the same way, pushforwards and pullbacks describe how the structure associated to a manifold changes under a smooth map. This relates to the larger mathematical theme of understanding what structure is preserved by maps between objects.
+
+More concretely, the concept of a pushforward encompasses many apparently disparate ideas such as constructing a basis for the tangent space at any point $p$ or a change of coordinates on a manifold. Both of these individual concepts are contained in the larger concept of mapping vector fields between manifolds, which is the essential idea of the pushforward.
+
+While the pushforward enables us to understand how vector fields transform under smooth maps between manifolds, the pullback enables us to understand how <em>co</em>vector fields transform under smooth maps between manifolds. These two ideas are ``dual'' to each other. Thus, one can define the pullback in terms of the pushforward or vice versa.
+
+<h2>Geometric intuition of the pushforward</h2>
+<!--  TODO: turn this into an interactive graphic. -->
+
+<!--  TODO: I should pick my best questions and go pick Jorin's brain -->
+<!--  Q: what concept in computer science relates to the process of creating maps between objects? -->
+<!--  Q: what is the relationship between a continuous function being locally a line and the derivative as an object that accounts for stretching? -->
+<!--  Q: how is the local geoemtry of a diffeomorphic function different from that of a merely C^r function? -->
+<!--  Q: does the raised or lowered star have anything to do with the musical isomorphism? -->
+<!--  Q: Why can covectors be identified with smooth functions? -->
+<!--  Q: Why do we define the tangent space in terms of derivatives? -->
+<!--  Q: What is the difference between $\phi^*$ and $(\phi^{-1})_*$? -->
+<!--  Q: article idea: the power of coordinate independent descriptons  -->
+<!--  Q: why is the convention to have the coordinate charts mapping *from* the manifold *to* R^n? -->
+<!--  Q: why possible geometric operations are there for linear maps? Are they only rotations and scalings? How do we know that? Are those the only Euclidean symmetries which are linear? Why? -->
+The geometric idea of a pushforward is simple. Consider the one-dimensional case $M = N = \R$ with the vector field $Y = 2$ and the map $F : M \to N$ given by $F(p) = 2p$. We wish to map the constant vector field $Y$ in $M$ under the map $F$ to a vector field in $N$. Intuitively, the since $F$ scales $M$ by a factor of two, then $Y$ under $F$ should have its length double. Indeed, the pushforward of $Y$ in $N$ is given by the constant vector field $F_* X = 4$. In this way, the pushforward accounts for the stretching that $F$ inflicts upon $M$.
+
+<!--  Q: how is the point supposed to change in the vector field that we pushed forward? -->
+As a slightly more complicated example, consider the case same two manifolds but with the non-constant vector field $Y(p) = 2p$. Then again the vector field should simply stretch under the map $F(p) = 2p$. The pushforward of the vector field is then $X(p) = 4p$.
+
+
+
+<h2>The definition of the pushforward</h2>
+<!--  Q: why must diffeomorphic manifolds have the same dimension? -->
+Like most notions in differential geometry, we hope to construct a coordinate-free description of the pushforward. Like checking units in physics, we can check the ``type'' of the map. Let $F$ be a smooth map between manifolds $M$ and $N$. Then the pushforward of $F$, denoted $F_*$, must map from $T_p M$ to $T_p N$. 
+
+Using the interpretation of a vector field as a derivation, let $f \in C^\infty(N)$. We need to produce from $X \in T_p M$ an element $F_* X \in T_p N$ which acts on $f$. Since $X$ only acts on functions in $C^\infty(M)$. we must convert $f$ to a function in $C^\infty(M)$. Given that $F$ is a smooth function between $M$ and $N$, we immediately see that $f \circ F$ is a smooth function on $M$ to $\R$. Now $X$ can act on this new function $f \circ F$. Hence, our desired coordinate free definition of the pushforward of $X$ is the following.
+
+<div class="definition">
+	Let $M$ and $N$, $F : M \to N$ a smooth map between them, and $X$ a vector field on $M$. Then the pushforward of $X$ to $M$ under $F$ acts as
+	\[
+		(F_* X)(f) = X(f \circ F)
+	\]
+	for $f \in C^\infty(N)$.
+</div>
+
+By analyzing the type of the objects, we could quickly construct the definition. Unfortunately, as with all moves to abstraction, concrete computation becomes more difficult. Computation with a few examples is thus useful.
+
+<h2>Properties of the pushforward</h2>
+After considering those examples, we can state some general properties of the pushforward. Since the proofs essentially require verifying definitions, we offer only a corresponding geometric justification.
+
+<div class="theorem">
+	Let $M, N$, and $P$ be manifolds and $F : M \to N, G : M \to P$ be smooth maps between them.
+	<ul>
+		<li>$F_*$ is linear.
+		<br />
+			If we are measuring how the original vector field is stretched, then we need only study how the basis vectors are stretched. This is equivalent to linearity.
+			<li>$ (G \circ F)_* = G_* \circ F_* : T_p M \to T_{G \circ F(p)} P$ <br />
+			<br />
+			This property simply tells us that measuring the final stretching of two maps $F$ and $G$ is equivalent to measuring the stretch of each map individually.
+			</li>
+		<li>$ (\textrm{Id}_M)_* = \textrm{Id}_{T_p M} : T_p M \to T_P M$.
+		<br />
+			If the map does not stretch at all, then the vectors should remain unstretched.</li>
+		<li>If $F$ is a diffeomorphism, then $F_*$ is an isomorphism.</li>
+			<!--  TODO: not really sure why this is true. I thought that if F is not a diffeomorphism, we might not even have a pushforward?	 -->
+	</ul>
+</div>
+One can rephrase these properties in the language of category theory (and say what?), but the geometric intuition is clearer for the moment.
+
+<h2>Interpretations of the Pushforward</h2>
+The pushforward of a smooth map is an abstract concept precisely because it encompasses many different ideas (see my article on computation and abstraction). The reason for the this descriptive power, is that most operations in differential geometry are simply maps between manifolds. The following list is incomplete, but describes what the pushforward concept captures.
+
+<ul>
+	<li>Assigning a basis to the tangent space of an abstract manifold. <br />
+
+	<p>
+	We know that for $T_p(\R^n)$ we have a basis given by $\partial_{x^i}$ via the identification of derivations with geometric tangent vectors. Recall that our chart is $\phi  : M \to \R^n$, also know as a diffeomorphism between the manifolds $M$ and $\R^n$. As discussed earlier, this implies that the pushforward of $\phi$ is an isomorphism, so that we can pushforward the tangent space basis of $T_p(\R^n)$ to $T_p(M)$. In the same way that the charts gives local coordinates to each point of $M$, so does the pushforward of the charts given local coordinates to each derivation in $T_p(M)$ -- as usual, the main program of differential geometry to patch together the local structure of $\R^n$ into a globally abstract manifold $M$. </p>
+
+	<p>
+	Since we are pushing forward from $\R^n$ to $M$, we consider $(\phi^{-1})_*$ and where it sends the basis of $T_p(\R^n)$.
+	\[
+		\begin{aligned}
+			(\phi^{-1})_* \left( \frac{\partial }{\partial x^i} \right)(f) &= \frac{\partial f \circ \phi^{-1} }{\partial x^i} \cr
+							         			&= \frac{\partial \overline{f} }{\partial x^i}(\overline{p})
+		\end{aligned}		
+		\]
+	</p>
+	The pushforward is nothing but the partial derivative of the coordinate representation of $f$.
+	</li>
+	<!-- Article idea: the layering of structure in math and computer science.-->
+	<li> <h4>Change of coordinates </h4>
+
+	The concept of a pushforward also includes the change of coordinates. Consider $\R^2$ with Cartesian and polar coordinates related by $(x, y) = F(r,\theta) = (r \cos \theta, r \sin \theta)$. We can view $\R^2$ as the same manifold with two different atlases on it. The first one consists of the  identity chart, while the second consists of one chart given by $F$. We wish to understand how $T_p(\R^2)$ changes when we change coordinates. In Cartesian coordinates, our basis vectors are constant in space, given by $e_1, e_2$. But in polar coordinates, the basis for the tangent space depends on the current point. Computing the pushforward of the basis field in $\R^2$ gives
+	\[
+		\begin{aligned}
+			(F_*)(\partial_r) &= \nabla F \cdot \partial_r  \cr
+				   &= \begin{bmatrix}
+					   \cos \theta & -r \sin \theta \cr
+					   \sin \theta & r \cos \theta
+				   \end{bmatrix} 
+				   \begin{bmatrix}
+					   1 \cr
+					   0
+				   \end{bmatrix} \cr
+				   &= \begin{bmatrix}
+					   \cos \theta \cr
+					   \sin \theta
+				      \end{bmatrix}.
+		\end{aligned}
+	\]
+	Likewise, we have
+	\[
+		(F_*)(\partial_\theta) = \begin{bmatrix}
+						-r \sin \theta \cr
+						r \cos \theta
+					\end{bmatrix}.
+	\]
+	In Cartesian coordinates, the pushed forward vectors are thus
+	\[
+		(F_*)(\partial_r) = \frac{x}{\sqrt{x^2 + y^2}} \partial_x + \frac{y}{x^2 + y^2} \partial_y, \quad (F_*)(\partial_\theta) = -y \partial_x + x \partial_y.
+	\]
+	As the following diagram shows, this is exactly what we expect. 
+	</li>
+	<!-- TODO: vector plot of polar coordinate field to Cartesian coordinate field-->
+	<li> Mapping a vector field between two manifolds <br />
+
+	Pushforwards also allow us to describe how vector fields change under a smooth map. However, the smooth map must be a diffeomorphism because otherwise we are not guaranteed that vectors fields pushforward to vector fields. To see how this can fail, consider $M = N = \R$ with the smooth map $F(x) = 1$. The immediate problem is that $F$ is not injective. Hence, for vectors at $x_0$ and $x_1$, to which point should we push them? The map $F$ sends every point to $1$. Clearly we need that $F$ is at least injective. We require surjectivity because the pushed forward vector field must be defined everywhere on $N$.  
+	</li>
+	As an example 
+	<li>The derivative</li>
+	<li>Change in area</li>
+</ul>
+
+<h2>Pullback</h2>
+<!-- Q; Is the pull back nothing but (\phi^-1)_*? -->
+<!-- Q: why do we use smooth maps for everything, and not just C^1 maps? -->
+<!--  Q: why do vectors pushforward and covectors pullback?-->
+<!-- Q: in the definition of a covector, where does the dependence on the point p come into play?-->
+<!-- Article idea: the cost of learning new things, travel and mathematics. The surprising similarity and the value of being jolted out of your comfort zone. -->
+The complimentary notion to the pushforward is the pullback. Instead of pushing vector fields <em>forward</em>, we pull <em>{co}vector</em> fields <em>backward</em>. We will repeat the same analysis as the pushforward, and study the definition from a geometric and then algebraic perspective.
+
+<h2>Geometric intuition of the pullback</h2>
+Recall that one can view covectors as objects which measure the signed length of vectors. We wish to pullback this tool for measuring length to our source manifold $M$ under our mapping $F$, and understand how the length measurements change.
+
+As an example, let $M = N = \R$ with $F(p) = 2p$ and $\xi(p, X) = \abs{X}$. In this case, $\xi$ merely measures the usual Euclidean length of the vector. Consider the constant vector field $X = 2$ on $M$. Then the pullback $(F^* \xi)(X) = 4$. This means geometrically that our measurement tool has been scaled under the map $F(p) = 2p$ and now doubles the length of $X$ by a factor of $2$.
+
+<h2>The definition of the pullback</h2>
+In the same way that we stretch vectors under a pushforward, we stretch our measurement of length when we pull a covector back. How do we capture this behavior independent of coordinates? As with the pushforward, we can easily discover the formula just guided by the type system (see <a href="tensors_and_type_systems.html">tensors and type systems</a>). We have a vector $X \in T_p M$ whose length we wish to measure 
+
+<div class="definition">
+	Let $X \in T_p M$ and $F : M \to N$. Then the pullback of $F$ is
+	\[
+		F^* X = \xi\left( F_* X \right).
+		\]
+</div>
+To measure the length of a vector $X$ with $\phi \in T^*_p \, N$, simply stretch the vector $X$ under $F_*$ and then measure its length. The definition of the pullback depends on the definition of the pushforward because both maps are dual to each other. We could just have easily defined the pullback first, and then the pushforward in terms of the pullback after.
+<h2>Properties of the pullback </h2>
+There are two important properties of the pullback. Again, we don't offer proof but instead a geometric argument.
+
+<div class="proposition" />
+	Let $G : M \to N$ be a smooth map. Then
+	<ul>
+		<li>$G^* dy = d(y \circ G)$.</li>
+
+		<li>$G^* (f \, \sigma) = (f \circ G) G^* \sigma$ <br />
+		Multiplying by a real number (represented by $f(p)$) simply scales the measurement, so we can factor it out.
+		</li>
+	</ul>
+</div>
+<h2>Pullback in coordinates</h2>
+As with the pushforward, we can describe the action of the pullback in coordinates. Let $\sigma \in T_p^* N$ so that $\sigma = \sigma_j dy^j$ where $y^j$ is a basis for $T_p N$. Using the properties of the pullback described above, we then have
+\[
+	\begin{aligned}
+		F^* \sigma &= F^* (\sigma_j dy^j) \cr
+			   &= (\sigma_j \circ F) F^* dy^j \cr
+			   &= (\sigma_j \circ F) d(y^j \circ F) \cr
+			   &= (\sigma_j \circ F) dF^j.
+	\end{aligned}
+\]
+<!-- Q: what does this mean geometrically? Is it just a change of coordinates? -->
+
+A simple example demonstrates the formula. In the same way that the pushforward of the identity map reflects the change of coordinates on the tangent space, so too does the pullback reflect the change of coordinates on the cotangent space. For example, consider the halfplane $H = \{ (x, y) \in \R^2 \mid y > 0 \}$ with Cartesian $(x,y)$ and polar $(r, \theta)$ coordinates. Then we can observe the relationship between the two coordinate systems by pulling back $dx, dy$ via the identity map $\textrm{Id}$. Using the relationship $(x, y) = (r \cos \theta, r \sin \theta)$ and our formula for the pushforward in coordinates from above, we have
+\[
+	\begin{aligned}
+		dx &= \textrm{Id}^* dx \cr
+		   &= 1 \cdot d(x \circ Id) \cr
+		   &= d(r \cos \theta) \cr
+		   &= \cos \theta dr - r \sin \theta d\theta,
+	\end{aligned}
+\]
+and a similar computation shows that
+\[
+	dy = \sin \theta dr + r \cos \theta d \theta.
+\]
+Viewing $dx$ as the component along the $x$-axis, we see that these formulae make sense geometrically as the following diagram shows.
+<!--  TODO: create interactive widget showing how the two coordinate systems are related  -->
+\end{document}
+</body>
+</html>

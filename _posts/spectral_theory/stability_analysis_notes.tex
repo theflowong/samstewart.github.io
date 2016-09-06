@@ -1,0 +1,127 @@
+%23: 7, Munkres \textsection 24: 1, 3, 10e
+% v0.04 by Eric J. Malm, 10 Mar 2005
+\documentclass[12pt,letterpaper,boxed]{jhwhw}
+
+\author{Sam Stewart}
+\title{Functional Analysis}
+% set 1-inch margins in the document
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{marginnote}
+\usepackage{float}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+% \newtheorem{lemma}[section]{Lemma}
+
+\usepackage{graphicx}
+\usepackage{float}
+
+% Note: for other writers, please take a look at the shortcuts I have already defined above.
+
+% TODO: employ roman numerals in the 
+\begin{document}
+\problem{Definitions of spectra for Linear Operators}
+I include the definitions of the different pieces of the spectrum.
+
+\begin{definition}[Spectrum]
+	Let $X$ be a Banach space and $L$ a linear operator on $X$. Then the spectrum of $L$, denoted by $\Sigma\left( L \right)$, is the collection of $\lambda \in \C$, such that $(\lambda - L)$ does not have a bounded inverse in $X$.
+\end{definition}
+
+\begin{definition}[Resolvent Set]
+	Let $X$ be a Banach space and $L$ a linear operator on $X$. The resolvent set $\rho(L) = \C - \Sigma\left( L \right)$. On this set, the operator $(\lambda - L)$ is bijective.
+\end{definition}
+
+\begin{definition}[Eigenvalue]
+	We call $\lambda \in \C$ an eigenvalue if $(\lambda - L)$ is not injective.
+\end{definition}
+
+\begin{definition}[Fredholm Operator]
+	An operator $L$ is Fredholm if the following are true
+	\begin{enumerate}
+		\item $\textrm{Ran } L$ is closed.
+		\item $\textrm{codim Ran } L < \infty$
+		\item $\textrm{dim Null } L < \infty$ 
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Fredholm Index]
+	The Fredholm index of an operator $L$ is
+	\[
+		\textrm{dim Null } L - \textrm{codim Ran} L
+	\]
+\end{definition}
+
+\begin{definition}[Point Spectrum]
+	We say that $\lambda \in \Sigma_{pt}$ if $(\lambda - L)$ has Fredholm index zero.
+\end{definition}
+
+\begin{definition}[Essential Spectrum]
+	We define the essential spectrum to be
+	\[
+		\sigma_{\textrm{ess}} = \Sigma - \Sigma_{\textrm{pt}}
+	\]
+\end{definition}
+
+\begin{definition}[Approximate Point Spectrum]
+	The approximate spectrum $\Sigma_{\textrm{app}}$ is the set of all $\lambda in \C$ such that $(\lambda - L)$ has a range which is not closed in $X$. 
+\end{definition}
+
+\begin{definition}[Residual Spectrum]
+	The residual spectrum $\Sigma_{\textrm{res}}$ is the set of all $\lambda$ for which the range $(\lambda - L)$ is not dense in $X$.
+\end{definition}
+
+\end{document}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Van Kampen's Theorem</title>
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<link rel="stylesheet" type="text/css" href="../style.css" />
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+\(
+% \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\lrparen}[1]{{\left( #1 \right)}}
+\newcommand{\topologyn}{{\mathcal{T}}}
+\newcommand{\indic}[1]{{\textbf{1}_{#1}}}
+\newcommand{\topologyp}{{\mathcal{T}^\prime}}
+\newcommand{\basis}{{\mathcal{B}}}
+\newcommand{\topology}[1]{{\mathcal{T}_{#1}}}
+\newcommand{\indicator}[1]{{\textbf{1}_{#1}}}
+\newcommand{\Zplus}{{\mathbb{Z}_+}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Mf}{{\mathcal{M}_F}}
+\newcommand{\M}{{\mathcal{M}}}
+\newcommand{\eps}{{\varepsilon}}
+\newcommand{\lebg}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\outerm}[1]{{\mu^*\left(#1\right)}}
+\newcommand{\lebm}[1]{{\mu_L\left(#1\right)}}
+\newcommand{\measure}[1]{{\mu\left(#1\right)}}
+\newcommand{\ring}{\mathcal{R}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\K}{{\mathbb{K}}}
+\newcommand{\Nn}{{\mathbb{N}}}
+\newcommand{\Rplus}{{\mathbb{R}_+}}
+\newcommand{\rl}{{\mathbb{R}_l}}
+\newcommand{\linfty}{l^\infty}
+\newcommand{\closure}[1]{{\text{Cl}\left( #1 \right)}}
+\newcommand{\Rmin}{{\mathbb{R}_-}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\eR}{{\overline{\mathbb{R}}}}
+\newcommand{\lebRing}{{\ring_{\text{Leb}}}}
+\newcommand{\Rtwo}{{\mathbb{R}^2}}
+\newcommand{\Rn}{{\mathbb{R}^n}}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\dotp}[2]{{#1 \cdot #2}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
+\newcommand{\puncplane}{{\ring^2 - \{ 0 \} }}
+\newcommand{\puncplanen}{{\ring^n - \{ 0 \} }}
+\newcommand{\til}[1]{{\widetilde{#1}}}
+\newcommand{\degree}[2]{{deg_{#1} (#2)}}
+\newcommand{\conj}[1]{{\overline{#1}}}
+\newcommand{\series}[1]{{\sum_{k = 1}^\infty {#1}_k}}
+\newcommand{\seq}[1]{{\left( {#1} \right)_{n = 1}^\infty }}
+\newcommand{\maxm}[2]{{\max \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\minm}[2]{{\min \, \left\{ {#1}, \, {#2} \right\} }}
+\newcommand{\shortseq}[1]{{\left( {#1} \right) }}
+\newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
+\newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\)
+</head>
+<body>
+	
+	<h2>Why do we need covering spaces?</h2>
+		
+	<h2>What is a covering space?</h2>
+	<!-- TODO: a covering space represents the symmetries of our base space. Equivalently, they describe various ways of "unwrapping" our space -->
+	<p>
+		There is a simple model we will use to motivate the definition of a covering space. If we convert $\R$ into a helix centered at $0$, then the vertical projection of a point gives a point on $S^1$ embedded in the plane. 
+	</p>
+	<!-- todo: show 3D plot of the helix and the projection -->
+	<p>
+		Intuitively, the larger object $\R$ lies above $S^1$ and collapses nicely to the circle. The definition of a covering space requires two different spaces: the covering space $E$, the base space $B$, and a map $p : E \to B$ relating the two spaces. The constraints shown in the above figure are thus really constraints on $p$ (see <a href="mapping_and_relative_definitions.html">relative definitions in mathematics</a>). 
+	</p>
+	<!-- article idea: the many faces of continuity -->
+	<p>
+		From our example, its clear that $E$ should completely cover $B$ and should locally preserve the topological structure of $B$ (no tearing). In other words, $p$ should be surjective and continuous. But a simple projection satisfies this definition; we want another constraint on the structure of the covering space $E$: we want $E$ to look like copies of $E$ glued nicely together. How do we capture this idea formally? We demand that the topology of $E$ is a set of copies of the topology of $B$. 
+	</p>
+
+	<p>
+		More precisely, for $p \in B$, there must exist a neighborhood $U$ of $p$ such that $p^{-1}(U)$ is equal to a union of disjoint sets $V_\alpha$ open in $E$. Each $V_\alpha$ is a (maybe deformed) copy of $U$ in $E$. But we don't want mild deformation, so we also require that each $V_\alpha$ is homeomorphic to $U$ under $p$. 
+	</p>
+	<p>
+		In the following interactive diagram, you can adjust the endpoints of the open neighborhood of $(1, 0)$ and see the corresponding lifted $V_\alpha$'s in $E$.
+	</p>	
+	<!-- insert interactive diagram showing how adjusting the interval leads to the neighborhoods upstairs adjusting -->
+	
+	<p>	
+		Our precise definition is thus
+		<div class="definition">
+			Let $E$ and $B$ be topological spaces and $p : E \to B$ a continuous and surjective map between them. If for every $p \in B$ there is a neighborhood $U$ such that $p^{-1}(U)$ is the disjoint union of open sets $V_\alpha$ in $E$ and each $V_\alpha$ is homeomorphic to $E$ under $p$, then we say $p$ is a covering map and $E$ is a covering space for $B$.
+		</div>
+	</p>
+	<h2>Products of covering maps</h2>
+	<p>
+		We can build covering maps of product spaces by simply covering each component space. As an example, consider $T^2 = S^1 \times S^1$ with the covering space $\R^2$ and covering map
+		\[
+			p(\theta, \phi) = (p_1(\theta), p_2(\phi))
+		\]
+		where $p_1, p_2$ are the covering map of $S^1$ by $\R$ that we discussed in the last section. Graphically, we can imagine the map as follows
+		<!-- interactive diagram of imbedding of torus into 3 space with adjustable \theta and \phi -->
+		
+		In general, we have the following theorem.
+	</p>
+	<div class="theorem">
+		Let $E_1, E_2$ be covering spaces for $B_1, B_2$ with corresponding covering maps $p_1, p_2$. Then $p : E_1 \times E_2 \to B_1 \times B_2$ defined by
+		\[
+			p(e_1, e_2) = (p_1(e_1), p(e_2))
+		\] is a covering map so that $E_1 \times E_2$ is a covering space for $B_1 \times B_2$. 
+	</div>
+	
+	<div class="proof">
+		Coming soon.
+	</div>
+
+	There are a few other useful examples. We can construct a trivial covering space for any topological space $X$ by simply stacking copies of $X$ above itself.
+	<!-- picture of stacked rectangles -->
+	Formally, the space $X \times \{ 1, \ldots, n \}$ is a covering space of $X$ if imbued with the covering map $p(x, i) = x$. Of course, with $n = 1$, this implies that $X$ covers itself. 
+
+	The second example is more complicated and is an application to complex analysis. In $\C$, the log function has a branch point at $z = 0$ where, if not properly restricted, the function is multivalued. However, if we change the domain to copies of $\C \ \{ \R^- \}$ glued together along $\R^-$ to form a helical cover of $\C$, then $\log(z)$ becomes analytic.
+	<!-- insert helical cover of \C -->
+		
+	<h2>Are local homeomorphisms also covering maps?</h2>
+	<p>
+		We call a map $f : X \to Y$ a local homeomorphism if every point $p \in X$ has a neighborhood $U$ so that $f$ restricted to $U$ is a homeomorphism to $f(U)$. Every covering map $p : E \to B$ is a local homeomorphism. To see why, let $x \in E$. Then by definition of a covering space, the point $p(x)$ has a neighborhood $V$ in $B$ such that $p^{-1}(V)$ is a disjoint union of open $U_\alpha$ which are individually homeomorphic to $V$. One of the $U_\alpha$'s must contain $x$, so we are done.
+	</p>
+
+	<p>
+		On the other hand, not every local homeomorphism is a covering map. In some sense, a covering map is a collection of local homeomorphisms. As a counter example, consider again the covering map
+		\[
+			p(\theta) = (\cos(2 \pi \theta), \sin (2 \pi \theta))
+		\]
+		of $S^1$ by $\R$. If we restrict this to $\R^+$, then we still have a local homeomorphism, but not a covering map. The following diagram shows the problem
+	</p>
+
+	<!-- interactive diagram with problem at 0 -->
+	<p>
+		The issue is the pre-image set $(0, \epsilon)$. It's locally homeomorphic to its image, but under $p$ is not homeomorphic to the full colored set $U$; it is merely an imbedding.
+	</p>
+	<h2>What is the difference between a quotient and covering space?</h2>
+	<p>
+	The ideas are similar: both involve collapsing a larger object onto a smaller, and both ideas have similar definitions: both involve maps.
+	</p>
+</body>
+</html>
