@@ -9,9 +9,7 @@ Every parent fears the question, "where do babies come from?"  and likewise many
 
 Just one might explain to a child that storks bring babies, you might also have learned that the Fourier transform of a function $$f : S^1 \to \C$$ is given by
 \\[
-    \label{eq:periodic_FT}
     \hat{f}_k = \frac{1}{2\pi} \int_S^1 f(\theta) e^{-i \theta n} d\theta
-    \label{eq:periodic_FT}
 \\]
 And like the stork explanation, this deux ex machina explanation really does nothing beyond establish existence. All this tells us is that there is a mapping from $$L^2$$ to $$\ell^2$$.
 
@@ -96,12 +94,12 @@ But what if  there are infinitely many eigenvalues? The generalized spectral the
 If the spectra is continuous, then we need some kind of measure. Let's see how we construct this measure. This explanation follows Kato's wonderful book on operator theory.
 
 Consider the space $$L^2(S^1)$$. Then if we define the sets
-\[
+\\[
 	M(\lambda) = \begin{cases}
 		0 & \text{ if } \lambda < 0 \cr
 		\{ f \mid \hat{f}_k = 0 if \abs{k} < \lambda
 		\end{cases}
-\]
+\\]
 That is, the space $$M(\lambda)$ consists of functions with non-zero Fourier modes below $\lambda$. Notice that $M(\lambda) \subset M(\lambda')$ if $\lambda < \lambda'$ since adding more Fourier modes gives higher resolution since we have more available modes. 
 
 Now, we can associate with each $$M(\lambda)$$ a corresponding projection operator $$E(\lambda)$$ that truncates all Fourier modes above $$\lambda$$. Then consider the operator $$E(\lambda) - E(\lambda')$$ where $\lambda' < \lambda$. If $\lambda - \lambda' \leq 1$, then $E(\lambda) - E(\lambda') = 0$. If $\lambda - \lambda > 1$, then $E(\lambda) - E(\lambda')$ preserves the $$n$$th and -$$n$$th Fourier modes where $$n$$ is the closest integer to $$\lambda$$. 
@@ -110,5 +108,14 @@ This association $\mu$ between an interval $I = (\lambda', \lambda)$ and a proje
 \\[
 	\mu(I) = E(\lambda) - E(\lambda')
 \\],
+respects unions of disjoint intervals. That is,
 \\[
-	\mu(I_1 \cup I_2) = (
+	\mu(I_1 \cup I_2) = \mu(I_1) \cup \mu(I_2).
+\\]
+We can extend the definition to all Borel sets. Hence, we call $\mu$ a projection-valued measure.
+
+We're one step closer to defining an integral representation for the self-adjoint operator $T$.
+(todo: add expandable proof button)
+One can see this 
+
+
