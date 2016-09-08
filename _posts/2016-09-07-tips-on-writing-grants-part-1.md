@@ -1,19 +1,19 @@
 ---
 layout: post
 date: 2016-09-07 18:02
-categories: course-notes writing grants
+categories: course-notes writing-grants
 ---
 
-When you make someone feel smart, they feel smart, and like you better.
+In a grant writing course that I'm taking, we discussed the following initial tips.
 
-Get excited about your research.
+* When you make someone feel smart, they feel smart, and like you better.
 
-Always get started early since the revision process is almost more important than the writing.
+* Make yourself and your  research exciting. Confident and well-organized is not enough.
 
-Be wary of anchoring in your own writing.
+* Having others read your grant is critical, so start early. Most academics procrastinate. 
 
-Develop and elevator pitch.
+* Give yourself time to set the writing aside to avoid becoming too tied to one approach.
 
-Convince the reviewers that your work is exciting and you're exciting.
+* Develop an elevator pitch.
 
-Always read all the instructions and follow them exactly. No use complaining about bureaucracy since the reviewers are looking for reasons to reject.
+* Read all the instructions and follow them exactly. 
