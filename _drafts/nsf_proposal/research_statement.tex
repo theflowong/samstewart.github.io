@@ -1,0 +1,97 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{mathptmx}
+\usepackage[letterpaper, portrait, margin=1in,headheight=60.pt]{geometry}
+
+\title{}
+\begin{document}
+
+\fontfamily{ptm}
+% Outline: 
+% Why is the regularity question in Navier Stokes important?
+% 	Terry Tao introduction
+% 	Step back to simpler case: Euler equations 
+% How do we hope to find blowup?
+% 	Axis-symmetric flow might lead to blowup
+%		Tornado and tea cup example
+%	Perhaps we can create blowup at the boundary
+% What kind of model do we choose?
+%	Need to close the system
+%		Look for proper biot-savart law
+% Why our model is special?
+%	Better model for 3D Euler	
+% How did we solve the problem and how will we approach the next problem?
+%	Solved it via numerics and theory
+% Why do our results matter?
+%	 
+% Future directions:
+%	Can the blowup for our equation be translated into blowup for Euler?
+%	
+% Questions for Sverak:
+% 1. How could we use this model to generate blowup for Euler 3D?
+% 2. If we can rule out such a singularity near the boundary for Navier Stokes, then what is the point of this?
+% 3. Why do we flip the velocity field in the initial configuration?
+% 4. Why does he expect a singularity at the center point
+% 5. Why don't we care about Burger's equation?
+% 6. Is there something special about the 1D equation that we hope will connect the blowup to the 2D equation?
+% 7. Why isn't there a canonical choice?
+% 8. Can we add some kind of physical explanation for our 1D results? For example, why do we expect the first derivative where the vorticity is zero to be conserved?
+% 9. Why this no flux condition?
+% 10. Why is vorticity so important? How is it related to electromagnitism?
+% 11. What is the hyperbolic blowup scenario?
+% 12. How do we choose these Biot-Savart laws?
+
+% Good motivating papers: http://people.cs.uchicago.edu/~const/eule.pdf
+% De Gregorio's motivating paper
+
+During his interview on the Colbert Report, Professor Terrance Tao told the audience that he was ``trying to see if water can spontaneously blow up.'' Looking concerned, Colbert interrupted and said ``Terrance, that would be \textit{good to know}.'' Indeed, existence of smooth initial data that leads to blowup for the Navier-Stokes equations is a crucial problem in fluid dynamics. It is also fascinatingly difficult.
+
+A more tractable problem might be to find blowup solutions to Eulers' equations, that is, restrict attention to inviscid fluids (fluids that behave like water). But even two- and three-dimensional Eulers' equations are difficult to attack in generality. Hence, to study only a one-dimensional flow, we can consider the boundary for sufficiently symmetric flows.
+
+Following a thought experiment of Einstein [1], imagine a teacup with tea-leaves at the bottom. Stirring with a spoon generates a cylindrical flow. Does this configuration generate a singularity? The answer is in the tea-leaves: does the flow sweep the leaves to the wall of the mug or two the center? Surprisingly, the swirl pushes the leaves to the center of the bottom of the mug and this point is where a singularity might lie.
+
+This center point might have a singularity because the stirring motion generates a secondary-flow as shown that sweeps the tea-leaves inwards. Due to the opposing swirls, one expects the vorticity to be quite large, possibly large enough to produce blowup. More importantly, this point lies on the boundary, which due to the symmetry of the flow, we can assume is one dimensional.
+
+We need to decide how to model this one dimensional flow. The are two choices: how to transport vorticity, and how to relate vorticity to velocity (Biot-Savart law). Simply reducing Eulers' equations to one-dimension gives Burgers' equation
+\[
+	u_t + u u_x = 0	
+\]
+which exhibits shocks, but not blowup [cite]. Yudovich [2] studied an analogy to two-dimensional Euler given by
+\[
+	\omega_t + u \omega_x = 0, \quad u_x = H \omega
+\]
+but showed that no blowup occurs. De Gregorio [3] proposed an analogy to three-dimensional Euler given by
+\[
+	\omega_t + u \omega_x = u_x \omega, \quad u_x = H \omega,
+\]
+or, written with the Lie bracket, as
+\[
+	\omega_t + [u, \omega] = 0,
+\]
+with the domain of $S^1$.
+
+Unlike several other one dimensional model equations [4] and despite other attempts [5] to settle the question, global existence and regularity has remained open. The authors in [4] noticed numerically that the second derivative grew rapidly, yet stayed bounded. They were able to prove only short term existence, however.
+
+Over the past year, my advisor Professor Sverak, his former student Dr. Hao Jia, and I have answered this question through an exciting combination of numerics and theory. Since the problem is on the torus, I wrote a solver in Matlab that uses the spectral method, and this tool enabled us to form conjectures about the solutions quickly. Our first realization was why the second derivative grew large but stayed bounded: the first derivative at the points where the vorticity was zero stayed constant. This conserved quantity meant that as large oscillations collapsed into smaller oscillations, the derivative changed rapidly over a small interval. This simple observation answered the problems in [4].
+
+Our second observation was that all initial data tended towards steady states $\sin(x)$ or $\cos(x)$. One can easily show that these are the \textit{only} steady states, so we wondered immediately if they are global attractors. After several months of work, we proved this by showing the linearized equation has only continuous spectra. We first perturbed the lineared equation by an almost compact operator to obtain 
+\[
+	\textrm{(perturbed equation here)}
+\]
+We are now preparing our paper for publication.
+
+I will leverage the numerical and theoretical tools I learned during this project to approach a larger problem: can 1D model equations produce blowup for 3D Euler equations? A natural starting point is to extend the 1D De Gregorio model into two dimensions. As De Gregorio notes [5], two dimensions is probably necessary for blowup. Parallels to the behavior of the full 3D case, such as , guides me. Professor Sverak and I plan to study a 2D extension given by
+\[
+	\textrm{ some equation here }.
+\]
+with domain $T^2$. This is a natural extension of De Gregorio's original 1D equation because . The first step is numerics with a spectral method, as for the 1D case. We'll again look for some conserved quantity. Unlike the one dimensional case however, we know little about the steady states, or even if they exist. 
+
+(I need more description of my plan and why it's important)
+
+\textbf{Broader Impact}
+Maybe a presentation at a local community college?
+
+(Conclusion)
+\end{document}
