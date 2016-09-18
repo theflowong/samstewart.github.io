@@ -1,29 +1,59 @@
 ---
 layout: post
 date: 2016-09-13 17:00
-categories: course-notes harmonic-analysis
+categories: course-notes harmonic-analysis homework
 ---
-$\newcommand{\norm}[1]{\left\lVert#1\right\rVert}$
-
-One can answer questions about convergence of Fourier series by asking if the partial sums of trig functions somehow converge to the identity operator in an appropriate function space.
-
-In Fourier space, consider the characteristic function $\chi_{[-N, N]}$. As $N \to \infty$, for a function $f$ with Fourier coefficients $\hat{f}_k$, the function
+A natural question is to ask if we reconstruct our original function $f$ from its Fourier series given by
 \\[
-	\chi_{[-N, N]} \hat{f}_k \to \hat{f}_k
+	\sum_{-N}^N \widehat{f_k} e^{2 \pi i x k}. 
 \\]
-as $N \to \infty$. In other words, the characteristic function (when acting by multiplication) converges to the identity operator.
+More precisely, in what function spaces do these sums of functions converge to our original function. 
 
-In physical space, this becomes
+We can rewrite the Fourier series of $f$ as
 \\[
-	D_N = \sum_{k=-N}^N e^{2 \pi k x}
+	\sum_{-N}^N \widehat{f_k} e^{2 \pi i x k} = \frac{1}{2\pi} \int_0^1 f(y) \sum_{-N}^N e^{2 \pi i (x - y)} dy = D_N * f
 \\]
-and multiplication becomes convolution in $L^p$ so our statement about convergence to the identity becomes
+where
 \\[
-	D_N * f \to f
+	D_N = \sum_{-N}^N e^{2 \pi i x},
 \\]
-in $L^p$. 
+which we call the Dirichlet kernel and the star denotes [convolution](https://en.wikipedia.org/wiki/Convolution). 
 
-### Problem 2a
+We have rephrased our question about convergence of Fourier series: in what function spaces does
+\\[
+	D_N * f
+\\]
+converge to $f$?
+
+Why is this perspective useful? Because you can think of convolution as a kind of multiplication. From this perspective, we want to know if
+\\[
+	D_N * f \to I * f = f
+\\]
+where $I$ is an "identity" element. 
+
+In other words, we wish to know if $D_N$ converges in some sense to some kind of identity. 
+
+Since $I * f$ is a weighted average of $f$ by $I$, then we would expect $I$ to assign the origin weight $1$ and everything else weight zero. Unfortunately, in spaces like $C[0, 1])$ and $L^p$, such a function either doesn't exist or is indistinguishable from zero. Such a function can only be achieved in the limit. However, the intuition is correct: a sequence $D_N$ going to the identity should have most of its mass concetrated around $0$. For large enough $N$, it should look like
+
+(JSX graph plot)
+
+The following interactive diagram shows $D_N$ in physical space and Fourier space. The [Plancherel theorem](https://en.wikipedia.org/wiki/Plancherel_theorem) tells us that a concentrated function in physical space produces a diffused function in frequency space. The diagram agrees with this.
+
+(JSX interactive plot showing D_N in physical and frequency space)
+
+From the plot, it appears that $D_N$ begins to look like an identity. Is this true?
+
+We know that the mass should concentrate near the origin. But we don't want infinite mass near the origin: we hope that
+\\[
+	\norm{D_N}_{L^1} = \int_0^1 \abs{D_N(x)} dx < \infty
+\\]
+
+Unfortunately, using the representation
+\\[
+	D_N(x) = \frac{\sin((2N + 1) \pi x)}{\sin(\pi x)}
+\\]
+<div class="proof">
+<span class="homework_title">Problem 2a</span>
 Viewing $D_N$ as a trigonometric polynomial in complex variable $z$ on the unit circle in $\mathbb{C}$, we have
 \\[
 	\begin{align}
@@ -36,32 +66,35 @@ Multiplying the top and bottom by $-z^{-1/2}$ gives
 \\[
 	D_N = \frac{z^{(N + 1/2)} - z^{-(N + 1/2)}}{z^{1/2} - z^{-1/2}} = \frac{2 \sin((2N + 1) \pi x)}{2 \sin(\pi x)}.
 \\]
-
-The idea is that $\{ D_N \}$ approximates the identity operator. 
-### Problem 2b
-As $N \to \infty$, one would expect that the Dirichlet kernel looks more like the Dirac delta function. That is, the mass should be concentrated around $0$. However, 
-
-### Problem 2c
+</div>
+one can show that
+\\[
+	\norm{D_N} \approx \ln(N)
+\\]
+<div class="proof">
+<span class="homework_title">Problem 2c</span>
 Since the identity operator has norm $1$, one expects that $D_N$ should have bounded norm. That is,
 \\[
 	\norm{D_N}_{L^1} \leq C.
 \\]
 
 Unfortunately, this is not the case. Instead, the $L^1$ norm blows up exponentially as the following computation shows.
+
 \\[
 	\begin{align}
-		\norm{D_N}_{L^1} &= \int_0^1 \left| \frac{\sin((2N + 1) \pi x)}{\sin(\pi x)} \right| dx  \cr
-								&\geq  \int_0^1 \left| \frac{\sin((2N + 1) \pi x)}{x} \right| dx \cr
-									  &=  C \int_0^{(2N + 1) \pi} \left| \frac{\sin(x)}{x} \right| dx \cr
-									  &= C \sum_{k = 0}^{2N + 1} \int_{k\pi}^{(k + 1) \pi} \frac{\sin(x)}{x} dx \cr
-									  &\geq C\sum_{k = 0}^{2N + 1} \int_0^\pi \frac{\sin(x)}{k \pi + x}dx \cr
-									  &\geq C \sum_{k = 0}^{2N + 1} \frac{1}{k \pi + \pi} \int_0^\pi \sin(x) dx \cr
-									  &\geq C \sum_{k = 1}^{2N} \frac{1}{k}
+		\norm{D_N} & = \int_0^1 \left| \frac{\sin((2N + 1) \pi x)}{\sin(\pi x)} \right| dx \cr
+			&\geq  \int_0^1 \left| \frac{\sin((2N + 1) \pi x)}{x} \right| dx \cr
+	  		&=  C \int_0^{(2N + 1) \pi} \left| \frac{\sin(x)}{x} \right| dx \cr
+		  	&= C \sum_{k = 0}^{2N + 1} \int_{k\pi}^{(k + 1) \pi} \frac{\sin(x)}{x} dx \cr
+		        &\geq C\sum_{k = 0}^{2N + 1} \int_0^\pi \frac{\sin(x)}{k \pi + x}dx \cr
+		  	&\geq C \sum_{k = 0}^{2N + 1} \frac{1}{k \pi + \pi} \int_0^\pi \sin(x) dx \cr
+		        &\geq C \sum_{k = 1}^{2N} \frac{1}{k}
 	\end{align}
 \\]
-By the integral test, we know that
+
+By the definition of the Riemann integral, we know that
 \\[
-	\sum_{k = 1}^{2N} \frac{1}{k} \approx \int_1^{2N} \frac{1}{x} = \ln(2N) \geq \ln(N)
+	\sum_{k = 1}^{2N} \frac{1}{k} \geq  \int_1^{2N} \frac{1}{x} = \ln(2N) \geq \ln(N)
 \\]
 so
 \\[
@@ -87,35 +120,41 @@ Generalizing from this example, we hope any approximate identity $\{ K_\epsilon 
 	\lim_{\epsilon \to 0} \int_{\mathbb{R} \backslash B_\delta(0)} K_\epsilon dx \to 0.
 \\]
 
-### Problem 3
-We can fix the issues with convergence for the Dirichlet kernel by taking Cesaro means of the Dirichlet kernel. 
 
-If you have the sequence $a_n = (-1)^n$ then the series
-\\[
-	S_n = \sum_{n = 1}^\infty a_n 
-\\]
-doesn't converge because the partial sums oscillate between $0$ and $1$. However, we can build a new sequence whose series does converge. Define
-\\[
-	t_n = \frac{1}{n} \sum_{k = 1}^{n} S_k
-\\]
-then computation shows that
-\\[
-	\sum_{n = 1}^\infty t_n = \frac{1}{2}.
-\\]
-By summing up the partial sums of the non-convergent series for $a_n = (-1)^n$ and averaging these sums, we obtain a convergent series.
+</div>
+and thus diverges.
 
-The same trick improves the convergence properties of the Dirichlet kernel. Define the Frejer kernel to be
+In fact, this $\ln(N)$ divergence allows one to [construct a continuous function](https://en.wikipedia.org/wiki/Convergence_of_Fourier_series#Pointwise_convergence) $f$ such that
+\\[
+	(D_N * f)(0) \to \infty.
+\\]
+This means that we cannot, in general, reconstruct $f$ pointwise from its Fourier series. 
+
+However, there is a solution. Let's examine a simpler problem. We know the series
+\\[
+	S_N = 	\sum_{n = 1}^N (-1)^n
+\\]
+oscillates between $0$ and $1$g and thus does not converge. However, one can show that
+\\[
+	\sum_{k = 1}^\infty \frac{k} S_k = \frac{1}{2}.
+\\]
+
+By averaging the partial sums of the divergent series, we manage to gain convergence. This averaging partial sums are called Cesaro means.
+
+The same trick improves the convergence properties of the Dirichlet kernel. Define the Frejér kernel to be
 \\[
 	F_N = \frac{1}{N + 1} \sum_{n = 0}^N D_n.
 \\]
-Notice that in Fourier space, this is given by
-\\[
-	\hat{F}_N(k) = 1 - \frac{\abs{k}}{N + 1}
-\\]
-which looks like a triangle
+Again, both in physical and Fourier space this looks like
 
-(insert image in Fourier space)
-### Problem 3a
+(JSX plot of both in physical and fourier space)
+
+Using the form
+\\[
+	F_N = \frac{1}{N + 1} \frac{\sin^2((N + 1) \pi x)}{\sin^2(\pi x}
+\\]
+<div class="proof">
+<span class="homework_title">Problem 3</span>
 We can place write this in closed form as
 \\[
 	F_N = \frac{1}{N + 1} \frac{\sin^2((N + 1) \pi x)}{\sin^2(\pi x}
@@ -128,7 +167,7 @@ Using the closed form of the Dirchlet kernel, we can write
 		    &= \frac{1}{(N + 1) \sin(\pi x)} \sum_{k = 0}^N \im{z^{1/2} z^k} \cr
 		    &= \frac{1}{(N + 1) \sin(\pi x)} \im{\sum_{k = 0}^N z^{1/2} z^k} \cr
 		    &= \frac{1}{(N + 1) \sin(\pi x)} \im{z^{1/2} \frac{z^{N + 1} - 1}{z - 1}} \cr
-		    &= \frac{1}{(N + 1) \sin(\pi x)} \im{\frac{z^{N + 1} - 1}{z^{1/2} - z^{-1/2}}}
+		    &= \frac{1}{(N + 1) \sin(\pi x)} \im{\frac{z^{N + 1} - 1}{z^{1/2} - z^{-1/2}}} \cr
 		    &= \frac{1}{2(N + 1) \sin^2(\pi x)} \im{z^{N + 1} - 1}
 	\end{aligned}
 \\]
@@ -138,42 +177,56 @@ Then we can write
 \\]
 So we have
 \\[
-	F_N = \frac{2 \sin^2((N + 1) \pi x)}{2(N + 1) \sin^2(\pi x) = \frac{\sin^2((N + 1) \pi x)}{(N + 1) \sin^2(\pi x)}.
+	F_N = \frac{2 \sin^2((N + 1) \pi x)}{2(N + 1) \sin^2(\pi x)} = \frac{1}{N + 1} \left( \frac{\sin((N + 1) \pi x)}{\sin(\pi x)} \right)^2.
 \\]
+</div>
 
-## Problem 3b
-This new kernel is an approximate identity. We just saw that $F_N \geq 0$ and since $\int D_N dx = 1$ then
+we can see that $F_N$ does not have the same unbounded $L^1$ norm as $D_N$. 
+
+<span class="homework_title">Problem 3b</span>
+The closed form of $F_N$ shows that $F_N \geq 0$, so
 \\[
-	\int_0^1 F_N dx = \frac{1}{N + 1} \sum_{n = 0}^N \int_0^1 D_n dx = \frac{N + 1}{N + 1} = 1.
+	\int_0^1 F_N dx = \frac{1}{N + 1} \sum_{n = 0}^N \int_0^1 D_n dx = \frac{N + 1}{N + 1} = 1 < \infty
 \\]
 
-The fact that $F_N \geq 0$ immediately implies that
-\\[
-	\norm{F_N}_{L^1} = \int_0^1 \left| F_N \right| dx = \int_0^1 F_N dx = 1 < \infty
-\\]
-so $F_N$ satisfies property two. It only remains to show that most of the mass concentrates at the origin. 
-
-Note that for $x \in [0, \pi]$, we have that $\sin(x/2)$ is an increasing function, so its increasing on $(\delta, \pi]$. Thus
+We can also see that most of the mass concentrates at the origin. For $x \in [0, \pi]$, we have that $\sin(x/2)$ is an increasing function, so it is increasing on $(\delta, \pi]$. Thus
 \\[
 	\frac{1}{\sin^2(x/2)} \leq \frac{1}{\sin^2(\delta / 2)}
 \\]
 so
 \\[
-	\int_0^1 F_N dx  \leq \frac{1}{N + 1} \int_\delta^1 \frac{1}{\sin^2(\delta / 2)} \leq \frac{C}{N}.
+	\int_0^1 F_N dx \leq \frac{1}{N + 1} \int_\delta^1 \frac{1}{\sin^2(\delta / 2)} \leq \frac{C}{N}.
 \\]
 
-Taking $N \to \infty$ shows that
+The Fejér kernel satisfies the following three properties
+1. $F_N$ has mean of $1$. That is
 \\[
-	\norm{F_N}_{L^1} \to 0.
+	\int_0^1 F_N dx = 1
 \\]
-
-### Problem 4a
-We can build other kernels from the Ferer kernel. For example, the Valee Poussin kernel given by
+2. $F_N$ has bounded mass
 \\[
-	V_N(x) = 2F_{2N + 1}(x) - F_N(x)
+	\norm{F_N}_{L^1} &lt; \infty
+\\]
+3. $F_N$ has mass mostly concentrated near the origin.
+\\[
+	\int_\delta^1 \abs{F}_N \to 0
 \\]
 
-Since integrals respect sums, this is an approximate identity almost trivially.
+*These three reasonable properties enable us to reconstruct continuous functions pointwise and functions in the spaces $L^p$ for $1 \geq p &lt \infty$ (see [1] for a proof).The failure of the Dirichlet kernel to satisfy the second two properties is exactly why we can only guarantee pointwise convergence for a continuous functions via Ferér means, but not the actual Fourier series.
+
+One can build other nice kernels (in fact called "good kernels") that satisfy the above three properties.
+
+<div class="extra_example">
+<span class="homework_title">Problem 4a</span>
+A simple example is the Valeé Poussin kernel given by
+\\[
+	V_N(x) = 2F_{2N + 1}(x) - F_N(x).
+\\]
+In physical and Fourier space, it looks like the following
+
+(JSX graph of the kernel in physical and Fourier space)
+
+Let's check that it satisfies our three desired properties. 
 
 To see that the mean is $1$, note that we just showed
 \\[
@@ -183,9 +236,10 @@ so we have
 \\[
 	\frac{1}{2\pi} \int_0^1 V_N(x) dx = \frac{1}{pi} \int_0^1 F_{2N + 1} - \frac{1}{2\pi}dx \int_0^1 F_{N} dx = 2 - 1 = 1.
 \\]
+
 The $L^1$ norm is also bounded by the triangle inequality
 \\[
-	\norm{V_N}_{L^1} \leq 2\norm{F_{2N + 1}}_{L^1} + \norm{F_N}_{L^1} = 3.
+	\norm{V_N} \leq 2\norm{F_{2N + 1}} + \norm{F_N} = 3.
 \\]
 We also have 
 \\[
@@ -193,7 +247,7 @@ We also have
 \\]
 so again by the triangle inequality for $L^1$, we have
 \\[
-	\int_\delta^1 V_N dx = \\mathcal{O}\left( \frac{1}{N} \right
+	\int_\delta^1 V_N dx = \mathcal{O}\left( \frac{1}{N} \right)
 \\]
 so
 \\[
@@ -201,23 +255,5 @@ so
 \\]
 as $N \to \infty$.
 
-In Fourier space, we know that
-\\[
-	\hat{F}_N(k) = 1 - \frac{\abs{K}}{N}
-\\]
-which looks like a triangle. In Fourier space, the coefficients of the Valee Poussin kernel are thus the difference of two triangles.
-
-(figure of difference of two triangles)
-Explicitly, the Fourier coefficients for $V_N$ are
-\\[
-	\hat{V}_N(k) = 
-	\begin{cases}
-		-\abs{k} \frac{N + 1]{2N + 1} & \textrm{ if } \abs{k} \leq N \cr
-		1 - \frac{\abs{k}{2N + 1} & \textrm{ if } N < \abs{k} \leq 2N + 1 \cr
-		0 & \textrm{ otherwise }
-\\]
-
-The first property is natural, the second property guarantees the same norm as the identity operator, and the third property guarantees that the mass of $K_\epsilon$ is concentrated around the origin. From a probably point of view, an approximate identity produces a probability distribution where the particle is almost surely at the origin.
-
-References:
+## References:
 1. [http://www.math.unm.edu/~crisp/courses/wavelets/fall09/chap4.pdf](http://www.math.unm.edu/~crisp/courses/wavelets/fall09/chap4.pdf)
