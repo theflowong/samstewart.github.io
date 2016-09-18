@@ -1,0 +1,76 @@
+---
+layout: post
+date: 2016-09-18 18:00
+categories: homework cool-theorems spectral-theory
+---
+The Riesz-Fejér theorem tells us that if $P(x)$ is a positive trigonometric polynomial, then there exists another trigonometric polynomial $Q$ such that
+\\[
+	P = \abs{Q}^2.
+\\]
+In other words, $P$ has a square root which is also a trigonometric polynomial.
+
+<div class="proof">
+Consider the trigonometric polynomial
+\\[
+	P(x) = \sum_{k = -N}^N a_k e^{2 \pi x i}
+\\]
+which can be extended to a meromorphic function on $\C$
+\\[
+	P(z) = \sum_{k = -N}^N a_k z^k.
+\\]
+
+Since $P(z) \subset \R$ for $z \in S^1$, then we can deduce that
+\\[
+	a_{-k} = \overline{a}_k.
+\\]
+This constraint implies that $P(z)$ is completely determined by its behavior in the region $D_1(0) \backslash \{ 0 \}$. That is
+\\[
+	\overline{P(1/\overline{z})} = P(z)
+\\]
+
+<div class="proof">
+\\[
+	\begin{align}
+		\overline{P(1/\overline{z}} &= \sum_{k = -N}^N \overline{a}_k \frac{1}{z^k} \cr
+				            &= \sum_{k = -N}^N a_{-k} z^{-k} \cr
+					    &= \sum_{k = -N}^N a_k z^k \cr
+					    &= P(z)
+	\end{align}
+\\]
+</div>
+Hence, if $z \neq 0$ and $z$ is a root of $P$, then $1/ \, \overline{z}$ is also a root of $P$. 
+
+Now consider
+\\[
+	R(z) = z^N P(z)
+\\]
+which is a polynomial of degree $2N$. Due to the behavior of the roots of $P$, if $z$ is a root of $R(z)$, then again $1/ \, \overline{z}$ is a root of $R$. Assuming $a_{-N} \neq 0$, we can see that $z = 0$ is not a root of $R(z)$. Hence, the roots are precisely pairs $z$ and $1/ \, \overline{z}$.
+
+The fundamental theorem of algebra thus tells us that
+\\[
+	z^N P(z) = R(z) = c \prod_{i = 1}^N (z - \alpha_i)(z - 1/\overline{\alpha}_i) 
+\\]
+
+Now we assume $z \in S^1$. Then
+\\[
+	z^{-1} = \overline{z}.
+\\]
+
+This relation implies that
+\\[
+	P(z) = z^{-N} R(z) = \overline{z}^N R(z) = c \prod_{i = 1}^N (z - \alpha_i)(1 - \overline{z}/\overline{\alpha}_i )  = \widetilde{c} \prod_{i = 1}^N (z - \alpha_i)(\overline{z} - \overline{\alpha_i})
+\\]
+where $\widetilde{c}$ is some constant that is nonnegative since $P(x) > 0$. Define
+\\[
+	Q(z) = \sqrt{\widetilde{c}} \prod_{i = 1}^N (z - \alpha_i).
+\\]
+Since
+\\[
+	\overline{Q(z)} = \sqrt{\widetilde{c}} \prod_{i = 1}^N (\overline{z} - \overline{\alpha_i})
+\\]
+then our above relation between $P(z)$ and $R(z)$ gives
+\\[
+	P(z) = Q(z) \overline{Q(z)} = \abs{Q(z)}^2	
+\\]
+as desired.
+</div>

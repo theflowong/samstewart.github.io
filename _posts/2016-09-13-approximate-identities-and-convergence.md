@@ -3,6 +3,18 @@ layout: post
 date: 2016-09-13 17:00
 categories: course-notes harmonic-analysis homework
 ---
+<script type="text/javascript">
+$(document).ready(function() {
+	$('div.proof').map(function() {
+		$(this).append('[<a href="#" id="proof_open_close">Expand</a>]').click(function() {
+			console.log('you clicked!');
+		});
+	});
+//	$('div.proof').hide();
+});
+</script>
+{{ page.url }}
+
 A natural question is to ask if we reconstruct our original function $f$ from its Fourier series given by
 \\[
 	\sum_{-N}^N \widehat{f_k} e^{2 \pi i x k}. 
@@ -212,7 +224,7 @@ The Fejér kernel satisfies the following three properties
 	\int_\delta^1 \abs{F}_N \to 0
 \\]
 
-*These three reasonable properties enable us to reconstruct continuous functions pointwise and functions in the spaces $L^p$ for $1 \geq p &lt \infty$ (see [1] for a proof).The failure of the Dirichlet kernel to satisfy the second two properties is exactly why we can only guarantee pointwise convergence for a continuous functions via Ferér means, but not the actual Fourier series.
+*These three reasonable properties enable us to reconstruct continuous functions pointwise and functions in the spaces $L^p$ for $1 \geq p &lt; \infty$ (see [1] for a proof).The failure of the Dirichlet kernel to satisfy the second two properties is exactly why we can only guarantee pointwise convergence for a continuous functions via Ferér means, but not the actual Fourier series.
 
 One can build other nice kernels (in fact called "good kernels") that satisfy the above three properties.
 
@@ -254,6 +266,7 @@ so
 	\int_\delta^1 V_N dx \to 0
 \\]
 as $N \to \infty$.
+</div>
 
 ## References:
 1. [http://www.math.unm.edu/~crisp/courses/wavelets/fall09/chap4.pdf](http://www.math.unm.edu/~crisp/courses/wavelets/fall09/chap4.pdf)
