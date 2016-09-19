@@ -7,11 +7,60 @@
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+  <link rel="stylesheet" href="{{ "/css/prelim_solutions.css" | prepend: site.baseurl }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
-<link rel='stylesheet' id='open-sans-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&#038;subset=latin%2Clatin-ext&#038;ver=4.2.4' type='text/css' media='all' />
+  <link rel='stylesheet' id='open-sans-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&#038;subset=latin%2Clatin-ext&#038;ver=4.2.4' type='text/css' media='all' />
+  <script type="text/javascript" src="/scripts/jquery-3.1.0.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Titillium+Web:600italic,600,400,400italic' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+	MathJax.Hub.Config({
+		tex2jax: {
+			inlineMath: [ ['$', '$'], ['$$', '$$' ] ],
+			displayMath: [ [ '\\[', '\\]'], ['\\\\[', '\\\\]']  ]		
+		}
+		});
+
+	MathJax.Hub.Register.MessageHook("Math Processing Error", function (message) {
+			console.log(message[2]);
+			});
+	MathJax.Hub.Register.MessageHook("TeX Jax - parse error", function (message) {
+			console.log(message[1]);
+			console.log(message[2]);
+			});
+$(document).ready(function() {
+
+	// code to handle the expandable proof buttons	
+	$('div.proof').map(function() {
+		$(this).wrap('<div class="proof_container"> </div>');
+		$(this).parent().prepend('<div class="proof_bar"> <div class="proof_text">Proof</div> <a href="#" class="proof_expand">[Expand]</a></div>');
+		$(this).parent().append('<div class="proof_footer"> &#8718; </div>');
+		$(this).hide();
+		$(this).parent().children('.proof_footer').hide();
+
+		$(this).parent().find('.proof_bar .proof_expand').click(function(event) {
+
+			var container = $(this).parent().parent();
+			if ($(this).text() == "[Expand]") {
+				container.children('.proof').show();
+				container.children('.proof_footer').show();
+
+				$(this).text("[Collapse]");
+			} else {
+				container.children('.proof').hide();
+				container.children('.proof_footer').hide();
+
+
+				$(this).text("[Expand]");
+			}
+
+			event.preventDefault();
+		});
+	});
+});
+
+</script>
 <script type="text/javascript" src="/scripts/jsxgraphcore.js"></script>
 
 {% if site.google_author %}<link rel="author" href="{{ site.google_author }}"/>{% endif %}
@@ -51,7 +100,7 @@ $$
 \newcommand{\lebRing}{{\ring_{\text{Leb}}}}
 \newcommand{\Rtwo}{{\mathbb{R}^2}}
 \newcommand{\Rn}{{\mathbb{R}^n}}
-\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\norm}[1]{{\left\| #1 \right\|}}
 \newcommand{\dotp}[2]{{#1 \cdot #2}}
 \newcommand{\abs}[1]{\left| #1 \right|}
 \newcommand{\powerset}[1]{{\mathcal{P}(#1)}}
@@ -67,6 +116,7 @@ $$
 \newcommand{\shortseq}[1]{{\left( {#1} \right) }}
 \newcommand{\interior}[1]{{\textrm{Int} \left( {#1} \right)}}
 \newcommand{\innerp}[2]{{\left< #1,\, #2\right>}}
+\newcommand{\im}[1]{{\textrm{Im}\left\{ #1 \right\} }}
 $$
 {% endraw %}
 

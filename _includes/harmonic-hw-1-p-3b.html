@@ -1,0 +1,15 @@
+The closed form of $F_N$ shows that $F_N \geq 0$, so
+\\[
+	\int_0^1 F_N dx = \frac{1}{N + 1} \sum_{n = 0}^N \int_0^1 D_n dx = \frac{N + 1}{N + 1} = 1 < \infty
+\\]
+
+We can also see that most of the mass concentrates at the origin. For $x \in [0, \pi]$, we have that $\sin(x/2)$ is an increasing function, so it is increasing on $(\delta, \pi]$. Thus
+\\[
+	\frac{1}{\sin^2(x/2)} \leq \frac{1}{\sin^2(\delta / 2)}
+\\]
+so
+\\[
+	\int_0^1 F_N dx \leq \frac{1}{N + 1} \int_\delta^1 \frac{1}{\sin^2(\delta / 2)} \leq \frac{C}{N}.
+\\]
+
+

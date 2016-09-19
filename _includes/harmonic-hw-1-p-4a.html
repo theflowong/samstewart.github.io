@@ -1,0 +1,50 @@
+A simple example is the Valeé Poussin kernel given by
+\\[
+	V_N(x) = 2F_{2N + 1}(x) - F_N(x).
+\\]
+In physical and Fourier space, it looks like the following
+<script type="text/javascript">
+	$(document).ready(function() {
+		var brd = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-30, 2, 33, -.5], axis: true});
+		var nSlider  = brd.create('slider', [[7, 1.5], [20, 1.5], [1, 1, 40]], {name: 'N', snapWidth: 1});
+		function fejerFourierSpace(n, k) {
+			return Math.max(1 - Math.abs(k)/(n + 1), 0);
+		}
+		function valeePoussin(n, k) {
+			return 2*fejerFourierSpace(2*nSlider.Value() + 1, k) - fejerFourierSpace(nSlider.Value(), k);
+		}
+		var function_plot = brd.create('functiongraph', [function(x) {
+			return valeePoussin(nSlider.Value(), Math.floor(x));
+		}]);
+	});
+</script>
+<div id="jxgbox" class="figure"> </div>
+Let's check that it satisfies our three desired properties. 
+
+To see that the mean is $1$, note that we just showed
+\\[
+	\frac{1}{2\pi} \int_0^1 F_N(x) = 1,
+\\]
+so we have
+\\[
+	\frac{1}{2\pi} \int_0^1 V_N(x) dx = \frac{1}{pi} \int_0^1 F_{2N + 1} - \frac{1}{2\pi}dx \int_0^1 F_{N} dx = 2 - 1 = 1.
+\\]
+
+The $L^1$ norm is also bounded by the triangle inequality
+\\[
+\norm{V_N} \leq 2\norm{F_{2N + 1}} + \norm{F_N} = 3.
+\\]
+We also have 
+\\[
+	\int_\delta^1 F_N  = \mathcal{O}\left( \frac{1}{N} \right)
+\\]
+so again by the triangle inequality for $L^1$, we have
+\\[
+	\int_\delta^1 V_N dx = \mathcal{O}\left( \frac{1}{N} \right)
+\\]
+so
+\\[
+	\int_\delta^1 V_N dx \to 0
+\\]
+as $N \to \infty$.
+

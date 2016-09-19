@@ -1,0 +1,30 @@
+Since the identity operator has norm $1$, one expects that $D_N$ should have bounded norm. That is,
+\\[
+	\norm{D_N}_{L^1} \leq C.
+\\]
+
+Unfortunately, this is not the case. Instead, the $L^1$ norm blows up exponentially as the following computation shows.
+
+\\[
+	\begin{align}
+		\norm{D_N} & = \int_0^1 \left| \frac{\sin((2N + 1) \pi x)}{\sin(\pi x)} \right| dx \cr
+			&\geq  \int_0^1 \left| \frac{\sin((2N + 1) \pi x)}{x} \right| dx \cr
+	  		&=  C \int_0^{(2N + 1) \pi} \left| \frac{\sin(x)}{x} \right| dx \cr
+		  	&= C \sum_{k = 0}^{2N + 1} \int_{k\pi}^{(k + 1) \pi} \frac{\sin(x)}{x} dx \cr
+		        &\geq C\sum_{k = 0}^{2N + 1} \int_0^\pi \frac{\sin(x)}{k \pi + x}dx \cr
+		  	&\geq C \sum_{k = 0}^{2N + 1} \frac{1}{k \pi + \pi} \int_0^\pi \sin(x) dx \cr
+		        &\geq C \sum_{k = 1}^{2N} \frac{1}{k}
+	\end{align}
+\\]
+
+By the definition of the Riemann integral, we know that
+\\[
+	\sum_{k = 1}^{2N} \frac{1}{k} \geq  \int_1^{2N} \frac{1}{x} = \ln(2N) \geq \ln(N)
+\\]
+so
+\\[
+	\norm{D_N}_{L^1}  \geq C \ln(N)
+\\]
+A similar computation shows that $\norm{D_N}^{L^1} \leq c \ln(N)$. Hence, the norm of the Dirichlet kernel blows up like $\ln N$.
+
+

@@ -1,0 +1,25 @@
+We can place write this in closed form as
+\\[
+	F_N = \frac{1}{N + 1} \frac{\sin^2((N + 1) \pi x)}{\sin^2(\pi x}
+\\]
+
+Using the closed form of the Dirchlet kernel, we can write
+\\[
+	\begin{aligned}
+		F_N &= \frac{1}{(N + 1) \sin(\pi x)} \sum_{k = 0}^N \sin((2k + 1) \pi x) \cr
+		    &= \frac{1}{(N + 1) \sin(\pi x)} \sum_{k = 0}^N \im{z^{1/2} z^k} \cr
+		    &= \frac{1}{(N + 1) \sin(\pi x)} \im{\sum_{k = 0}^N z^{1/2} z^k} \cr
+		    &= \frac{1}{(N + 1) \sin(\pi x)} \im{z^{1/2} \frac{z^{N + 1} - 1}{z - 1}} \cr
+		    &= \frac{1}{(N + 1) \sin(\pi x)} \im{\frac{z^{N + 1} - 1}{z^{1/2} - z^{-1/2}}} \cr
+		    &= \frac{1}{2(N + 1) \sin^2(\pi x)} \im{z^{N + 1} - 1}
+	\end{aligned}
+\\]
+Then we can write
+\\[
+	\im{z^{N + 1} - 1} = \im{i^2 (1 - z^{N + 1})} = 1 - \cos(2(N + 1) \pi x) = 2 \sin^2((N + 1) \pi x).
+\\]
+So we have
+\\[
+	F_N = \frac{2 \sin^2((N + 1) \pi x)}{2(N + 1) \sin^2(\pi x)} = \frac{1}{N + 1} \left( \frac{\sin((N + 1) \pi x)}{\sin(\pi x)} \right)^2.
+\\]
+

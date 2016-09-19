@@ -30,22 +30,45 @@
 %	Can the blowup for our equation be translated into blowup for Euler?
 %	
 % Questions for Sverak:
-% 1. How could we use this model to generate blowup for Euler 3D?
-% 2. If we can rule out such a singularity near the boundary for Navier Stokes, then what is the point of this?
-% 3. Why do we flip the velocity field in the initial configuration?
-% 4. Why does he expect a singularity at the center point
-% 5. Why don't we care about Burger's equation?
+% 1. How could we use this model to generate blowup for Euler 3D? [Behavior near the axis)
+% 2. If we can rule out such a singularity near the boundary for Navier Stokes, then what is the point of this? (still break down of Newtonian physics. Superfluid)
+% 3. Why do we flip the velocity field in the initial configuration? (best configuration for generating blowup)
+% 4. Why does he expect a singularity at the center point (you expect shock formation)
+% 5. Why don't we care about Burger's equation? (we do. it's a good 1d model. Read Constantine-Lax 2003 paper)
 % 6. Is there something special about the 1D equation that we hope will connect the blowup to the 2D equation?
+%	No, actually closer to 3D equation.
 % 7. Why isn't there a canonical choice?
+%	Hard to decide what to model.
 % 8. Can we add some kind of physical explanation for our 1D results? For example, why do we expect the first derivative where the vorticity is zero to be conserved?
-% 9. Why this no flux condition?
+% 9. Why this no flux condition? [ exactly why Navier stokes doesn't have blowup near the boundary)
 % 10. Why is vorticity so important? How is it related to electromagnitism?
 % 11. What is the hyperbolic blowup scenario?
-% 12. How do we choose these Biot-Savart laws?
+% 12. How do we choose these Biot-Savart laws? [ Described later in Sverak's paper ]
 
+% After discussiong with Sverak
+% Future goals:
+% 1. Global stability for De Gregorio
+% 2. Link to axis-symmetric flow in full 3D euler (with swirl) 
+% 3. Perhaps explore Boussinque 1D model for full 2D blowup
+
+% Boussinique flow has singularity at the boudnary from axis symmetric case. The boundary is closed, so we can model it with a 1D equation quite accurately.
 % Good motivating papers: http://people.cs.uchicago.edu/~const/eule.pdf
 % De Gregorio's motivating paper
+% Constantine-Lax-Majda 1D model (2003). De Gregorio is essentially a regularization of this
+% w_t + u w_x = 0 regular transport
+% 1d Boussinique flow (has blowup?)
+% De Gregorio (vorticity transported as a vector, not as a scalar)
 
+% Vorticity transported as scalar for 2D (hence regularity) while vorticity is transported as vector in 3D. From this perspective, De Gregorio tells us 3D flow might be regular.
+
+% the addition of teh transport term w_x u seems to add some kind of regularization effect.
+
+% we can prove rigorously our local stability, and have numerically global attractor. There is a gap here and I plan to close it	
+% what we have
+%	Linear stability
+% what we don't have
+% 	nonlinear stability
+%	global attractor (not even preventing blowup)
 During his interview on the Colbert Report, Professor Terrance Tao told the audience that he was ``trying to see if water can spontaneously blow up.'' Looking concerned, Colbert interrupted and said ``Terrance, that would be \textit{good to know}.'' Indeed, existence of smooth initial data that leads to blowup for the Navier-Stokes equations is a crucial problem in fluid dynamics. It is also fascinatingly difficult.
 
 A more tractable problem might be to find blowup solutions to Eulers' equations, that is, restrict attention to inviscid fluids (fluids that behave like water). But even two- and three-dimensional Eulers' equations are difficult to attack in generality. Hence, to study only a one-dimensional flow, we can consider the boundary for sufficiently symmetric flows.
