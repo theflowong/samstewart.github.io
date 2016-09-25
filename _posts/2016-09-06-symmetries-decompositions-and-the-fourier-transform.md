@@ -30,8 +30,6 @@ v = e_1 v_1 + e_2 v_2
 \\]
 where $$e_1 = (1, 0), e_2 = (0, 1)$$. The important point is that this decomposition is possible *because the plane is symmetric in the directions $$e_1, e_2$$.
 
-
-
 This process of using symmetries of one space to decompose another space that depends on the first is especially useful in more complicated spaces. Recall that the Fourier transform acts on spaces more complicated than the plane. To build this space that the Fourier transform acts on, we add a level of resolution (see <a href="http://worrydream.com/LadderOfAbstraction/">moving up and down the ladder of abstraction</a>) and view <em>functions</em> as vectors. These functions eat elements in $$S^1$$ and spit out elements in $$\C$$,  we'll add the obvious constraint that these vectors should have finite length, or equivalently, finite energy. Mathematically, this becomes 
 \\]
 \int_{S^1} \abs{f}^2 dz &lt; \infty.
