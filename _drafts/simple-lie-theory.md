@@ -41,3 +41,34 @@ Then we consider the corresponding representations induced by these actions on t
 We call the set of vector fields stablized by the left action "left invariant vector fields." We can identify them with $v(1)$ so that we have an identification with the tangent space at the identity.
 
 Why is it obvious that modding out by stabilizer gives bijection with orbits? Isn't this the orbit stabilzer theorem?
+
+We want to put a topology on the homomorphisms of a space. Somehow related to Lie theory.
+
+For matrix groups, the exponential map and the logarithm map relate the Lie algebra to the Lie group.
+
+The exponential map generates something called a one-parameter subgroup, the same thing we obtain when solving a differential equation.
+
+We call $A$ an infinitisimal generator if
+\[
+	\dot{x} = A(t) x
+\]
+This is also equal to the derivative of $exp(t A) = M(t)$ which we call the one parameter subgroup.
+
+Solutions to ODEs are called flows, and they are essentially using the exponential map to convert an infinitisimal symmetry of the space (matrix $A$) into a full symmetry of the space (or a solution to an ODE).
+
+We can prove that each of the classical groups are Lie algebras via various tricks. For $SL(n, \R)$, we can note that
+\[
+	\textrm{ det exp } = \textrm{ exp tr }
+\]
+so the condition of $\textrm{det } X = 1$ becomes $\textrm{tr } x = 0$ in the tangent space (i.e. Lie algebra). We note that for $A$ close to the identity, by the continuity of $\textrm{exp}$ we can write $X = \textrm{exp}(x)$ for some $x \in GL(n, \R)$. 
+
+Hence, we have a bijection between a subspace of $GL(n, \R)$ and a neighborhood of the identity in $SL(n, \R)$. 
+
+The group structure of the manifold means that everything is determined by the identity (we can just shift to zero), so we have completely determined the global structure of the manifold. The whole manifold $SL(n, \R)$ is simply copies of $\{ x \in GL(n, \R) \mid \textrm{tr } x = 0 \} glued at each point.
+
+Hence our desire for the left invariant vector fields. We can identity the whole manifold structure by looking at things invariant under left translation. We are really using the symmetry of the underlying object to reduce the problem.
+
+
+https://www.math.stonybrook.edu/~kirillov/mat552/liegroups.pdf
+https://www.maa.org/sites/default/files/pdf/upload_library/22/Ford/Howe600-623.pdf
+
