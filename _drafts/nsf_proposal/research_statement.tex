@@ -73,41 +73,43 @@
 %	global attractor (not even preventing blowup)
 
 % what is Euler equations with flow?
-Blowup of solutions from smooth initial data for Navier-Stokes is quite literally ``a million-dollar question'' according to the Clay Institute [cite]. But the mathematical fluid dynamicist Constantin thinks that constructing a blowup solution to the Euler equations, instead of Navier-Stokes equation,  is more tractable. He argues that ``the occurrence of an infinite momentum...with positive kinematic viscosity has no physical justification'' [cite]. Despite the lack of viscosity, a blowup solution to Euler equations would already be evidence that the current models are insufficient.
+Blowup of solutions from smooth initial data for Navier-Stokes is quite literally ``a million-dollar question'' according to the Clay Institute [cite]. A related problem is the existence of blowup solutions to the Euler equations. Despite the unrealistic lack of viscosity, a blowup solution to Euler equations would already be evidence that the current models are insufficient.
 
-One potential approach, which dates at least back to Burgers [cite], is to study 1D model equations. A simple beginning is a 1D model for 2D Euler studied by Constantin et el [cite]
-\[
-	\label{eq:constantin}
+One potential approach, which dates at least back to Burgers [cite], is to study 1D model equations. A simple beginning is a 1D model for 2D Euler studied by Constantin et el [cite]. Written with $\omega$ as vorticity and $u$ as velocity, we have
+\begin{equation}
 	\omega_t = u_x \omega
-\]
-with the Biot-Savart law $u_x = H \omega$. The authors exhibited solutions that blowup in finite time. A more complicated example is a model of 2D Boussinesq flow at the boundary. The 2D Boussinesq system represents a flow in the half-plane that is similar to axi-symmetric 3D Euler. Strong numerical evidence points to a singularity near the boundary, but a rigorous proof is difficult [cite]. A possible 1D model of the boundary behavior, studied in [cite Sverak's paper], is given by
-\begin{equation*}
-	\label{eq:boussinisq_system}
+	\label{eq:constantin}
+\end{equation}
+with the Biot-Savart law $u_x = H \omega$ where $H$ is the Hilbert transform. The authors exhibited solutions that blowup in finite time. A more complicated example is a model of 2D Boussinesq flow. The 2D Boussinesq system represents a flow in the half-plane that is similar to axi-symmetric 3D Euler. Numerical evidence suggests a singularity near the boundary of 2D Boussinesq flow, but a rigorous justification has been difficult [cite]. A possible 1D model at the boundary is given by 
+\begin{equation}
 	\begin{aligned}
 		\omega_t + u \omega_x &= \theta_x \cr
 		\theta_t + u \theta_x &= 0
 	\end{aligned}
-\end{equation*}
-with the same Biot-Savart law $u_x = H \omega$ as before. First numerical evidence pointed to singularity formation [cite], before Sverak et el exhibited actual blowup solutions. This 1D system models flow at the boundary of the 2D Boussinesq system, which itself is related to axi-symmetric 3D Euler, this 1D model can provide insight into the 3D setting.
+	\label{eq:boussinisq_system}
+\end{equation}
+with the same Biot-Savart law $u_x = H \omega$ as before but with $\theta$ representing temperature. Sverak et el followed numerical evidence and discovered blowup solutions. 
 
-System (\ref{eq:constantin}) models vorticity transported as a \textit{scalar}. If we add the transport term $\omega_x u$ then we obtain an equation of De Gregorio [3] given by
-\[
+The model equation we studied is somehow between the above two models. Our equation, first discussed by De Gregorio [3], is the same as (\ref{eq:constantin}) except for the addition of the transport term $u \omega_x$. In vorticity form the equation is given by 
+\begin{equation}
 	\omega_t + u \omega_x = u_x \omega, \quad u_x = H \omega
-\]
-on the 1D torus. The question of blowup has been open since 1990 [cite]. When written with the Lie bracket, 
+	\label{eq:degregorio}
+\end{equation}
+on the 1D torus. The question of blowup has been open since 1990 [cite]. 
+
+When written with the Lie bracket, 
 \[
 	\omega_t + [u, \omega] = 0,
 \]
-one can see that $\omega$ is now transported as a one dimensional \textit{vector}. This distinction is similar to the difference between 2D and 3D Euler, and thus the resulting differences in regularity. Solutions to (\ref{eq:constantin}) blow up in finite time, but perhaps the addition of the convection term $u \omega_x$ somehow regularizes the solutions.
+one can see that $\omega$ is now transported as a one dimensional \textit{vector}. This contrasts its transport as a \textit{scalar} in (\ref{eq:constantin}). This distinction, as in the case of 2D and 3D Euler, suggests a difference in regularity of the solutions. Solutions to (\ref{eq:constantin}) blow up in finite time, but perhaps solutions to (\ref{eq:degregorio}) stay bounded.
 
-Indeed, Professor Sverak, Professor Hao Jia, and I have numerical evidence and theoretical insights that suggest the solutions to (\ref{eq:de_gregorio}) do not blow up. In some sense, adding the convection term to (\ref{eq:majda_model}) regularizes the solution. I wrote a solver with the spectral method to gain intuition about the behavior of solutions. From the numerics, it appears that there are two global attractors: $\sin x$ and $\cos x$. Thus far, we have managed to prove local linear stability of these equilibria and are preparing our paper for publication. Already the results are exciting since we are one step closer to eliminating blowup solutions. 
+Professor Sverak, Professor Hao Jia, and I have developed numerical and theoretical evidence that suggests solutions to (\ref{eq:degregorio}) do not blow up. Somehow, adding the convection term to (\ref{eq:majda_model}) regularizes the solution. I wrote a spectral solver to gain intuition about the behavior of solutions before we began working on the theory. From the numerics, it appears that there are two global attractors: $\sin x$ and $\cos x$. Thus far, we have managed to prove local linear stability of these equilibria and are preparing our paper for publication. Already the results are exciting since we are one step closer to eliminating blowup solutions. 
 
-This project has sparked my interest in 1D model equations for the Euler equations. My goal is first to understand De Gregorio's equation completely. The question of global stability of the equilibrium solutions remains open, though the numerics strongly suggest an affirmative answer. To prove local stability, we have observed that solutions to the linearized equation are complex analytic, allowing us to complexify the problem and apply complex ODE theory to rule out discrete spectra, and hence periodic solutions. Moving to nonlinear stability is more difficult, but a perturbative approach might work. (ask Vladimir about global stability, that is, proving they are attractors. Should I mention blowup results?).
+This project has sparked my interest in 1D model equations for the Euler equations. My goal is first to understand (\ref{eq:degregorio}) better. To prove local stability, we have observed that solutions to the linearized equation are complex analytic, allowing us to complexify the problem and apply complex ODE theory to rule out discrete spectra, and hence periodic solutions. Moving to nonlinear stability is more difficult, but a perturbative approach might work.
 
-There is a connection between De Gregorio's equation and behavior of axi-symmetric 3D Euler with swirl away from the axis. This might hint that 3D Euler behaves nicely away from the axis. Like the existence of blowup solutions to the 1D model (\ref{eq:boussinisq_system}) is a potential starting point to constructing blowup solutions for 2D Euler, the lack of blowup solutions to the 1D De Gregorio model suggests that axi-symmetric 3D Euler is regular away from the axis. I plan to explore this connection more rigorously.
+% Ask Vladimir about global stability
 
-In the end, we hope to hope to show that De Gregorio's model has no blowup solutions. However, as discussed earlier, the 1D model for 2D Boussinesq flow studied by Sverak et el., exhibited blowup solutions, suggesting a potential singularity in two dimensions. I plan to explore the 1D models for Boussinesq flow, first numerically and then analytically, in the hopes of making a stronger connection between the model equations and the behavior of the full 2D flow.
-
+There is a connection between (\ref{eq:degregorio}) and behavior of axi-symmetric 3D Euler with swirl away from the axis. Lack of blowup solutions might suggest that 3D Euler behaves nicely away from the axis. I plan to explore this connection more rigorously.
 
 \textbf{Broader Impact}
 We interact with fluids daily but it is easy to overlook their beautiful complexity. Wanting to share my excitement, I have found two novel ways to impact the general public. First, I have arranged to give a talk at Cafe Scientifique about fluid dynamics. Cafe Scientifique is a nation-wide program that hosts scientists for outreach to the general public. The local chapter in Minneapolis is hosted in Bryant Lake-Bowl Theatre, a local bar and bowling alley. I will be the first mathematician giving a presentation. I am working hard to make my presentation accessible and entertaining to nonspecialists by collaborating with a fellow graduate student who studied theatre in college. 
@@ -122,6 +124,8 @@ Having taken a year long PDE course, a year long fluids course, and passing all 
 	\item 1D model for Boussinesq flow. Available at \url{http://arxiv.org/pdf/1312.4913v1.pdf} 
 	\item De Gregorios paper
 	\item Sveraks paper in 2014 for double exponential growth (Tao likes this)
-	\item Sveraks paper for finite time blowup. http://arxiv.org/pdf/1407.4776.  
+	\item Sveraks paper for finite time blowup. http://arxiv.org/pdf/1407.4776. 
+	\item Nonlinear stability \url{http://depts.washington.edu/bdecon/workshop2012/g_stability.pdf}.
+	\item Survey of regularity for Navier Stokes.http://arxiv.org/pdf/math/0703406v1.pdf 
 \end{enumerate}
 \end{document}
