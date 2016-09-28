@@ -18,7 +18,9 @@ You can say, "house built with a hammer." You have taken two vocabulary words "h
 This extends to the general structure of mathematics. Though most students don't see this structure in highschool, and even in college, math is essentially a language comprised of definitions and theorems. The definitions are the "vocabulary words" and the theorems are the "grammatical rules" for creating new sentences. Math thus exploits our amazing ability for language.
 
 There are thus main reasons for the effectiveness of math:
+
 1. Human beings can see simple stuff (patterns) in complicated scenarios. 
+
 2. After observing patterns, we can generate linguistic rules to manipulate the patterns.
 
 The complexitiy of math mirrors the complexity in human language: more sophisticated definitions lead to more powerful results. Take as an example the English word "good." As a vocabulary word, it encompasses a huge collection of concepts. Food is good, happiness is good, and being alive is good. Its lack of descriptive power has a downside: you can't make precise statements with it.

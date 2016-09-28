@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 date: 2016-09-07 17:54
 categories: harmonic-analysis course-notes
 ---
