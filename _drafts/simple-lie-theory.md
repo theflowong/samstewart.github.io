@@ -72,3 +72,31 @@ Hence our desire for the left invariant vector fields. We can identity the whole
 https://www.math.stonybrook.edu/~kirillov/mat552/liegroups.pdf
 https://www.maa.org/sites/default/files/pdf/upload_library/22/Ford/Howe600-623.pdf
 
+How do we know that $O(n), SO(n)$ are Lie groups?
+
+Note that $A = exp(x)$ has $A A^T = exp(x) exp(x)^T = exp(x + x^T) = 1$ so $x + x^T = 0$. That is, the Lie algebra for $O(n)$ is collection of skew symmetric matrices.
+
+Since $SO(n) \subseteq O(n)$ is the connected neighborhood of the identity, then its Lie algebra is contained in $x + x^T = 0$ (indeed, we showed above that it is $\textrm{tr } x = 0$.
+
+Above we extended the definition of the exponential to matrices. This worked in the case of matrix groups (why is the exponential so important here?), but we need something more general for the case of arbitrary Lie groups.
+
+Define the one-parameter subgroup $\gamma_x(1)$ to be a smooth morphism of Lie groups $\R \to G$ such that $\gamma_x'(0) = x$. Then we define our exponential map to be
+\[
+	exp(x) = \gamma_x(1)
+\]
+
+In other words, to jump from the Lie algebra to the Lie group, we take a tangent vector, put a curve through it on the manifold, and follow it back to the identity. The identity is important simply because of the left translation invariance.
+
+Examples of $S^1$. We see that $exp(\theta) = e^{2\pi \theta}$ or $exp(a) = a \textrm{ mod } \Z$ for $a \in $\R$. In this sense, it acts a bit like a covering map?
+
+We can describe $S^1$ as either $\R / \Z$ or as a circle in the complex plane. In the second case, $z = e^{2 \pi i \theta}$
+
+We can ask how addition in Lie group leads to product in Lie algebra. The second order term is given by the commutator $[x, y]$. The associativity of the Lie group operation leads to Jacobi identity for this operator. Hence, we have a vector space with a bilinear form.
+
+Morphisms of Lie groups can be taken to morphisms of Lie algebras that respect the commutator. Lie theory is thus again exploring the functor between Lie groups and Lie algebras.
+
+Our definition of a Lie algebra can thus be made more sophisticated. A Lie algebra is a vector space with a skew symmetric bilinear form $[x, y]$ that satisfies the Jacobi identity.
+
+Our previous description of the tangent space at the identity can be re-described as follows: for every Lie group, the space $g = T_1 M$ has the structure of a Lie algebra. Whats more, we can identity $Hom(G_1, G_2)$ with $Hom(g_1, g_2)$. 
+
+
