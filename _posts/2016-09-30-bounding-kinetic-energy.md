@@ -11,7 +11,7 @@ Imagine that $v(t)$ is the velocity of some particle on $\R$ with mass $1$ such 
 
 Can we bound the kinetic energy of the particle in terms of the size of the velocity and acceleration fields? The answer is yes, and we will obtain the following bound
 \\[
-	\norm{v}_\infty \leq 2 \norm{v}_p \norm{a}_q
+	\norm{v}_\infty^2 \leq 2 \norm{v}_p \norm{a}_q
 \\]
 where $a = v'$ is the acceleration.
 
@@ -48,6 +48,7 @@ Hence the kinetic energy is bounded by the size of the velocity and acceleration
 	\norm{K(t)}_\infty \leq \norm{v}_p \norm{a}_q.
 \\]
 
+In short, as long as the particle doesn't accelerate too quickly, the total kinetic energy of the system will stay bounded.
 ## Homework for Harmonic Analysis Class
 Note: for my harmonic analysis class I was asked to prove that if $f \in \mathcal{S}(\R)$ then
 \\[
