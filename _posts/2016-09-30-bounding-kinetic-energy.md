@@ -41,7 +41,7 @@ That is, the work done on the particle is equal to the net change of kinetic ene
 
 But we can obtain a bound on the work integral using the [Holder inequality](what-does-the-holder-inequality-say). We have
 \\[
-	\abs{K(t)} = \abs{W(t)} \leq \int_{-infty}^t \abs{v}\abs{a} dt \leq \norm{v}_p \norm{a}_q
+	\abs{K(t)} = \abs{W(t)} \leq \int_{-\infty}^t \abs{v} \abs{a} dt \leq \norm{v}_p \norm{a}_q
 \\]
 Hence the kinetic energy is bounded by the size of the velocity and acceleration for all time
 \\[
@@ -51,7 +51,7 @@ Hence the kinetic energy is bounded by the size of the velocity and acceleration
 ## Homework for Harmonic Analysis Class
 Note: for my harmonic analysis class I was asked to prove that if $f \in \mathcal{S}(\R)$ then
 \\[
-	\norm{f}_\infty \leq 2 \norm{f}_p \norm{f'}_q	
+	\norm{f}_\infty^2 \leq 2 \norm{f}_p \norm{f'}_q	
 \\]
 To see this, let $v = f$ in our above discussion. Then since
 \\[ K = \frac{1}{2} v^2
