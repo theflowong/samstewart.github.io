@@ -6,12 +6,12 @@ categories: physics homework harmonic analysis
 
 Imagine that $v(t)$ is the velocity of some particle on $\R$ with mass $1$ such that the particle is at rest at the beginning of time. That is,
 \\[
-	\lim_{t \to -\infy} v(t) = 0
+	\lim_{t \to -\infty} v(t) = 0
 \\]
 
 Can we bound the kinetic energy of the particle in terms of the size of the velocity and acceleration fields? The answer is yes, and we will obtain the following bound
 \\[
-	\nom{v}_{L^\infty}^2 \leq 2 \norm{v}_{L^p} \norm{a}_{L^q}
+	\nom{v}_\infty \leq 2 \norm{v}_p \norm{a}_q
 \\]
 where $a = v'$ is the acceleration.
 
@@ -42,20 +42,19 @@ That is, the work done on the particle is equal to the net change of kinetic ene
 
 But we can obtain a bound on the work integral using the [Holder inequality](what-does-the-holder-inequality-say). We have
 \\[
-	\abs{K(t)} = \abs{W(t)} \leq \int_{-infty}^t \abs{v}\abs{a} dt \leq \norm{v}_{L^p} \norm{a}_{L^p}
+	\abs{K(t)} = \abs{W(t)} \leq \int_{-infty}^t \abs{v}\abs{a} dt \leq \norm{v}_p \norm{a}_q
 \\]
 Hence the kinetic energy is bounded by the size of the velocity and acceleration for all time
 \\[
-	\norm{K(t)}_{L^\infty} \leq \norm{v}_{L^p} \norm{a}_{L^p}.
+	\norm{K(t)}_\infty \leq \norm{v}_p \norm{a}_q.
 \\]
 
 ## Homework for Harmonic Analysis Class
 Note: for my harmonic analysis class I was asked to prove that if $f \in \mathcal{S}(\R)$ then
 \\[
-	\norm{f}_{L^\infty} \leq 2 \norm{f}_{L^p} \norm{f'}_{L^p}	
+	\norm{f}_\infty \leq 2 \norm{f}_p \norm{f'}_q	
 \\]
 To see this, let $v = f$ in our above discussion. Then since
-\\[
-	K = \frac{1}{2} v^2
+\\[ K = \frac{1}{2} v^2
 \\]
 the result follows.
