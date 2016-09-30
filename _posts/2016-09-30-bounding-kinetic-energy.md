@@ -11,7 +11,7 @@ Imagine that $v(t)$ is the velocity of some particle on $\R$ with mass $1$ such 
 
 Can we bound the kinetic energy of the particle in terms of the size of the velocity and acceleration fields? The answer is yes, and we will obtain the following bound
 \\[
-	\nom{v}_\infty \leq 2 \norm{v}_p \norm{a}_q
+	\norm{v}_\infty \leq 2 \norm{v}_p \norm{a}_q
 \\]
 where $a = v'$ is the acceleration.
 
@@ -29,7 +29,6 @@ The instantaneous change in kinetic energy is given by
 \\[
 	K' = \frac{1}{2} \frac{d}{dt} v^2 = v \cdot a
 \\]
-
 so
 \\[
 	W(t) = \int_{-\infty}^t v \cdot a = \int_{-\infty}^t K' dt = K(t) - \lim_{t \to -\infty} K(t).
