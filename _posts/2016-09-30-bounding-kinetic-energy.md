@@ -49,12 +49,14 @@ Hence the kinetic energy is bounded by the size of the velocity and acceleration
 \\]
 
 In short, as long as the particle doesn't accelerate too quickly, the total kinetic energy of the system will stay bounded.
+
 ## Homework for Harmonic Analysis Class
 Note: for my harmonic analysis class I was asked to prove that if $f \in \mathcal{S}(\R)$ then
 \\[
 	\norm{f}_\infty^2 \leq 2 \norm{f}_p \norm{f'}_q	
 \\]
 To see this, let $v = f$ in our above discussion. Then since
-\\[ K = \frac{1}{2} v^2
+\\[ 
+	K = \frac{1}{2} v^2
 \\]
 the result follows.
