@@ -27,11 +27,11 @@ Since $\hat{g}(\xi) \neq 0$ a.e. then necessarily $\hat{f}(\xi) = 0$ a.e. Hence 
 
 For the reverse direction, assume towards a contradiction that $g = 0$ on some set $U$ with positive measure, and that $M = L^2(\R)$. Then construct $f \in L^2(\R)$ by specifying
 \\[
-	\hat{f} = \mathbb{1}_{\R \backslash U} \frac{1}{1 + \xi^2}.
+	\hat{f} = 1_{U^c} \frac{1}{1 + \xi^2}.
 \\]
 The extra factor of $1/(1 + \xi^2)$ ensures that $\hat{f} \in L^2(\R)$. By construction
 \\[
-	\hat{f} \hat{g} = 0 \textrm{ a. e. }.
+	\hat{f} \hat{g} = 0 \textrm{ a. e. }
 \\]
 The Fourier transform turns multiplication into convolution so we have
 \\[
