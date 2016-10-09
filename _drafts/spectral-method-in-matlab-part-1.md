@@ -3,10 +3,10 @@ layout: post
 categories: tutorials numerical-analysis talks
 date: 2016-10-04 17:09
 ---
-
 $$
 \newcommand{\runningtime}[1]{\mathcal{O}(#1)}
 $$
+
 ## Abstract
 In many scenarios (like fluid dynamics), one reduces a problem by adding the constraint of periodicity. This constraint leads to so-called "spectral methods,"  numerical schemes with exponential rates of convergence. The idea is simple: reduce the PDE to an infinite dimensional ODE in Fourier space and then solve the ODE using standard techniques.  In practice, the process is more difficult when we use a finite dimensional approximation. In  these two talks, I will discuss the theory and implementation of a basic spectral method for Burgers equation in Matlab. The first lecture will cover the  general theory and approach (with Matlab examples), while the second lectuer will discuss an issue specific to spectral methods: de-aliasing. After my two presentations, you will have learned the "why and how" of spectral methods in Matlab. 
 
@@ -77,8 +77,10 @@ Strange, right?
 # Convergence
 Why do we call it the spectral method? As we refine the grid size (or increase $N$), the approximate solution converges to the real solution exponentially fast. That is,
 \\[
-	\norm{f_N - f}_{L^2} \leq e^{-N}
+	\norm{f_N - f}_{L^2} \leq C e^{-N}
 \\]
+
+This is essentially due to the fact that analytic functions have exponential decay of Fourier coefficients.
 
 This is a vast improvement over finite difference methods where we usually have second order convergence. That is
 \\[
@@ -112,6 +114,8 @@ Let's compute an example. We'll convolve the following two polynomials.
 Why it is $\runningtime{n \ln n}$.
 
 # Problem of Aliasing
+Aliasing is a 
+
 Examples:
 Wagon wheels
 Patterns in film
