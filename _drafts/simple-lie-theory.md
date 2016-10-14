@@ -100,3 +100,17 @@ Our definition of a Lie algebra can thus be made more sophisticated. A Lie algeb
 Our previous description of the tangent space at the identity can be re-described as follows: for every Lie group, the space $g = T_1 M$ has the structure of a Lie algebra. Whats more, we can identity $Hom(G_1, G_2)$ with $Hom(g_1, g_2)$. 
 
 
+There is a notion of complexification of a vector space and a Lie group. This somehow corresponds to real canonical forms?
+
+The categories of Lie groups and Lie algebras are equivalent. That is, every Lie algebra can be realized as a Lie group.
+
+Moreover, we can ask about the Hom groups of Lie groups and Lie algebras. If we have $\phi \in \textrm{Hom}(G, G)$ then we have $\phi^* in \textrm{Hom}(g, g)$.
+
+More importantly, there representations of Lie groups become representations of Lie algebras. In the case of the circle, that means that we can represent an infinitisimal translation as the derivative. This is precisely why the Fourier basis diagonalizes the differentiation operator. 
+
+We can talk about representations and irreducible representations. Irreducible representations are those representations without any subrepresentations. Every semisimple Lie group and compact Lie group can be broken down into one-dimensional irreducible representations. This is restatement of the spectral theorem, and a general "deep principle" that Sverak discussed.
+
+Schurs lemma tells us that intertwining operators are constant? That is, operators that are invariant under conjugation?
+
+
+If a Lie group is connected, simply connected then the Hom groups of the algebra and the Lie group are the same.
