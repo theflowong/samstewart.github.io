@@ -4,28 +4,26 @@ date: 2016-10-04 10:29
 categories: lie-theory tutorials exposition
 ---
 
-# Reducing a Problem
+## What is a Lie group?
 At the heart of Lie theory, like most topics in mathematics, is a simple idea: we can use the symmetries of a complex object to reduce the complex object to a much simpler one. In Lie theory, the complicated objects are Lie groups, and the simpler objects are the corresponding Lie algebras. Lie groups are manifolds and thus "curvy" while Lie algebras are vector spaces and thus linear or "flat." Studying linear objects is always easier than nonlinear.
 
-Let's start with the more complicated object: a Lie group. The circle is a Lie group when viewed as a sub-manifold of $\C$. 
+Let's start with the more complicated object: a Lie group. In this article, we will use the unit circle in the complex plane as a model for our description of Lie theory. 
 
-(diagram of cicle in C)
+In the complex plane, [we know that multiplication is rotation](the-geometry-of-complex-numbers). On the unit circle, multiplication of two numbers thus stays within the circle since their angles simply add. Thus, either as adding angles or as multiplying complex numbers, the circle in the complex plane is a group (i.e. you can add elements together and every element has a negative).
 
-What is a Lie group?
-1. A group
-2. A manifold
+But the circle also is a geometric object with nice properties (we call it a [manifold](https://en.wikipedia.org/wiki/Manifold). 
 
-Is $S^1$ a manifold? Absolutely, and there are many ways to prove this.
+Together these two properties, group structure and geometric structure, makes the circle into an object called a Lie group (named after the great 19th-century mathematician [Sophus Lie](https://en.wikipedia.org/wiki/Sophus_Lie)). 
 
-Is $S^1$ a group? Sure. If $z_1 = e^{2\pi \theta_1}, z_2 = e^{2\pi \theta_2} \in S^1$, then $z_1 \cdot z_2 = e^{2\pi (\theta_1 + \theta_2)}$. So the group structure is angle addition.
+So multiplying two numbers on the unit circle produces a third number on the unit circle. This is the group structure. In fact, if we multiply *every* complex number on the unit circle by a *fixed* complex number, then we have rotated *every* number on the unit circle. In other words, we have rotated the unit circle!
 
-A general manifold is too complicated. But the additional group structure produces a lot of symmetries. Here, the group structure corresponds to a rotational symmetry. Since the Lie group is closed under angle addition, than adding $\theta$ to every angle simply permutes the elements of the group. Equivalently, rotating by $\theta$ maps $S^1$ to $S^1$.
+The point is that the symmetry of the circle leads to a connection between the *geometric* structure  of the circle (i.e. it is rotationally symmetric) and the *group* structure of the circle (i.e. multiplying two complex numbers produces a third one still on the unit circle).
+
+
+## The Importance of the Identity
+Every group has an identity element. In the real numbers with multiplication it is $1$.
 
 (diagram of $S^1$ under a rotational symmetry)
 
 
-# The Importance of the Identity
-In differential geometry, we can linearize an arbitrary manifold at each point via the tangent space. But the problem is that the tangent spaces are unrelated. If we 
-# Representations: invariance and decompositions
 
-# Importance of Group Structure
