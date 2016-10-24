@@ -6,16 +6,15 @@ categories: math language culture
 
 In English, the numbers below ten are given in words as follows
 \\[
-	\textrm{one}, \textrm{two}, \ldots, \textrm{nine}.
-
+\textrm{one}, \textrm{two}, \ldots, \textrm{nine}.
 \\]
 
 For efficiency, when we want to talk about numbers outside the teens, for example the number 22, we re-use the words for the numbers below ten and attach the prefix "twenty" to the base word two. So the number 22 becomes twenty-two. In this way, 32 becomes thirty-two, 42 becomes forty-two, etc.
 
 This linguistic structure is based upon an underlying mathematical structure. Namely, that our ancestors counted in base ten. In base ten, when we have exhausted all ten digits, we add a new prefix. For example, we have
 \\[
-	\ldots, 28, 29, 30, 31, \ldots
-	\\]
+\ldots, 28, 29, 30, 31, \ldots
+\\]
 
 In the above sequence, when we transitioned from 29 to 30, we reset the trailing 9 to 0 and changed the leading number from 2 to 3.
 
