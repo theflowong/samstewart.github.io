@@ -10,13 +10,17 @@ Play around with a viscous fluid below. This solver is written in JavaScript and
 
 ### Solving Navier-Stokes Numerically
 The Navier-Stokes equations are given by
+
 \[
 	u_t + u \nabla u - \nu \nabla^2  u + \rho \nabla p = F
 \]
+
 with the incompressibility condition
+
 \[
 	\nabla u = 0
 \]
+
 and the no-slip boundary conditions $u = 0$ at the boundary.
 ### One Step of Navier-Stokes
 
