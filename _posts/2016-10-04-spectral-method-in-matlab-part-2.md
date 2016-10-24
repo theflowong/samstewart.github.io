@@ -322,7 +322,6 @@ save('initial_data.mat', 'initial_data');
 run_main_experiment('initial_data.mat')
 ```
 
-
 1. Lerman, Gilad. The Shannon Sampling Theorem and Its Implications. _Course Notes_. Available at http://www.math.umn.edu/~lerman/math5467/shannon_aliasing.pdf.
 2. SIAM Book on Fourier Analysis. Available at https://www.siam.org/books/ot102/OT102Chpt8.pdf.
 3. US Department of Health and Human Services. https://www.nidcd.nih.gov/health/age-related-hearing-loss
