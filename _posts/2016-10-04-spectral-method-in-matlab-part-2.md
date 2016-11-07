@@ -9,21 +9,18 @@ $$
 $$
 
 ## Last article
-In the last article, we discussed the following:
+In the last article, we first transformed Burger's equation
+\\[
+  u_t = - u_x \, u
+\\]
 
-1. Transforming Burger's equation
+into Fourier space to give
+\\[
+	\partial_t \hat{u} = -\hat{u}_m * (i \; m \, \hat{u}_m).
+\\]
+via the Discrete Fourier Transform (DFT).
 
-2. $$
-   u_t = - u_x \, u
-   $$
-
-   into Fourier space to give
-   $$
-   \partial_t \hat{u} = -\hat{u}m * (i \; m \, \hat{u}m).
-   $$
-   via the Discrete Fourier Transform (DFT).
-
-3. Computing the right-hand side quickly via fast convolutions with the Fourier transform.
+We then computed the right-hand side quickly via fast convolutions with the Fourier transform.
 
 ## This article
 In this post, we discuss the following:
@@ -44,7 +41,7 @@ But what about in general?
 ### Shannon's Sampling Theorem
 But what about signals on all of $\R$ (not just $S^1$)? Shannon's Sampling Theorem (named after the famed information theorist [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon)) tells us the sampling frequency.
 
-First, some terminology. Let $f \in L^2(\R)$ such that $\textrm{supp } \left| \hat{f} \right| = [-B, B]$. Then we say that $f$ is band-limited and call B the _Nyquist frequency_ and 2B the _Nyquist rate_ (conventions differ).
+First, some terminology. Let $f \in L^2(\R)$ such that $\textrm{supp } \left\| \hat{f} \right\| = [-B, B]$. Then we say that $f$ is band-limited and call B the _Nyquist frequency_ and 2B the _Nyquist rate_ (conventions differ).
 
 Shannon's theorem tells us the following
 
@@ -52,11 +49,10 @@ Shannon's theorem tells us the following
 2. In physical space, we must sample at grid points spaced by 1/2B.
 
 
-
 Symbollically, theorem states that
-$$
+\\[
 f(x) = \sum_{n = -\infty}^\infty f\left( \frac{n}{2B} \right) \sinc(2B (x - n/2B))
-$$
+\\]
    (equality in $L^2$). By convention we define
 \\[
 \sinc x = \frac{\sin x}{x}
@@ -70,17 +66,17 @@ Many naturally occurring signals are inherently band-limited. For example, the h
 
 #### First Proof
 The first proof relies on the following **key observation**: if 
-$$
+\\[
 \textrm{supp } \hat{f} = [-B, B]
-$$
+\\]
 then necessarily
-$$
+\\[
 \hat{f} \in L^2([-B, B]),
-$$
+\\]
 so we can *expand $\hat{f}$ in a Fourier series*
-$$
+\\[
 \hat{f}(\xi) = \sum_{n=-\infty}^\infty c_n e^{2\pi i \xi n/2B}.
-$$
+\\]
 The remainder of the proof is a computation to obtain the formula given in Shannon's Theorem.
 
 1. We compute the coefficients $c_n$ and see that $\hat{f}$ is determined by $f(n/2B)$.
@@ -91,36 +87,38 @@ The remainder of the proof is a computation to obtain the formula given in Shann
 **Step 1:**
 
 We first compute the coefficient $c_n$ to get
-$$
+\\[
 c_n = \frac{1}{2B} \int_{-B}^B \hat{f}(\xi) e^{-2 \pi i \xi n / 2B} d\xi = \frac{1}{2B} f\left( \frac{-n}{2B} \right).
-$$
+\\]
 Plugging this back into the formula for $\hat{f}(\xi)$ we get
-$$
+\\[
 \hat{f}(\xi) = \sum_{n = -\infty}^\infty \frac{1}{2B} f\left( \frac{n}{2B} \right) e^{-2\pi i \xi n/2B}.
-$$
+\\]
 It is now clear that $\hat{f}(\xi)$ is determined by $f$ at grid points. 
 
 **Step 2:**
 
 We can recover $f$ via the inversion formula to obtain the original result
-$$
+\\[
 f(x) = \int_{-\infty}^\infty \hat{f}(\xi) e^{2\pi i \xi x} d\xi = \int_{-\infty}^\infty \sum_{n = -\infty}^\infty \frac{1}{2B} f\left( \frac{n}{2B} \right) e^{-2\pi i \xi n/2B} e^{2\pi i \xi x} d\theta
-$$
+\\]
 Lebesgue Dominated Convergence allows us to switch the sum and the integral so we have
-$$
+\\[
 f(x) = \sum_{n = -\infty}^\infty \int_{-\infty}^\infty \frac{1}{2B} f\left( \frac{n}{2B} \right) e^{2 \pi i \xi (x - n / 2B)}d\xi
-$$
+\\]
 Computing this integral via a change of variables gives
-$$
+\\[
 f(x) = \sum_{n = -\infty}^\infty  f\left( \frac{n}{2B} \right) \sinc(2B(x - n / 2B))
-$$
+\\]
 
 
 #### Second Proof
-The **key observation** is Poisson's summation formula which gives that for $f \in L^1(\R) we have
-$$
-\sum_{n = -\infty}^\infty f(x + n/2B) = \sum_{n = -\infty}^\infty \hat{f}(n/2B) e^{2\pi i x n / 2B}.
-$$
+The **key observation** is Poisson's summation formula which gives that for $f \in L^1(\R)$ we have
+
+\\[
+	\sum_{n = -\infty}^\infty f(x + n/2B) = \sum_{n = -\infty}^\infty \hat{f}(n/2B) e^{2\pi i x n / 2B}.
+\\]
+
 This is a completely natural result since translation in physical space ($x + n / 2B$) becomes modulation in frequency space (the exponential factor).
 
 
@@ -128,25 +126,25 @@ This is a completely natural result since translation in physical space ($x + n 
 Moreover, this theorem relates the Fourier *transform* to Fourier *series*.
 
 How is this result useful? Well, a similar result holds from the Fourier perspective. That is
-$$
+\\[
 \sum_{n = -\infty}^\infty \hat{f}(\xi + n/2B)  = \frac{1}{2B} \sum_{n = -\infty}^\infty f(n/2B) e^{-2\pi i n \xi / 2B}
-$$
+\\]
 If we want to recover $\hat{f}(\xi)$ we need to zero out the shifts by $n/2B$. That is, we write
-$$
+\\[
 \hat{f}(\xi) = \chi_{[-B, B]}(\xi) \sum_{n = -\infty}^\infty \hat{f}(\xi + n/2B) 
-$$
+\\]
 The Poisson summation formula then gives
-$$
+\\[
 \hat{f}(\xi) =  \sum_{n = -\infty}^\infty 	\frac{1}{2B} \chi_{[-B, B]}(\xi) e^{-2\pi i n \xi/2B} f(n/2B).
-$$
+\\]
 To recover $f$ by taking the inverse Fourier transform, first recall that
-$$
+\\[
 \frac{1}{2B} \chi_{[-B, B]}(\xi) e^{-2\pi i n \xi/2B} \to \sinc(2B(x - n / 2B))
-$$
+\\]
 Then we can obtain the formula in Shannon's theorem
-$$
+\\[
 f(x) = \sum_{n = -\infty}^\infty f(n/2B) \sinc(2B(x - n/2B)).
-$$
+\\]
 
 ### In the Periodic Domain and with the DFT
 A similar theorem holds in $L^2(S^1)$ where you include $L^2(S^1)$ via a characteristic function. You must sample strictly greater than $B$ however (not sure why).
@@ -322,6 +320,7 @@ save('initial_data.mat', 'initial_data');
 run_main_experiment('initial_data.mat')
 ```
 
+## References
 1. Lerman, Gilad. The Shannon Sampling Theorem and Its Implications. _Course Notes_. Available at http://www.math.umn.edu/~lerman/math5467/shannon_aliasing.pdf.
 2. SIAM Book on Fourier Analysis. Available at https://www.siam.org/books/ot102/OT102Chpt8.pdf.
 3. US Department of Health and Human Services. https://www.nidcd.nih.gov/health/age-related-hearing-loss

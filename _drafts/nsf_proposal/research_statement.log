@@ -1,6 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  12 OCT 2016 10:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  27 OCT 2016 16:51
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
 **research_statement.tex
 (./research_statement.tex
@@ -398,19 +399,19 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 (./research_statement.aux)
 \openout1 = `research_statement.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 12.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
@@ -431,9 +432,9 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 * \textheight=650.43001pt
 * \oddsidemargin=0.0pt
 * \evensidemargin=0.0pt
-* \topmargin=-85.0pt
-* \headheight=60.0pt
-* \headsep=25.0pt
+* \topmargin=-20.0pt
+* \headheight=0.0pt
+* \headsep=0.0pt
 * \topskip=12.0pt
 * \footskip=30.0pt
 * \marginparwidth=44.0pt
@@ -449,73 +450,125 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 78
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 20.
+
+LaTeX Warning: Citation `sverak2014' on page 1 undefined on input line 22.
+
+
+LaTeX Warning: Citation `constantin1985' on page 1 undefined on input line 24.
+
+LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 24
 .
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd
 File: ot1ztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 78
+LaTeX Font Info:    Try loading font information for OML+ztmcm on input line 24
 .
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/omlztmcm.fd
 File: omlztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 78
+LaTeX Font Info:    Try loading font information for OMS+ztmcm on input line 24
 .
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/omsztmcm.fd
 File: omsztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/ztmcm.
 )
-LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 78
+LaTeX Font Info:    Try loading font information for OMX+ztmcm on input line 24
 .
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/omxztmcm.fd
 File: omxztmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/ztmcm.
 )
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 78.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 78.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 24.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 78.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 24.
 
 
-LaTeX Warning: Reference `eq:majda_model' on page 1 undefined on input line 106
-.
+LaTeX Warning: Reference `eq:constantin' on page 1 undefined on input line 39.
+
+
+LaTeX Warning: Citation `sverak2014' on page 1 undefined on input line 39.
+
+
+LaTeX Warning: Reference `eq:constantin' on page 1 undefined on input line 41.
+
+
+LaTeX Warning: Reference `eq:boussinesq_system' on page 1 undefined on input li
+ne 41.
+
+
+LaTeX Warning: Reference `eq:boussinesq_system' on page 1 undefined on input li
+ne 41.
+
+
+LaTeX Warning: Citation `gregorio1990' on page 1 undefined on input line 46.
+
+
+LaTeX Warning: Reference `eq:degregorio' on page 1 undefined on input line 48.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 48.
+
+LaTeX Warning: Reference `eq:degregorio' on page 1 undefined on input line 50.
+
+
+LaTeX Warning: Citation `preston2015' on page 1 undefined on input line 50.
+
+
+LaTeX Warning: Reference `eq:constantin' on page 1 undefined on input line 52.
 
 [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (21.34262pt too wide) in paragraph at lines 128--129
-[]\OT1/ptm/m/n/12 Nonlinear sta-bil-ity $\OT1/cmtt/m/n/12 http : / / depts . wa
-shington . edu / bdecon / workshop2012 / g _ stability .
- []
 
-[2] (./research_statement.aux)
+LaTeX Warning: Reference `eq:degregorio' on page 2 undefined on input line 58.
 
-LaTeX Warning: There were undefined references.
 
- ) 
+LaTeX Warning: Citation `tom2009' on page 2 undefined on input line 60.
+
+
+LaTeX Warning: Reference `eq:degregorio' on page 2 undefined on input line 63.
+
+
+LaTeX Warning: Reference `eq:boussinesq_system' on page 2 undefined on input li
+ne 63.
+
+
+LaTeX Warning: Citation `hu2016' on page 2 undefined on input line 63.
+
+
+./research_statement.tex:65: Package inputenc Error: Unicode char \u8:éSc not s
+et up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.65 ... give a talk at \textbf{Café Scientifique}
+                                                   about fluid dynamics. As ...
+
+? 
+./research_statement.tex:65: Emergency stop.
+ ...                                              
+                                                  
+l.65 ... give a talk at \textbf{Café Scientifique}
+                                                   about fluid dynamics. As ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+ 
 Here is how much of TeX's memory you used:
- 2270 strings out of 493117
- 28439 string characters out of 6135433
- 101849 words of memory out of 5000000
- 5710 multiletter control sequences out of 15000+600000
- 19287 words of font info for 45 fonts, out of 8000000 for 9000
+ 2281 strings out of 493117
+ 28683 string characters out of 6135433
+ 99840 words of memory out of 5000000
+ 5716 multiletter control sequences out of 15000+600000
+ 23891 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,7n,43p,711b,225s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texl
-ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texli
-ve/2014/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2014/tex
-mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fo
-nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/
-urw/times/utmri8a.pfb>
-Output written on research_statement.pdf (2 pages, 64192 bytes).
-PDF statistics:
- 40 PDF objects out of 1000 (max. 8388607)
- 28 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 27i,7n,43p,701b,123s stack positions out of 5000i,500n,10000p,200000b,80000s
+./research_statement.tex:65:  ==> Fatal error occurred, no output PDF file prod
+uced!

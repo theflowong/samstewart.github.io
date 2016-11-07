@@ -33,7 +33,7 @@ Since "quarante" is forty, then 42 is "quarante-deux" as you would expect. Howev
 
 This pattern continues until one hundred with the number 82 being "quatre-vingt-deux" which translates to four-twenty-two. 
 
-This linguistic difference points to a base 20 representation. For example, in the case of 82 the French are imagining as $82 = 4*20^1 + 2$ ("quatre-vingt-deux") instead of $82 = 8*10^1 + 2$ ("huitante-deux").
+This linguistic difference points to a base 20 representation. For example, in the case of 82 the French are imagining as $82 = 4 \cdot 20^1 + 2$ ("quatre-vingt-deux") instead of $82 = 8 \cdot 10^1 + 2$ ("huitante-deux").
 
 We have ten fingers so base ten is a natural way to count. But we have twenty fingers and toes. Does counting in base twenty suggest that a culture's ancestors counted on their toes? Hard to say.
 
