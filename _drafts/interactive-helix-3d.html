@@ -12,8 +12,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script type="text/javascript" src="../three.js"></script>
-<script type="text/javascript" src="../OrbitControls.js"></script>
+<script type="text/javascript" src="../scripts/three.js"></script>
+<script type="text/javascript" src="../scripts/OrbitControls.js"></script>
 
 </head>
 <body>
@@ -37,13 +37,14 @@
 		// add the controls for moving in this space.
 		controls = new THREE.OrbitControls( camera, renderer.domElement );
 		controls.enableDamping = true;
-		controls.dampingFactor = 0.25;
+		controls.dampingFactor = 0.15;
 		controls.enableZoom = true;
 
 		// playing with lights
 		var light = new THREE.AmbientLight( 0x404040 );
 		scene.add( light );
 		
+		// add light pointing in any direction
 		var directionalLight = new THREE.DirectionalLight(Math.random() * 0xffffff);
 		directionalLight.position.x = Math.random() - .5;
 		directionalLight.position.y = Math.random() - .5;
@@ -58,12 +59,11 @@
 					color: 0x0000ff
 					});
 
-			
 			// create helix hovering in space over the plane
 			var steps = 500;
 			var sampledPoints = new THREE.Geometry();
 
-			// numver of times the helix twists
+			// number of times the helix twists
 			var helixTwists = 5;
 
 			for (var i = 0; i <= steps; i++) {
@@ -76,12 +76,14 @@
 				);
 			}
 
+			// connect the points of the helix with lines
 			var particles = new THREE.Line( sampledPoints, new THREE.LineBasicMaterial( { color:  0x804000, linewidth: 4 }));
 			particles.position.set(0, 1, 0);
 
 			particles.scale.set(1.0, 1.0, 1.0);	
 			scene.add(particles);
 
+			// place the circle in the plane
 			var curve = new THREE.EllipseCurve(
 					0, 0,
 					1, 1,
@@ -103,10 +105,14 @@
 		var axisHelper = new THREE.AxisHelper( 4 );
 		scene.add(axisHelper);
 	
+		// construct the helix
 		createHelix();
 	
-		
-		camera.position.z = 2;
+		// adjust the camera so that we're looking down
+		camera.position.y = 10;
+		camera.position.z = 4;
+		camera.position.x = 4;
+		camera.lookAt(new THREE.Vector3(0, 0, 0));
 	}
 	
 	function onWindowResize() {
@@ -130,7 +136,6 @@
 		// make the camera rotate around the scene
 		renderer.render( scene, camera );
 	}
-	
 	
 
 </script>
