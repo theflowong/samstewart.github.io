@@ -9,27 +9,29 @@ In the [last post](), we discussed the concept of a Lie group using $S^1$ as an 
 One natural perspective: the Lie algebra describes a differential equation while the Lie group describes a solution. Amazingly, due to the symmetry of a Lie group, it suffices to know only the structure of the possible differential equations (Lie algebra) to reconstruct the entire Lie group group [1]. This reduction simplifies our study of Lie groups to the study of Lie algebras. 
 
 ### What is a Lie algebra?
-Returning to the example from our last article, imagine trying to solve the differential equation
+Returning to the example from our last article, imagine that we want to solve the differential equation
 \\[
 	\frac{d \gamma(t)}{dt} = 3
 \\]
-with $\gamma(0) = 1$. In other words, we want to find a curve with velocity $3$ that passes through the origin.
+on $S^1$ with the initial condition $\gamma(0) = 1$. In other words, we want to find a curve _on the circle_ with velocity $3$ that passes through the point (1,0).
 
 ![Finding curve with velocity](/images/lie_theory_part_2_fig_1.png)
 
-We call the 1D velocity vector $v = 3$ an element of the Lie algebra of $S^1$. The process of solving this ODE, or equivalently, finding a curve $\gamma(t)$ on $S^1$ with velocity $v = 3$, is exactly the process of *passing between the Lie algebra and the Lie group* in a neighborhood of the identity.
+We call the 1D velocity vector $v = 3$ an element of the Lie algebra of $S^1$. The process of solving this differential on the circle, *or equivalently, finding a curve on the circle with velocity $v = 3$*, is exactly the process of *passing between the Lie algebra and the Lie group* in a neighborhood of the identity. 
 
-We say that $v$ is in the Lie algebra of $S^1$ if we can construct a curve $\gamma : [0, 1] \to S^1$ such that $\gamma$ passes through $1$ at $0$ and the derivative of $\gamma$ at $0$ is $v$. In other words, if you imagine a particle having trajectory $\gamma$, then $v$ is the velocity vector as it passes through $1$.
+We define the Lie algebra as follows. First, a Lie algebra is a linear object: it is a vector space (we'll see later that is actually an algebra). A vector $v$ is in the **Lie algebra** of $S^1$ if it is the velocity of some trajectory on the **Lie group**.
+
+More precisely, can we construct a curve $\gamma$ on the circle such that $\gamma'(0) = v$ and $\gamma(0) = (1,0)$?
+
+![Curve with velocity vector v](/images/lie_theory_part_2_fig_3.png)
+
+We claim the Lie algebra of $S^1$ is $\R$. To see this, we construct a curve on the circle that passes through $1$ with arbitrary velocity $v$. You can also imagine this process as stretching the the tangent vector onto $S^1$. 
 
 ![Curve with velocity vector v](/images/lie_theory_part_2_fig_2.png)
 
-We claim the Lie algebra of $S^1$ is $\R$. To see this, we construct a curve passing through $1$ with arbitrary velocity $v$. You can think of this as stretching a tangent vector onto $S^1$. 
-
-(picture of stretching tangent vector onto $S^1$)
-
 Let $v \in \R$ and write
 \\[
-	\gamma(t) = e^{ivt}
+	\gamma(t) = e^{ivt}.
 \\]
 To take the derivative of $\gamma$, we need a chart to map a local neighborhood of $1 \in S^1$ to $\R$. For an appropriately chosen branch cut, the chart
 \\[
@@ -43,10 +45,15 @@ Since the map $\gamma(t) = e^{i \, v \, t}$ satisfies
 1. $\gamma(0) = 1$
 2. $\gamma'(0) = v$
 
-then $v$ is an element of the Lie algebra. Going the other direction is easy: if we have a curve $\gamma(t)$ on $S^1$, then $\gamma'(0) = v$ is a velocity vector by definition. This is equivalent to "un-stretching" the velocity vector.
+then $v$ is an element of the Lie algebra. Going the other direction is easy: if we have a curve $\gamma(t)$ on $S^1$, then $\gamma'(0) = v$ is a velocity vector by definition. This reverse process is intuitively like "un-stretching" the curve on the circle into the velocity vector.
 
-This is a local identification between the Lie *algebra* and the Lie *group* at the identity. Due to the symmetry of the Lie group, this identification in fact enables us to reconstruct the *entire* Lie group by just reconstructing a *neighborhood* of the identity. See [2] for a complete proof.
+This process of putting a curve through a point with a prescribed velocity vector is a local map between the Lie *algebra* and the Lie *group* _at the identity_. The group structure allows us to reconstruct the entire Lie group by understanding the behavior *only around the identity*. In other words, the circle is entirely determined by a neighborhood of the identity $1$. 
 
+This localization comes directly from the group structure: if $g \in S^1$, then we have $g^{-1} \in S^1$ so that $g g^{-1} = 1$. In other words, any element $g \in S^1$ and its neighborhood can be rotated back to the identity by computing its inverse. The existence of inverse elements is precisely what reduces the Lie group to a neighborhood of the identity.
+
+In turn, we can linearize the problem at the identity by considering the tangent space $T_1 S^1$, giving another perspective on the Lie algebra. You can view the Lie algebra as the collection of velocity vectors to curves on the circle passing through (1,0), or you can view the Lie algebra as the tangent space to the identity (the local linearization of the Lie group).
+
+See [2] for a complete proof.
 
 ### Where does the algebra structure come from?
 
@@ -62,7 +69,7 @@ holds when $A, B$ commute (consider a matrix group as a counter-example). Simila
 \\[
 	e^{i v t} e^{i u t} = e^{(u + v) i t}.
 \\]
-relies on the fact that $e^{i v t}, e^{i u t}$ commute. Composing two flows is the same as adding their infinitismal generators *only* when the two flows commute. More precisely, it is a general fact that
+relies on the fact that $e^{i v t}, e^{i u t}$ commute. Composing two flows is the same as adding their infinitesimal generators *only* when the two flows commute. More precisely, it is a general fact that
 \\[
 	e^{i v t} e^{i u t} = e^{(u + v) i t}.
 \\]
@@ -78,7 +85,7 @@ When does
 \\]
 fail to hold?
 
-Consider the more complicated case of $\textrm{SO}(3, \R)$, which represents rotations in $\R^3$. It is a submanifold of the Lie group $GL^n$, and is thus itself a Lie group. Its Lie *algebra* consists of skew-symmetric matrices of the form
+Consider the more complicated case of $\textrm{SO}(3, \R)$, which represents rotations in $\R^3$. It is a sub-manifold of the Lie group $GL^3(\R)$, and is thus itself a Lie group. Its Lie *algebra* consists of skew-symmetric matrices of the form
 \\[
 	\begin{bmatrix}
 		0 & a & b \cr
@@ -104,11 +111,15 @@ One possible choice of basis for this space consists of rotations around the $x$
 		0 & 0 & 0 
 	\end{bmatrix}.
 \\]
-These three matrices are the infinitismal generators for any rotation in three dimensions.
+These three matrices are the infinitesimal generators for any rotation in three dimensions.
 
-( picture of rotation around axes)
+![Rotation around the axes](/images/lie_theory_part_2_fig_5.png)
 
-To recover the full symmetry, say an arbitrary rotation around the $x$-axis, we pass from the infitisimal generators (Lie algebra) to the set of symmetries (Lie group) via the exponential map
+To recover the full symmetry, say an arbitrary rotation around the $x$-axis, we pass from the infinitesimal generators (Lie algebra) to the set of symmetries (Lie group) by solving the "differential equation"
+\\[
+	\frac{d \gamma(t)}{dt} = J_x
+\\]
+where now $\gamma(t)$ is a curve _in $SO(3)$_. The solution is analogous to our earlier scenario on the circle with $\gamma(t) = e^{i t v}$. One can define an "exponential map" for matrices and obtain the solution
 \\[
 	\textrm{exp}(t \; J_x) = \begin{bmatrix}
 		1 & 0 & 0 \cr
@@ -130,9 +141,9 @@ which acts as the rotation matrix on $\R^2$ (note it is a submatrix of $\textrm{
 \\]
 We saw that these matrices commute since every element in $\R$ (the Lie *algebra*) commutes. 
 
-Transitioning from two dimensions to three dimensions ruins this commutivity. That is, the infinitismal generators $J_x, J_y, J_z$ do not commute, and thus the corresponding symmetries do no commute. Consider a rotation around the x-axis by $\pi/2$ followed by a rotation around the y-axis by $\pi/2$. This does not produce the same final configuration when we reverse the order.
+Transitioning from two dimensions to three dimensions ruins this commutativity. That is, the infinitesimal generators $J_x, J_y, J_z$ do not commute, and thus the corresponding symmetries do no commute. Consider a rotation around the x-axis by $\pi/2$ followed by a rotation around the y-axis by $\pi/2$. This does not produce the same final configuration when we reverse the order.
 
-(transition diagram of rotations)
+![Rotation around the axes](/images/lie_theory_part_2_fig_6.png)
 
 Algebraically, we can see this failure to commute in the Lie algebra by examining the commutators
 \\[
@@ -146,7 +157,7 @@ The point of these two examples is that the Lie bracket $[X,Y] = XY - YX$ descri
 The product of Lie group elements $e^x, e^y$ induces an operation $[x, y]$ on the Lie *algebra*, which as we will see, gives the necessary structure to reconstruct the entire Lie group from the Lie algebra.
 
 ## Summary
-In the first article, we discussed Lie groups (manifolds with a group structure). In this article, we discussed Lie algebras (linearizations of Lie groups). The Lie algebra allows one to reduce a full symmetry from the Lie group to an _infinitismal generator_, an element of a vector space. The features of the full symmetries in the Lie group (e.g. when flows commute) are controlled by features of the infinitismal generators (e.g. when the generators commute). The Lie bracket $[x,y]$ describes this latter connection.
+In the first article, we discussed Lie groups (manifolds with a group structure). In this article, we discussed Lie algebras (linearizations of Lie groups). The Lie algebra allows one to reduce a full symmetry from the Lie group to an _infinitesimal generator_, an element of a vector space. The features of the full symmetries in the Lie group (e.g. when flows commute) are controlled by features of the infinitesimal generators (e.g. when the generators commute). The Lie bracket $[x,y]$ describes this latter connection.
 
 The larger theme is the connection between geometric (Lie groups)  and algebraic (Lie algebra) objects. This connection between the geometric and algebraic is an idea that appears again and again (e.g. Galois theory, algebraic topology, etc) and appears to exploit our dual natural capabilities for vision (geometry) and language (algebra).
 
