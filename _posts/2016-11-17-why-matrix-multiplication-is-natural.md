@@ -7,24 +7,24 @@ categories: math linear algebra cool-facts
 In linear algebra class, we learn a strange algorithm for multiplying matrices together: one takes the rows of the first matrix and dots them with the columns of the second matrix. Symbolically, for a two-by-two matrix, this is
 \\[
 	\begin{bmatrix}
-		a_{11} & a_{12} \cr
-		a_{21} & a_{22}
-	\end{bmatrix}
-	\begin{bmatrix}
 		b_{11} & b_{12} \cr
 		b_{21} & b_{22}
 	\end{bmatrix}
+	\begin{bmatrix}
+		a_{11} & a_{12} \cr
+		a_{21} & a_{22}
+	\end{bmatrix}
 	=
 	\begin{bmatrix}
-		a_{11} b_{11} + b_{21} a_{12} & a_{11} b_{12} + a_{12} b_{22} \cr
-		a_{21} b_{11} + b_{21} a_{22} & a_{21} b_{12} + a_{22} b_{22}
+		a_{11} b_{11} + b_{12} a_{21} & a_{12} b_{11} + a_{22} b_{12} \cr
+		b_{21} a_{11} + a_{21} b_{22} & a_{12} b_{21} + a_{22} b_{22}
 	\end{bmatrix}
 \\]
 
 But why? In this article, I'll explain why this apparently strange definition is actually natural.
 
 ## Plato's Cave
-Like the shadow's of the prisoners in Plato's cave, matrices are only a representation of reality (in fact, representation has a technical sense here) and the rules for manipulating them come from a "deeper level" of truth.
+Like the shadows of the prisoners in Plato's cave, matrices are only a representation of reality (in fact, representation has a technical sense here) and the rules for manipulating them come from a "deeper level" of truth.
 
 This deeper level of truth, and the true story of linear algebra (despite its focus on matrices in beginning courses), is the linear operator. A linear operator $T : V \to V$ (where $V$ is a finite-dimensional vector space) must be linear. More precisely,
 \\[
@@ -41,15 +41,30 @@ Given this setup, we can describe why matrix multiplication is natural. We start
 
 Passing back to the world of shadows, we associate a matrices $A, B$ with $T_1, T_2$ as described earlier. **Composition in the world of truth becomes multiplication in the world of shadows**. Why? We can associate a matrix $C$ with $T$ by evaluating $T$ on the basis vectors as described above
 \\[
-	T(e_i) = T_2(T_1(e_i)) = T_2(A_i) = B A_i
+	T(e_i) = T_2(T_1(e_i)) = T_2(A_{\cdot, \, i}) = B \, A_i
 \\]
 
 Thus,
 \\[
 	C = \begin{bmatrix}
-		B A_1 & B A_2 & \cdots B A_n 
+		B \, A_{\cdot, \, 1} & B \, A_{\cdot, \, 2} & \cdots B \, A_{\cdot, \, n}
 	\end{bmatrix}
 \\]
-
-
+so $C$ simply takes $B$ and acts on the columns of $A$. To see how this produces the matrix multiplication formula in the beginning of the article, let's consider the case of two-by-two matrices. Then
+\\[
+	C = \begin{bmatrix}
+		B \, A_{\cdot, \, 1} & B \, A_{\cdot, \, 2}
+	\end{bmatrix}
+\\]
+Since by definition of a matrix acting on a vector, we have
+\\[
+	B \, A_{\cdot, \, 1} = \begin{bmatrix}
+		B_{1, \, \cdot} \cdot A_{\cdot, \, 1} \cr
+		B_{2, \, \cdot} \cdot A_{\cdot, \, 1}
+	\end{bmatrix}
+\\]
+then the $(1,1)$ entry of $C$ will be
+\\[
+	B_{1, \, \cdot} \cdot A_{\cdot, \, 1} = b_{11} a_{11} + b_{12} a_{21}
+\\]
 
