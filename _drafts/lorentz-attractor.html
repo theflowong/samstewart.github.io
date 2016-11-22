@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Three.js test diagram</title>
+<style>
+	body { margin: 0; }
+	canvas { width: 100%; height: 100% }
+</style>
+
+<!-- Copyright (c) 2010-2015 The MathJax Consortium -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/javascript" src="../scripts/three.js"></script>
+<script type="text/javascript" src="../scripts/OrbitControls.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+	var camera, controls, scene, renderer;
+	
+	init();
+	animate();
+
+	function init() {
+		// setup the environment
+		scene = new THREE.Scene();
+		camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		
+		// setup the rendering context
+		renderer = new THREE.WebGLRenderer();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+
+		// add the controls for moving in this space.
+		controls = new THREE.OrbitControls( camera, renderer.domElement );
+		controls.enableDamping = true;
+		controls.dampingFactor = 0.15;
+		controls.enableZoom = true;
+
+		// playing with lights
+		var light = new THREE.AmbientLight( 0x404040 );
+		scene.add( light );
+		
+		// add light pointing in any direction
+		var directionalLight = new THREE.DirectionalLight(Math.random() * 0xffffff);
+		directionalLight.position.x = Math.random() - .5;
+		directionalLight.position.y = Math.random() - .5;
+		directionalLight.position.z = Math.random() - .5;
+		directionalLight.position.normalize();
+
+		scene.add( directionalLight );
+
+		// construct a wireframe circle in space
+		function createLorenzStrangeAttractor() {
+			// constants for constructing the attractor
+			var sigma = 10.0;
+			var rho = 28.0;
+			var beta = 8.0 / 3.0;
+
+			var dt = .01;
+
+			// the derivative function for the Lorentz system
+			function dpos_dt(t, pos) {
+				new THREE.Vector3(
+					sigma * (v.y - v.x),
+					v.x * ( rho - v.z) - v.y,
+					v.x * v.y - beta * v.z
+					);
+			}
+
+			// Runge-Kutta 4 method
+			// Stolen from: http://www.letsthinkabout.us/post/runge-kutta-in-javascript
+			function rk4(t, pos, f) {
+				var halfdt = 0.5 * dt;
+				var k1 = f(t, pos).clone().multiplyScalar(dt));
+			    var k2 = f(t + halfdt, k1.multiplyScalar(halfdt).add(pos)).multiplyScalar(dt);
+			    var k3 = f(t + halfdt, k2.multiplyScalar(halfdt).add(pos)).multiplyScalar(dt);
+			    var k4 = f(t + dt, k3.multiplyScalar(dt).add(pos)).multiplyScalar(dt);
+
+			    // now assemble the pieces for the final position
+			    var updated_pos = pos.clone();
+			    updated_post.add(k1.multiplyScalar(1.0 / 6.0));
+			    updated_post.add(k2.multiplyScalar(2.0 / 6.0));
+			    updated_post.add(k3.multiplyScalar(2.0 / 6.0));
+			    updated_post.add(k4.multiplyScalar(1.0 / 6.0));
+
+			    return updated_pos.add(pos);
+			}
+
+			var material = new THREE.LineBasicMaterial({
+					color: 0x0000ff
+					});
+
+			// create lorentz system by solving ODE starting near zero
+			var time_end = 10;
+			var sampledPoints = new THREE.Geometry();
+			var cur_pos = new THREE.Vector3(1.0, 1.0, 1.0);
+
+			// TODO: could be made simpler by doing a functional reduce operation on this.
+			// Or can we do recursion?
+			for (var t = 0; t <= time_end; t += dt) {
+				cur_pos = rk4(t, cur_pos, dpos_dt);
+
+				sampledPoints.vertices.push(	
+					cur_pos	
+				);
+			}
+
+			// connect the points of the helix with lines
+			var particles = new THREE.Line( sampledPoints, new THREE.LineBasicMaterial( { color:  0x804000, linewidth: 4 }));
+			particles.position.set(0, 1, 0);
+
+			particles.scale.set(1.0, 1.0, 1.0);	
+			scene.add(particles);
+
+
+		}
+
+		// plots the axes:
+		// red: X, green: Y, blue: Z
+		var axisHelper = new THREE.AxisHelper( 4 );
+		scene.add(axisHelper);
+	
+		// construct the helix
+		createHelix();
+	
+		// adjust the camera so that we're looking down
+		camera.position.y = 10;
+		camera.position.z = 4;
+		camera.position.x = 4;
+		camera.lookAt(new THREE.Vector3(0, 0, 0));
+	}
+	
+	function onWindowResize() {
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+		
+		renderer.setSize( window.innerWidth, window.innerHeight);
+	}
+
+	function animate() {
+		requestAnimationFrame( animate );
+
+		controls.update();
+
+		render();		
+	};
+	
+	// render stuff
+	function render() {
+		
+		// make the camera rotate around the scene
+		renderer.render( scene, camera );
+	}
+	
+
+</script>
+</body>
+</html>
