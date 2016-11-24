@@ -4,9 +4,9 @@ date: 2016-10-24 8:53
 categories: code fluid-dynamics solver
 ---
 
-Play around with a viscous fluid below. This solver is written in JavaScript and WebGL and is based on the wonderful article [Fast Fluid Dynamics Simulation on the GPU](http://http.developer.nvidia.com/GPUGems/gpugems_ch38.html). In this post, I describe a perspective on Navier-Stokes that is useful for numerics.
+Play around with a viscous fluid below. This solver uses WebGL GSL shaders and is based on the wonderful article [Fast Fluid Dynamics Simulation on the GPU](http://http.developer.nvidia.com/GPUGems/gpugems_ch38.html). In this post, I describe a perspective on Navier-Stokes that is useful for numerics.
 
-(Coming soon).
+(Solver under construction)
 
 ### Solving Navier-Stokes Numerically
 The Navier-Stokes equations are given by
@@ -20,6 +20,7 @@ with the incompressibility condition
 \\]
 
 and the no-slip boundary conditions $u = 0$ at the boundary.
+
 ### One Step of Navier-Stokes
 
 1. Advection
@@ -28,12 +29,16 @@ and the no-slip boundary conditions $u = 0$ at the boundary.
 4. Diffusion
 
 ### Pressure as a Projection Operator
+(coming soon)
 
 ### Advection
 (coming soon)
 
 ### Diffusion
+(coming soon)
 
 ### Forces
+(coming soon)
 
 ### Displaying the Fluid 
+(coming soon)
