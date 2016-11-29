@@ -11,6 +11,6 @@ I co-host a podcast about math with a fellow graduate student Jorin Schug (of Sw
 
 In this (somewhat pretentious) Numberphile video, a couple of physicists argue that
 \\[
-	1 + 2 + 4 + 5 + \cdots = -\frac{1}{12}.
+	1 + 2 + 3 + 4 + 5 + \cdots = -\frac{1}{12}.
 \\]
 Is this apparently nonsensical statement true? If so, how? We argue about math, British accents, and Katie Perry in this (clearly too long and introspective) humorous rant.
