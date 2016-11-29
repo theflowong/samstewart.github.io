@@ -30,7 +30,7 @@ Big goal:
 	- Visualize a vector field
 		- How do they store the vecor field?
 		- How do they represent the fluid?
-		- How do they render multiple things on screen? Multiple textures?
+		- How do they render multiple things on screen? Multiple textures? [ Done ]
 			This appears to be the trick: multiple frame buffers which are double buffered. There is a similar feature in Three.JS called WebGLRenderTarget. Maybe I can construct something double buffered with this?
 
 			You need the double buffered thing so that we don't overwrite the data as we're processing it?
@@ -43,7 +43,7 @@ Big goal:
 
 			http://webglfundamentals.org/webgl/lessons/webgl-fundamentals.html on Framebuffers
 
-			Architecutre:
+			Architecture:
 			Main code -> Fluid -> RenderTarget -> Geometry -> Shader
 
 			We have multiple render targets and each one has a quad. The render targets can swap between two textures that they use as render targets, and the shader has access to both. The shader does the actual computation while the render targets just handle rendering. 
@@ -52,10 +52,12 @@ Big goal:
 	- Add mouse interactivity.
 Q: how do we combine multiple texture to produce the final texture?
 */
-var renderer, mainRenderTarget;
+var renderer, mainRenderTarget, fluid;
 
-var WIDTH = 400.0;
-var HEIGHT = 400.0;
+
+var WIDTH = 512.0;
+var HEIGHT = 512.0;
+var DT = .1;
 
 $(document).ready(function() {
 	init();
@@ -78,35 +80,44 @@ function setupRenderer() {
 
 	document.body.appendChild( renderer.domElement );
 }
+
 function setupMainRenderTarget() {
 
 
-	// load the texture 
-	var texture = new THREE.TextureLoader().load("images/crate.jpg", function(texture) {
-		texture.format = THREE.RGBAFormat;
 
-		var shaderMaterial = new THREE.ShaderMaterial( {
-					uniforms: {
-						"texture": { value: texture }
-					},
-					vertexShader: $("#vertexshader").text(),
-					fragmentShader: $("#fragmentshader").text(),
-					depthWrite: false
-				} );
+	// TODO: make this blank
 
-		mainRenderTarget = new RenderTarget(shaderMaterial, WIDTH, HEIGHT);
+	var shaderMaterial = new THREE.ShaderMaterial( {
+				uniforms: {
+					"texture": { value: fluid.pressureComputer.readBuffer.texture }
+				},
+				vertexShader: $("#debugshader").text(),
+				fragmentShader: $("#fragmentshader").text(),
+				depthWrite: false
+			} );
 
-		enableAxes();
-
-	});
-	
+	mainRenderTarget = new RenderTarget(shaderMaterial, WIDTH, HEIGHT);
 }
 
+function setupFluidSolver() {
+	// fluid with only six grid points
+	var shaders = new Object();
+	shaders.pressureShader = $('#debugShader');
+	shaders.defaultVertexShader = $('#vertexshader')
+
+	fluid = new Fluid(WIDTH, shaders);
+}
 
 function init() {
 	setupRenderer();
 
-	setupMainRenderTarget();	
+	setupFluidSolver();
+
+	setupMainRenderTarget();
+
+	enableAxes();
+
+	
 }
 
 function animate() {

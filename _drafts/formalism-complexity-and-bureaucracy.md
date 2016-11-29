@@ -1,8 +1,9 @@
-Reading Richard Dawkin's Oxford Book of Modern Science Writing, I stumbled upon an article by ?? that perfectly captured the reason why we aren't proactive.
 
-Quote from Dawkin's collection of great science writing.
+In Richard Dawkin's *Oxford Book of Modern Science Writing* an article by Erwin Schrodinger captures the reason why we struggle to be proactive:
 
-Essentially, the problem is that we must fight continually to make order out of noise, both in our professional and personal lives.
+"What is the characteristic feature of life?...When a system that is not alive is isolated or placed in a uniform environment...A permanent state is reached, in which no observable events occur. The physicist calls this the state of thermodynamical equilibrium, or of 'maximum entropy'" [4, p. 381]
+
+Essentially, being proactive means continually fighting against the desire to fall into an equilibrium state where we are no longer fighting the descent of life into maximum entropy, or chaos.
 
 # Professionally
 In graduate school, no one tells you what to do. While this may sound fantastic initially, one quickly realizes that this can quickly cascade into inertia, lack of motivation, and in the worst case, depression.
