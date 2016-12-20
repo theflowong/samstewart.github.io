@@ -57,6 +57,9 @@ Big goal:
 	- Visualize a scalar field [ Done ]
 	- Add mouse interactivity.
 	- Choose correct coordinates for fluid (and choose right scale)
+	-	We want to shade particles as points.
+			We need a UV map to connect particles to shader.
+	-	We want to shade the velocity field 
 	- How do they add the cool texture when you move the mouse?
 		Use some kind of fractional projection to see if point lies in the path of the mouse?
 	- Visualize particles
@@ -69,13 +72,63 @@ Big goal:
 
 Q: how do we combine multiple texture to produce the final texture?
 
+Immediate TODO:
+1. Fix the texture scaling at each level.
+- Render quad for main scene
+- GPUComputationRenderer
+- All the places where we make textures?
+
+## Coordinate Systems
+
+There a several layers of coordinate systems that we must track.
+
+1. Viewport
+Coordinates in this space represent the actual graphics on your computer screen.
+
+2. World
+Coordinates in this space represent the 3D world before projecting via camera matrix to viewport coordinates.
+
+3. Object or material
+Local coordinates for a mesh before we apply the affine transformation that maps this object into world coordinates.
+
+4. UV coordinates
+Texture coordinates [0, 1]x[0, 1] that describe how to texture an object when rendered. 
+
+These are also shader coordinates.
+
+5. Image coordinates
+Every texture is just an image. We use UV coordinates to map into this image. 
+
+These are also indices for the texture variables.
+
+6. Fluid coordinates
+Coordinates for the fluid equation. Might be in physical units.
+
+Conversion to image coordinates is just a scaling on two levels: cell size and fluid scale.
+
+Fluid scale is the resolution of our grid (how many grid points) relative to the resolution 
+pixel count of the actual viewport.
+
+Cell size is the width and height of a single grid cell. If cell size is 32 inches, then we are
+sampling the fluid every 32 inches.
+
+In other words, one pixel in the image coordinates corresponds to a grid cell of size 32x32.
+
+% TODO in next hour:
+%	1. Fix coordinate scaling for Poisson solver [ Done? ]
+%	2. Texture a point cloud with UV coordinates
+%		Add a grid of particles to the current scene (get scaling right since we are now in world space)
 */
-var renderer, mainRenderScene, fluid;
+var renderer, mainRenderScene, fluid, particles;
 
 
-var WIDTH   = 512.0;
-var HEIGHT  = 512.0;
-var DT 		= .1;
+var WIDTH   	= 1 << 9;
+var HEIGHT  	= 1 << 9;
+var DT 			= .1;
+var FLUID_SCALE = 1 / 2;
+var FLUID_CELL_SIZE = 1 << 6; 
+
+var MAIN_RENDERING_SHADER = "#pressureFieldVisualization";
 
 $(document).ready(function() {
 	init();
@@ -103,9 +156,30 @@ function setupMainRenderQuad() {
 	
 	mainRenderScene = new MainRenderScene(WIDTH, HEIGHT, 
 	{
-		vertexShader: $("#vertexShader").text(), 
-		fragmentShader: $("#pressureFieldVisualization").text() 
+		vertexShader: 	$("#vertexShader").text(), 
+		fragmentShader: $(MAIN_RENDERING_SHADER).text()
 	});
+}
+
+
+function setupParticles() {	
+	var shaders = {
+		fragmentShader: $('#particleFragmentShader').text(),
+		vertexShader: $('#particleVertexShader').text()
+	};
+
+	particles = new Particles(10000, WIDTH, HEIGHT, 128.0 / FLUID_CELL_SIZE, shaders);
+
+	// properly center in world space
+	particles.mesh.position.z = .0001;
+	particles.mesh.position.x -= 256.0;
+	particles.mesh.position.y -= 256.0;
+
+	mainRenderScene.scene.add(particles.mesh);
+
+	// move the mesh to center at the origin
+	//particles.mesh.position.sub(new THREE.Vector3(WIDTH / 2.0, HEIGHT / 2.0, .5));
+	
 }
 
 function setupFluidSolver() {
@@ -116,7 +190,19 @@ function setupFluidSolver() {
 	shaders.pressureShader 		  = $('#pressureShader').text();
 	shaders.divergenceShader 	  = $('#divergenceShader').text();
 
-	fluid = new Fluid(WIDTH, shaders, renderer);
+	// we don't have a one-to-one mapping between pixels in the viewport
+	// and grid cells in the simulator.
+	// If WIDTH = HEIGHT = 256 and FLUID_SCALE = 1/2 then
+	// horizontalGridPoints = 128.
+	var size = {
+		horizontalGridPoints: WIDTH * FLUID_SCALE, 
+		verticalGridPoints: HEIGHT * FLUID_SCALE,
+		cellSize: FLUID_CELL_SIZE // we choose this arbitrarily?
+	}
+
+	fluid = new Fluid(size, 
+					  shaders, 
+					  renderer);
 
 	// do one test iteration
 	fluid.step(.1);
@@ -127,6 +213,8 @@ function init() {
 	setupRenderer();
 
 	setupMainRenderQuad();
+
+	setupParticles();
 
 	setupFluidSolver();
 
@@ -155,7 +243,7 @@ function render() {
 
 
 		// render the main quad with texture
-		renderer.render( mainRenderScene.scene, mainRenderScene.camera,  fluid.gpuComputer.getCurrentRenderTarget( this.fluid.divergenceVariable ), true);
+		// renderer.render( mainRenderScene.scene, mainRenderScene.camera,  fluid.gpuComputer.getCurrentRenderTarget( this.fluid.divergenceVariable ), true);
 
 		// DEBUGGING: check pixel value
 		// var pixelValue = new Float32Array(4);

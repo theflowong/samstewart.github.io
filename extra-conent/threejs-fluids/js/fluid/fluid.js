@@ -1,20 +1,27 @@
-function Fluid(N, shaders, renderer) {
+function Fluid(size, shaders, renderer) {
 
-	// we need a context in which to render
-	this.N 				  = N;
+	/**
+		size = {
+			horizontalGridPoints: 512, // represents the number of grid points horizontally
+			verticalGridPoints: 512, // represents the number of grid points vertically
+			cellSize: 32 // represents the grid box size in fluid space
+		}
+	*/
+	this.size 			  = size;
 	this.jacobiIterations = 35;
 
 	// a tool to manage the computations that we are doing on the shader
-	this.gpuComputer = new GPUComputationRenderer(N, N, renderer);
+	// every pixel corresponds to a grid point.
+	this.gpuComputer = new GPUComputationRenderer(size.horizontalGridPoints, size.verticalGridPoints, renderer);
 
-	var pressureTexture = this.gpuComputer.createTexture();
+	var pressureTexture   = this.gpuComputer.createTexture();
 	var divergenceTexture = this.gpuComputer.createTexture();
 
 	// fill the divergence field with 0 boundary conditions and 1 on the inside.
 	fillTexture(divergenceTexture, function(x, y) {
 
 		// we have the Dirichlet conditions of 0 at the boundary.
-		if (y == N - 1 || x == N - 1 || x == 0 || y == 0) {
+		if (y == size.verticalGridPoints - 1 || x == size.horizontalGridPoints - 1 || x == 0 || y == 0) {
 			return Float32Array.from([0.0, 0.0, 0.0, 1.0]);
 		}
 
@@ -30,7 +37,7 @@ function Fluid(N, shaders, renderer) {
 	this.gpuComputer.setVariableDependencies(this.divergenceVariable, [ this.divergenceVariable ]);
 
 	// add the extra parameters for PRESSURE shader
-	this.pressureVariable.material.uniforms.dx = { value: 1.0 / N};
+	this.pressureVariable.material.uniforms.dx = { value: 1.0 / size.cellSize };
 
 	// init the renderer
 	var error = this.gpuComputer.init();
@@ -42,7 +49,6 @@ function Fluid(N, shaders, renderer) {
 
 // steps the simulation by updating all of the shaders. We need a renderer to do this.
 Fluid.prototype.step = function(dt) {
-
 	// solve the pressure equation
 	this.solvePressure();
 };

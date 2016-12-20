@@ -25,9 +25,9 @@
 	varying vec2 vUv;
 
 	void main() {
-		float pressureField = texture2D(outputTexture, vUv).x * 20000.0;;
-		gl_FragColor = vec4(pressureField, 0, 0, 1.0);
+		gl_FragColor = texture2D(outputTexture, vUv);
 	}
+
 </script>
 
 <!-- visualizations -->
@@ -36,7 +36,11 @@
 	varying vec2 vUv;
 
 	void main() {
-		float pressureField = texture2D(outputTexture, vUv).x * 20000.0;;
+		// the largest value should be roughly in the center (for our test data)
+		// so we choose appropriately.
+		float scale = 1.0 / texture2D(outputTexture, vec2(.5, .5)).x;
+
+		float pressureField = texture2D(outputTexture, vUv).x * scale;
 		gl_FragColor = vec4(pressureField, 0, 0, 1.0);
 	}
 </script>
@@ -55,10 +59,26 @@
 	}
 </script>
 
-<!-- particle field visualization -->
-<script type="x-shader/x-fragment" id="particleFieldVisualization">
+<!-- shaders for particle field advected by the fluid -->
+<script type="x-shader/x-vertex" id="particleVertexShader">
+	attribute float size;	
 
+	void main() {
+		// we don't scale point size based on world coordinates.
+		gl_PointSize = size;
+
+		gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);		
+	}
 </script>
+
+<script type="x-shader/x-fragment" id="particleFragmentShader">
+	uniform vec3 color;
+
+	void main() {
+		gl_FragColor = vec4(color, 1.0);
+	}
+</script>
+
 <!-- computation steps. Used with GPUComputationRenderer so we use some built-in variables. -->
 <script type="x-shader/x-fragment" id="stepParticles">
 
@@ -118,9 +138,11 @@
 
 <script type="text/javascript" src="js/TextureUtils.js"></script>
 <script type="text/javascript" src="js/fluid/fluid.js"></script>
+<script type="text/javascript" src="js/fluid/particles.js"></script>
 <script type="text/javascript" src="js/fluid/RenderTarget.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+
 <script type="text/javascript" src="js/MainRenderScene.js"></script>
 </head>
 <body>
