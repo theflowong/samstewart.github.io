@@ -1,0 +1,45 @@
+---
+layout: post
+categories: culture mathematics science philosophy
+date: 2016-01-08 18:25
+---
+
+Plato offers the analogy of prisoners in a cave who can only see their own shadows and not reality. This distinction between "shadows" and "reality" is a common theme in mathematics: mathematicians wish to find the proper perspective on a problem that banishes the shadows and reveals reality. That is, the proper "lighting" often almost forces the correct solution.
+
+Misunderstanding this goal produces many problems in scientific fields that use mathematics. In my experience, the biggest problem is **confusing a theorem with its applications**. As an example, I was once speaking with a friend in economics about maximal principles. He wanted to prove an economic "theorem" that states there is a maximal number of goods we can produce.
+
+1. There are only a finite amount of raw resources.
+2. The number of goods depends continuously on the amount of raw resources.
+3. By the "Theorem of Compactness," there is a (finite) maximum number of goods we can produce.
+
+The problem was not his reasoning, but the *organization* of his reasoning: he confused a *general* theorem from mathematics with a particular *application* in economics. Carefully stated, the general theorem says that any continuous function defined on a compact set achieves a maximum value. In his *application* the continuous function describes the dependence of the number of goods on the amount of resources. He didn't prove a theorem in economics, but instead checked the *hypotheses* of a general theorem in mathematics and then cited the result.
+
+Like Plato's prisoners, he saw the *shadow* of the application of the general theorem and mistook it for reality. The true reality is the theorem about continuous functions on compact sets.
+
+From my perspective, this kind of thinking is an example of a larger trend in the sciences towards "mathematicalization" (yes, I invented that word). In the mad rush towards theory (i.e. mathematics), fields like economics are re-labeling well-known mathematical theorems as economic "theorems." They are really just modeling a problem, but the sophistication of the math (e.g. stochastic calculus) gives their results an added air of legitimacy. Like my friend in economics, economists are often unable to distinguish between a mathematical fact and something actually deep about economics.
+
+Historically, this kind of mathematicalization came from the unemployed physicists of the Sputnik bubble who fled to Wall Street and began working as quants [1]. They imported models from physics (e.g. the Black-Scholes equation is really just the heat equation) and gave derivatives trading a new veneer of science by claiming that they had "eliminated risk" [2]. In fact, they hadn't discovered "deeper rules" about economics that allowed them to eliminate risk, but instead had confused complicated mathematics with truth.
+
+I think this trend is spilling over into other fields far away from physics, like the life sciences. In ecology, many of the math modeling papers consist of solving PDEs numerically and interpreting the results. Given the complexity of the PDEs, the modeler must make an alarming number of assumptions which divorces the process from reality. One can then mistake mathematical patterns (that are readily explained by basic theory) with actual biological phenomena.
+
+To avoid this confusion between theorem and application, let me offer a definition of a mathematical theorem as a fact that is both non-obvious and deep. Non-obvious means that it takes a series of surprising steps in reasoning to deduce, and deep means that it connects many pieces of reasoning together (this correlates with abstractness). From a purely mathematical perspective, I feel that the earlier "theorem" about continuous functions on compact sets is really more of a "fact" because it is really both obvious and shallow. From an application perspective however, it does pass the theorem test because it encompasses a great many applications in a single concise statement (i.e. it's deep). Of course, labeling something a "theorem" requires a judgment and has changed throughout the years [3], but the key point is that a statement like "there is a maximal number of goods we can produce" is not a theorem but an application of a mathematical theorem.
+
+Why do scientists make this mistake? There are two key reasons I think.
+
+1. Poor teaching and knowledge transmission.
+2. Mathematical machismo.
+
+I can speak to the first issue personally. Having taught calculus for several semesters and browsed through various textbooks, the authors obsessively box and label the facts they want students to remember as theorems. There is really only one "theorem" in elementary calculus: the fundamental theorem of calculus. The rest (e.g. intermediate value theorem, mean value theorem, etc) are at the level of facts. When everything is a theorem, students cannot distinguish between deep results (real theorems) and computations. The result is what I call "received knowledge": students simply memorize the theorems without considering the hypotheses, the motivations, and the result. A real theorem is like a piece of art: it leaves you awestruck. The fundamental theorem of calculus tells us that differentiation and integration are inverse operations. That's amazing! Why should finding velocity and finding area be related? In contrast, it is not shocking that a continuous function hits all values between two points (intermediate value theorem). And yet the average calculus student will give both facts equal weight because the authors and the instructor boxed them as "theorems."
+
+Theorems are intimidating because they represent the culmination of careful organization and thinking. You should be intimidated by the fundamental theorem of calculus, but you should not be intimidated by the intermediate value theorem. When we are intimidated, we don't ask as many questions which is natural; we save brain power when we don't take some things as fact. Proofs of theorems are often long and complicated, even mathematicians accept many results with only a vague understanding of the proof. But labeling everything a theorem discourages students from asking questions about the basic facts! When these students become scientists, like my friend in economics, they are unable to discern between theorems and applications because they couldn't discern between theorems and basic facts in the first place! Everything becomes a muddle of unquestioned mathematical facts that sound impressive when written on the board.
+
+This leads me to the second issue: mathematical machismo. Math has long been an all-white male-dominated field and it shows. The problem is that fields with more mathematics are seen as "harder" and more "rigorous" while fields with less mathematics (e.g. psychology) are seen as "softer." I have attended interdisciplinary seminars where the sole audience question of a female ecologist was "so where is the math in all this?" Not only is this condescending, it tells the speaker her work isn't "serious" since it uses only "basic" math (e.g. regression analysis). This attitude comes directly from male mathematicians who see themselves as sitting at the top of the scientific hierarchy. In an effort to obtain "respectability"  (through the eyes of a male dominated scientific elite) and move themselves up the hierarchy, the traditionally softer fields like ecology, psychology, and sociology are adding layers of needless math at the cost of solid experimental work. There is a pressure, produced upstream by the mathematicians, to conform to "hard core" math: if your problem doesn't need math, then your problem isn't worth studying.
+
+These two factors: bad teaching and pressure to add unnecessary mathematics to gain credibility leads to junk science. Researchers confuse basic facts in mathematics with deep results about their fields. Unmoored from empirical tests, one can justify outlandish claims with streams of symbols. 
+
+The goal of mathematics is to reduce complexity by framing the problem in the right perspective. Abstraction allows math to keep thousands of results contained in a single theorem by eliminating the details of the individual application. It is a universal repository of deep results generated by centuries of careful revision. When friends like my economist don't understand this structure, they confuse their domain-specific problem with the tools they use to solve it.
+
+
+1. Weatherall, James Owen. *The physics of wall street: a brief history of predicting the unpredictable.* Houghton Mifflin Harcourt, 2013.
+2. Ferguson, Marrs, Beck, Bolt, Damon, Heffes, . . . Sony Pictures Classics. (2011). *Inside job.* Culver City, Calif., Sony Pictures Home Entertainment.
+3. Tao, Terence. "What is good mathematics?." Bulletin of the American Mathematical Society 44.4 (2007): 623-634.
