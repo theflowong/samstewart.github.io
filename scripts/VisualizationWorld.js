@@ -4,13 +4,14 @@ function VisualizationWorld(canvasName) {
 
 	this.scene = new THREE.Scene();
 
-	var light = new THREE.DirectionalLight(0xffffff);
-	light.position.set(0, 0, 1);
-	this.scene.add(light);
-
 	// setup the camera
-	this.camera = new THREE.PerspectiveCamera( 75, canvas.width / canvas.height, .1, 50)
-	this.camera.position.z = 30;
+	this.camera = new THREE.PerspectiveCamera( 75, canvas.width / canvas.height, 1, 1000)
+	
+	this.camera.lookAt(0, 0, 0);
+
+	// setup the the light
+	var light = new THREE.PointLight(0xffffff, 0.8);
+	this.camera.add(light);
 
 	// setup the renderer
 	this.renderer = new THREE.WebGLRenderer( canvas );
@@ -22,8 +23,6 @@ function VisualizationWorld(canvasName) {
 	this.controls.enableZoom = false;
 
 	this.render = function() {
-
 		this.renderer.render( this.scene, this.camera);
-		
 	}
 }

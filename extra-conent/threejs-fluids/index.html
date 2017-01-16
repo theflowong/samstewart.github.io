@@ -62,12 +62,17 @@
 <!-- shaders for particle field advected by the fluid -->
 <script type="x-shader/x-vertex" id="particleVertexShader">
 	attribute float size;	
+	uniform sampler2D particleData;
 
 	void main() {
 		// we don't scale point size based on world coordinates.
-		gl_PointSize = size;
+		gl_PointSize 		  = size;
 
-		gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);		
+		// TODO: I'm confused about the various coordinate systems. We need to make
+		// sure we have everything aligned before we move the vertices.
+		vec2 particlePos = texture2D(particleData, uv).xy;
+
+		gl_Position 	= projectionMatrix * modelViewMatrix * vec4(particlePos, 1.0);		
 	}
 </script>
 
@@ -80,10 +85,36 @@
 </script>
 
 <!-- computation steps. Used with GPUComputationRenderer so we use some built-in variables. -->
-<script type="x-shader/x-fragment" id="stepParticles">
+
+<!-- 
+stepParticles:
+does explicit forward Euler to recover particle trajectories from the velocity field.
+-->
+<script type="x-shader/x-fragment" id="particleStepShader">
+
+	uniform float dt;
+	uniform dragCoefficient;
 
 	void main() {
-		vec2
+		vec2 uv = gl_FragCoord.xy / resolution.xy;
+
+		// find the position of the particle indexed by texel coordinates.
+		vec2 particlePos 	  = texture2D(particleTexture, uv).xy;
+		vec2 particleVelocity = texture2D(particleTexture, uv).zw;
+
+		// look at the velocity field and see where we're going
+		vec2 v = texture2D(velocityTexture, particlePos).xy;
+
+		// we add a bit of drag and account for existing particle velocity
+		v *= dragCoefficient;
+
+		v -= particleVelocity * dragCoefficient;
+
+		// we track velocity and position so that we can apply drag (it looks cooler)
+		particlePos += dt * v;
+
+		// now store this information in the texture
+		gl_FragColor = vec4(particlePos, particleVelocity);
 	}
 </script>
 

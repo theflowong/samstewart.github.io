@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: culture mathematics science philosophy
-date: 2016-01-08 18:25
+date: 2017-01-08 18:25
 ---
 
 Plato offers the analogy of prisoners in a cave who can only see their own shadows and not reality. This distinction between "shadows" and "reality" is a common theme in mathematics: mathematicians wish to find the proper perspective on a problem that banishes the shadows and reveals reality. That is, the proper "lighting" often almost forces the correct solution.

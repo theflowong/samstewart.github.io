@@ -5,6 +5,7 @@ permalink: /blog/
 ---
 
 This blog is a collection of essays on math, solutions to preliminary exams, and general exposition.
+
 <ul class="listing">
 {% for post in site.posts %}
   {% capture y %}{{post.date | date:"%Y"}}{% endcapture %}
@@ -12,6 +13,7 @@ This blog is a collection of essays on math, solutions to preliminary exams, and
     {% assign year = y %}
     <li class="listing-seperator">{{ y }}</li>
   {% endif %}
+
   <li class="listing-item">
     <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
     <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>

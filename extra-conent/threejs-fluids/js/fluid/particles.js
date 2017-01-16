@@ -24,6 +24,7 @@ function Particles(totalParticles, width, height, pointSize, shaders) {
 
 	var position = new THREE.Vector3();
 
+	// arrange the particles in a grid formation
 	for (var i = 0; i < sizeOfGrid; i++) {
 		for (var j = 0; j < sizeOfGrid; j++) {
 
@@ -38,6 +39,8 @@ function Particles(totalParticles, width, height, pointSize, shaders) {
 		}
 	}
 
+	// TODO: set up the UV coordinates
+	
 	// bind these attributes to the shader material
 	this.particleGeometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ));
 	this.particleGeometry.addAttribute( 'size', 	new THREE.BufferAttribute( sizes, 1 ));
@@ -51,10 +54,10 @@ function Particles(totalParticles, width, height, pointSize, shaders) {
 			},
 			fragmentShader: shaders.fragmentShader,
 			vertexShader: shaders.vertexShader,
-
 			blending: THREE.AdditiveBlending,
 			transparent: false,
 			depthTest: false
 		})
 	);
 }
+

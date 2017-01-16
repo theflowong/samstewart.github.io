@@ -4,10 +4,6 @@ date: 2016-09-07 15:40
 categories: course-notes dynamical systems
 ---
 
-Audience: people who know some mathematics, but not much.
-TODO: make sure our model takes gravity into account.
-Key line: how to predict the future with dynamical systems
-
 ## Can we predict the future in nature?
 
 Mathematics is the subject that classifies, organizes, and manipulates patterns with the goal of predicting and controlling our natural world. The humble pendulum is a good example. Click and drag the red dot.
@@ -15,69 +11,7 @@ Mathematics is the subject that classifies, organizes, and manipulates patterns 
 <div class="figure" id="jxboard"> </div>
 
 <script type="text/javascript">
-	function PendulumJXGDemo(divName) {
-		// some constants for the pendulum ODE
-		// the constant for the pendulum ODE
-		var gravity = -9.80665;
-
-		var length = 4.0;
-				
-		var ratio = gravity / length;
-
-		////////////////////////
-		// initiate the interactive elements
-		var board = JXG.JSXGraph.initBoard(divName, {boundingbox: [-10, 10, 10, -10], keepaspectratio: true, axis: true, grid: false});
-
-		var pendulumCenter = board.create('point', [0, 0], { color: 'black',  fixed: true });
-
-		var orbit = board.create('circle', [pendulumCenter, length], { visible: false });
-		
-		var pendulumEnd = board.create('glider', [ orbit ] );
-		
-		var pendulumLength = board.create('segment', [ pendulumCenter, pendulumEnd ], { color: 'black', strokewidth: 1 });
-
-		var isInDragMode = false;
-		
-		function simulatePendulum(start_angle) {
-			// solve the pendulum equation for a few time steps.
-			var time_interval = [0, 200];
-
-			var number_of_evaluations = (time_interval[1] - time_interval[0]) * 100;
-			
-			var duration = 20 * 1e3;
-
-			function update(t, sol) {
-				return [sol[1], -Math.sin(sol[0]) * sol[0]];							
-			}
-			
-			var data = JXG.Math.Numerics.rungeKutta('heun', [start_angle, 0], time_interval, number_of_evaluations, update);
-		
-			// this wrapper simply returns our position in space at time t.
-			var solutionTrajectory = function(t) {
-				if (t >= duration)
-					return NaN;
-
-				var index = Math.floor(t / duration * number_of_evaluations);
-				var theta = data[index][0];
-
-				return [length * Math.cos(theta), length * Math.sin(theta)];
-			}
-
-			pendulumEnd.moveAlong(solutionTrajectory);
-
-		}
-
-		function curTheta() {
-			return Math.atan2(pendulumEnd.Y(), pendulumEnd.X());
-		}
-		simulatePendulum(curTheta());
-
-		pendulumEnd.on('down', function() { board.stopAllAnimation() });
-		pendulumEnd.on('up',  function() { simulatePendulum(curTheta()) } );
-	}
-	
 	var pendulumDemo = new PendulumJXGDemo('jxboard');
-	
 </script>
 
 The simulation shows that the behavior of the pendulum is complicated. If you are handed an initial state, can you tell me where the pendulum ends? If you start near the bottom, gravity clearly pulls the pendulum straight down. Is there a start position that doesn't end pointing straight down? 
@@ -85,6 +19,7 @@ The simulation shows that the behavior of the pendulum is complicated. If you ar
 We can predict the future with the tools of dynamical systems.
 
 ## What is a dynamical system?
+
 A dynamical system is nothing but a mathematical world with a set of rules governing how that world changes over time. Essentially every natural system (e.g. planets orbiting, a ball bouncing, plane flying) can be described as a dynamical system. The key feature is that in a dynamical system, the world evolves according to *deterministic* rules (the same initial conditions will *always* produce the same outcome) so that systems with randomness (like the stock market) are difficult to model as a dynamical system. This is a natural constraint because one could not possibly given perfectly accurate predictions if some parts of the model evolved according to a coin flip. This is of course an *assumption* in our model and more generally in science. One must *assume* that the sun rises every morning *before* trying to model the orbit of the earth. If one instead assumes that the sun rises with the choice of a coin flip, one can no longer use dynamical systems to model the outcome.
 
 When the greats like Newton and Galileo were discovering the fundamental laws of nature, they were really finding *approximations* Nature's laws. They started on the usual scientific assumption that our universe is deterministic. The earth orbits the sun according to a predictable gravitational law, billiard balls collide and always follow the same trajectories. These guys thought the world was predictable -- it was one huge dynamical system.
@@ -118,6 +53,7 @@ One can visualize this world as the cylinder $S^1 \times \R$.
 		var cylinderMesh = new THREE.Mesh( cylinder, material );
 		// visualization.scene.add(cylinderMesh);
 		visualization.scene.add(new THREE.AxisHelper( 4 ));
+
 		// setup the animation loop
 		function animate() {
 			requestAnimationFrame( animate );
@@ -203,60 +139,3 @@ Of course, predicting where the pendulum will end might look easy since common s
 Dynamical systems appear naturally in classical mechanics. For example, it is surprisingly difficult to predict the behavior of three or more bodies locked in gravitational orbit (the so called [Three Body Problem](https://en.wikipedia.org/wiki/Three-body_problem)). Even with the most advanced theory, this problem has stumped mathematicians for centuries.
 
 In the next post, we will study a phenomena that originally threatened the foundations of dynamical system theory: chaos. While chaos sounds like the opposite of the determinism that we assume when building a dynamical system, chaos actually lies **between** randomness and order. Problems with chaotic solutions are those that lie at the frontiers of physics.
-
-Next post: trouble with predicting the future; chaos
-
-(visualization of the cylinder with a flow vector field from the differential equation)
-
-## Not sure where the time independence is relevant.
-
-Why is the time independence relevant?
-
-Now assume the dynamical system does not depend on the initial time, but only on how much time has elapsed. The pendulum (and indeed most physical laws) is an example. Whether you push the pendulum today, or you push it one hundred years from now, it will follow the same trajectory.
-
-This time independence produces a simple, yet tremendously useful property. If you evolve the system from some initial state at $$t = 0$$, stop at $$t = 1$$, and then evolve the system to $$t = 2$$, this is the same as evolving the system without stopping from $$0$$ to $$2$$.
-
-We call such a dynamical system a _flow_ and formalize the definition below. The second property is precisely the initial time independence (notice that we have also eliminated one variable). 
-
-<div class="definition">
-	A flow $$\phi : \R \times S \to S$$, denoted $$\phi_t : S \to S$$, is a continuous map with the following two properties.
-	1. $$\phi_0 = \textrm{id}$$
-	2. $$\phi_t \circ \phi_s = \phi_{t + s}$$
-</div>
-
-From an alternative perspective, notice that the definition of a flow satisfies the definition of a group action. Here the group is $\R$ and the set is $S$. Hence, a dynamical system that is a flow is a group acting on a manifold. The orbits of the group action are thus trajectories of the system. This perspective leads naturally to beautiful topics such as Lie theory and the (Fourier transform)[decompositions-and-the-fourier-transform.md].
-
-Like all theories, there are simplifying assumptions. 
-
-Principle of determinism. Means lines don't intersect. Global existence.
-
-Newton's law gives a second order system.
-
-There is another perspective of a dynamical system. Namely, consider the dynamical system in $\R^2$ with the ODE
-\\[
-	\begin{bmatrix}
-		x' \cr
-		y' 
-	\end{bmatrix}
-	= \begin{bmatrix}
-		-y \cr
-		x
-	\end{bmatrix}
-\\]
-This defines a velocity field in $\R^2$ that looks like
-
-(plot of the velocity field)
-
-Trajectories of the dynamical system correspond to *integral curves* of this vector field. Namely, a trajectory $$[x(t) y(t)]$$ satisfies
-1. $$[x y](0) = [x_0 y_0]$$
-2. $$[x'(t) y'(t)] = [-y(t) x(t)]
-
-Pictorially, we are trying to find curves whose velocity vectors align with the vector field $$[-y x]$$. There are many integral curves, so choosing the initial data $$[x_0 y_0]$$ determines where you start.
-
-Trading derivatives for dimensions.
-
-
-Phase space of pendulum.
-
-Phase space of particle in the plane.
-

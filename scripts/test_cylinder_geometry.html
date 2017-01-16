@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - interactive - buffergeometry</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				color: #cccccc;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+
+				background-color: #050505;
+				margin: 0px;
+				overflow: hidden;
+			}
+
+			#info {
+				position: absolute;
+				top: 0px; width: 100%;
+				padding: 5px;
+			}
+
+			a {
+
+				color: #0080ff;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div id="container"><canvas id="threejsCylinder1" width="500px" height="500px"> </canvas></div>
+
+		<script src="three.js"></script>
+		<script src="OrbitControls.js"></script>
+		<script src="VisualizationWorld.js"></script>
+		<script src="jquery-3.1.0.min.js"></script>
+
+		<script type="text/javascript">
+			var visualization = new VisualizationWorld( "threejsCylinder1" );
+
+			// we create the cylinder
+			var cylinder = new THREE.CylinderGeometry(2, 2, 30)
+			var material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+
+			var cylinderMesh = new THREE.Mesh( cylinder, material );
+
+			visualization.scene.add( cylinderMesh );
+			visualization.scene.add( new THREE.AxisHelper( 10 ) );
+			
+			var light = new THREE.AmbientLight( 0x404040 );
+			visualization.scene.add( light );
+
+			var directionalLight = new THREE.DirectionalLight( Math.random() * 0xffffff );
+			directionalLight.position.x = Math.random() - .5;
+			directionalLight.position.y = Math.random() - .5;
+			directionalLight.position.z = Math.random() - .5;
+			directionalLight.position.normalize();
+
+			visualization.scene.add( directionalLight );
+
+			visualization.camera.position.set(4,4,4);
+			visualization.camera.lookAt(0, 0, 0);
+
+			// setup the animation loop
+			function animate() {
+				requestAnimationFrame( animate );
+
+				visualization.controls.update();
+
+				visualization.render();
+			}
+
+			animate();
+			
+		</script>
+
+	</body>
+</html>

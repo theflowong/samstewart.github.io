@@ -25,7 +25,7 @@ Big goal:
 			- add 1px boundary to crate image or use convenience function like authors of haxiomatic do.
 
 - Write code to visualize the fluid solver
-	- Visualize a scalar field
+	- Visualize a scalar field [ Done ]
 		- Just write GSL shaders with color [ Done ]
 		- Write GSL shader from custom texture [ Done ]
 
@@ -56,24 +56,40 @@ Big goal:
 
 	- Visualize a scalar field [ Done ]
 	- Add mouse interactivity.
-	- Choose correct coordinates for fluid (and choose right scale)
-	-	We want to shade particles as points.
-			We need a UV map to connect particles to shader.
 	-	We want to shade the velocity field 
 	- How do they add the cool texture when you move the mouse?
 		Use some kind of fractional projection to see if point lies in the path of the mouse?
 	- Visualize particles
-		- Store the particles with points and positions
-		- Draw particles as points.
+		- Store the particles with points and positions [ Done ]
+		- Draw particles as points [ Done ]
 		- One shader for advecting the particles
 		- One shader for drawing the particle (need to include mouse interaction to change the color). 
 		- Need to use UV coordinates to map lower resolution texture to full screen simulation (if I don't want resolution of the screen
 		to be the resolution of my grid).
 
+		-> How the particle rendering works:
+
+		1. texture for velocity and particle velocity
+		2. update particle texture with shader (adds damping)
+		3. use vertex shader to update particle positions (UV mapping does the coordinate conversion)
+
+		Q: How do UV coordinates work?
+		Q: why is the advection different when solving the equation?
+		Q: what are the various coordinate systems that are interacting?
+
+		Test: 
+		constant velocity field straight up
+	
+		-> Particle rendering TODO list
+		1. finish moving all particle ownership to fluids [ done ] 
+		2. add renderer for particle colors [ done ]
+		3. test with constant velocity field
+		4. make certain coordinate systems align.
+
 Q: how do we combine multiple texture to produce the final texture?
 
-Immediate TODO:
-1. Fix the texture scaling at each level.
+Immediate TODO
+1. Fix the texture scaling at each level. [ Done ]
 - Render quad for main scene
 - GPUComputationRenderer
 - All the places where we make textures?
@@ -162,26 +178,6 @@ function setupMainRenderQuad() {
 }
 
 
-function setupParticles() {	
-	var shaders = {
-		fragmentShader: $('#particleFragmentShader').text(),
-		vertexShader: $('#particleVertexShader').text()
-	};
-
-	particles = new Particles(10000, WIDTH, HEIGHT, 128.0 / FLUID_CELL_SIZE, shaders);
-
-	// properly center in world space
-	particles.mesh.position.z = .0001;
-	particles.mesh.position.x -= 256.0;
-	particles.mesh.position.y -= 256.0;
-
-	mainRenderScene.scene.add(particles.mesh);
-
-	// move the mesh to center at the origin
-	//particles.mesh.position.sub(new THREE.Vector3(WIDTH / 2.0, HEIGHT / 2.0, .5));
-	
-}
-
 function setupFluidSolver() {
 	// fluid with only six grid points
 	var shaders 			    = new Object();
@@ -189,14 +185,19 @@ function setupFluidSolver() {
 	shaders.defaultVertexShader   = $('#vertexShader').text();
 	shaders.pressureShader 		  = $('#pressureShader').text();
 	shaders.divergenceShader 	  = $('#divergenceShader').text();
+	shaders.particleStepShader 	  	  = $('#particleStepShader').text();
+
+	shaders.particles.vertexShader   	= $('#particleVertexShader').text();
+	shaders.particles.fragementShader   = $('#particleFragmentShader').text();
 
 	// we don't have a one-to-one mapping between pixels in the viewport
 	// and grid cells in the simulator.
 	// If WIDTH = HEIGHT = 256 and FLUID_SCALE = 1/2 then
 	// horizontalGridPoints = 128.
 	var size = {
-		horizontalGridPoints: WIDTH * FLUID_SCALE, 
-		verticalGridPoints: HEIGHT * FLUID_SCALE,
+		height: HEIGHT
+		width: WIDTH,
+		fluidScale: FLUID_SCALE,
 		cellSize: FLUID_CELL_SIZE // we choose this arbitrarily?
 	}
 
@@ -204,8 +205,18 @@ function setupFluidSolver() {
 					  shaders, 
 					  renderer);
 
+	// properly center in world space
+	particles.mesh.position.z = .0001;
+	particles.mesh.position.x -= WIDTH / 2.0;
+	particles.mesh.position.y -= HEIGHT / 2.0;
+
+	// add the point particles visualization to the scene
+	mainRenderScene.scene.add(fluid.particles.mesh);
+
 	// do one test iteration
 	fluid.step(.1);
+
+
 }
 
 function init() {
@@ -214,7 +225,6 @@ function init() {
 
 	setupMainRenderQuad();
 
-	setupParticles();
 
 	setupFluidSolver();
 

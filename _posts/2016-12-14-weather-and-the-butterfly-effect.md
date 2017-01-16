@@ -72,7 +72,7 @@ Lorenz started by studying weather pattern and ended by stumbling upon a general
 		camera = new THREE.PerspectiveCamera( 75, renderArea.width / renderArea.height, 0.1, 1000 );
 		
 		// setup the rendering context
-		renderer = new THREE.WebGLRenderer( {canvas: renderArea });
+		renderer = new THREE.WebGLRenderer( { canvas: renderArea });
 		renderer.setSize( renderArea.width, renderArea.height );
 
 		// add the controls for moving in this space.
