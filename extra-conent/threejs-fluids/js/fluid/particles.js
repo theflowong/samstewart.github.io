@@ -1,56 +1,64 @@
 /**
-@param totalParticles: the total number of particles
+@param particleGridSize: number of particles on side of the grid
 @param pointSize the size of each point
 @param width the width of the area over which to distribute the particles in a grid
 @param height the height of the area over which to distribute the particles in a grid
+@param particleData an empty texture. We will fill it with the particle positions and velocities.
 */
-function Particles(totalParticles, width, height, pointSize, shaders) {
+function Particles(particleGridSize, width, height, pointSize, shaders, particleData) {
 	this.pointSize 			= pointSize;
-	this.totalParticles 	= totalParticles;
+	this.particleGridSize 	= particleGridSize;
 
 
 	this.particleGeometry 	= new THREE.BufferGeometry();
 
-	// the size of one side of the grid
-	var sizeOfGrid = Math.ceil(Math.sqrt(totalParticles));
-
 	// the size (in world units) of the spacing between the particles
 	// we add +1 to properly center the points
-	var cellSizeHorizontal = width / (sizeOfGrid + 1);
-	var cellSizeVertical = height / (sizeOfGrid + 1);
+	var cellSizeHorizontal = width / (particleGridSize + 1);
+	var cellSizeVertical = height / (particleGridSize + 1);
 
-	var positions = new Float32Array( totalParticles * 3 );
+	var totalParticles = Math.pow(particleGridSize, 2);
 	var sizes 	  = new Float32Array( totalParticles );
+	var particleUVs = new Float32Array( totalParticles * 2 );
+	var positions = new Float32Array( totalParticles * 3 );
 
+	// arrange the particles in model space and in texel coordintaes.
 	var position = new THREE.Vector3();
+	var particleUV = new THREE.Vector2();
 
-	// arrange the particles in a grid formation
-	for (var i = 0; i < sizeOfGrid; i++) {
-		for (var j = 0; j < sizeOfGrid; j++) {
+	// populate the texture locations
+	fillTexture(particleData, function(x, y) {
+		var index = x * particleGridSize + y;
 
-			var index = i * sizeOfGrid + j;
+		position.x = (x + 1) * cellSizeHorizontal;
+		position.y = (y + 1) * cellSizeVertical;
 
-			position.x = (i + 1) * cellSizeHorizontal;
-			position.y = (j + 1) * cellSizeVertical;
-			
-			position.toArray(positions, 3 * index);
+		// convert to UV coordinates
+		particleUV.x = x / (particleGridSize - 1);
+		particleUV.y = y / (particleGridSize - 1);
 
-			sizes[index] = pointSize;
-		}
-	}
+		particleUV.toArray(particleUVs, 2 * index);
 
-	// TODO: set up the UV coordinates
-	
+		sizes[index] = pointSize;
+
+		position.toArray(positions, 3 * index);
+
+		return Float32Array.from([position.x, position.y, 0, 1]);
+	});
+
 	// bind these attributes to the shader material
-	this.particleGeometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ));
 	this.particleGeometry.addAttribute( 'size', 	new THREE.BufferAttribute( sizes, 1 ));
+	this.particleGeometry.addAttribute( 'position', 	new THREE.BufferAttribute( positions, 3 ));
+	this.particleGeometry.addAttribute( 'particleUV', new THREE.BufferAttribute( particleUVs, 2 ));
 
 	// the particles should be white
 	this.mesh = new THREE.Points( this.particleGeometry, 
 		new THREE.ShaderMaterial(
 		{
 			uniforms: { 
-				color: { value: new THREE.Color( 0xffffff ) }
+				color: { value: new THREE.Color( 0xffffff ) },
+				particleData: { value: particleData }
+
 			},
 			fragmentShader: shaders.fragmentShader,
 			vertexShader: shaders.vertexShader,

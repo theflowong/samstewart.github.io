@@ -70,8 +70,78 @@ Adjoint action on Lie group -> Adjoint action on Lie algebra
 We can dualize the whole picture and obtain a connection between the adjoint representation and the Lie-Poisson structure on g*.
 
 Q: why would we ever bother to take the dual of a vector space? Seems like a type system in mathematics.
+Q: why is the adjoint action so important?
+Q: why do we care about a representation a Lie group in its own Lie algebra
+Q: what is the moral of symmetries reducing the order of equations?
+
+Ex: harmonic oscillator with H = 1/2 (p^2 + q^2).
+
+Corresponds to a vector field that generates circles.
 
 Leaves of the foliation of g* via Poisson bracket are precisely the orbits of the co-adjoint action Ad* g.
 
+Reducing the order of a Hamiltonian system:
+
+Noether's theorem tells us that if we have a conserved quantity (first integral) P(x, t) then we have an infinitismal symmetry corresponding to v_p = w. In other words, conserved quantities generate symmetries.
+
+What's more, we can reduce the order of the system by two when we find conserved quantities.
+
+Q: why is this? We are essentially finding symmetries of the level set?
+
+A function P(x, t) is a conserved quantity (first integral) if it satisfies
+
+\partial P / \partial_t P + { P, H } = 0
+
+or just {P, H} = 0 (and obeys the time translational symmetry).
+
+"Solving by quadrature" just means integrating.
+
+Prolongation allows us to reconstruct full symmetry group from a vector field. 
+
+In general, it suffices to check invariance under infinitismal symmetry when we are searching for symmetry groups.
+
+Invariance under infinitisimal generator of prolongation of vector fields is how we define a symmetry.
+
+We can reduce the order of a system by quadrature when we have a first integral (conserved quantity).
+
+One can rephrase the reduction theory by considering quotient manifolds M/G.
+
+Normal subgroups correspond to symmetries? We want Lie algebras that are solvable (ascending chain of normal subgroups).
+
+Def: Hamiltonian action
+
+P_1, ... Poisson bracket can be written in terms of the other quantities (induces a kind of Frobenius condition on the infinitismal generators?)
+
+Regular action means reduction to one dimensional system on the quotient manifold.
+
+Hamiltonian symmetry group if conserved (distinguished coordinate) under the flow. We can use these symmetries to reduce the order of the equations.
+
+The idea of a distinguished coordinate or first integral is simply that we are on a level curve of the system.
+
+
+## 01/28/2016
+
+Read section on Hamiltonian group actions.
+
+Whenever a system has a an abelian Hamilitonian group of symmetries, you can always reduce the dimension by 2r.
+
+Hamiltonian group symmetry -> vector field has potential function which is itself a first integral (conserved quantity).
+
+Def: momentum map
+
+Take the first integrals for a Hamiltonian symmetry group G and make point in dual g*. Call this P : M -> g* the momentum map.
+
+Q: why do we care about the momentum map?
+Q: Why do we care about g* and (g*)*?
+Q: How does the theorem with the commutative diagram work?
+
+Momentum map has level sets.
+
+Def: residual symmetry group
+Set of groups that level a particular level set of the momentum map fixed.
+
+Theorem:
+
+If L_\alpha and G_\alpha are the level sets and residual group for \alpha, then we can solve the system on L_\alpha / G_\alpha and then extrapolate to obtain the full solution.
 
 

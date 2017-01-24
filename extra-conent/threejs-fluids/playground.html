@@ -58,8 +58,71 @@
 
 		var loader = new THREE.TextureLoader();
 
-		loader.load("images/crate_1.jpg", function(texture) {
+		// we do the UV mapping to wrap the dice texture onto the cube
+
+		loader.load("images/dice_texture.png", function(texture) {
+			// the UV coordinates for the sides of the die.
+			// everything is wound counterclockwise (positive orientation).
+			// Judging from the output, the unwinding order is:
+			// Sides: 2, 1, 3, 4, 5, 6
+			var sideCoords = [
+				// two tile
+				[
+					new THREE.Vector2(0, .33),
+					new THREE.Vector2(.25, .33),
+					new THREE.Vector2(.25, .66),
+					new THREE.Vector2(0, .66)
+				],
+				// one tile
+				[
+					new THREE.Vector2(.25, .33),
+					new THREE.Vector2(.5, .33),
+					new THREE.Vector2(.5, .66),
+					new THREE.Vector2(.25, .66)
+				],
+				// three tile
+				[
+					new THREE.Vector2(.25, .66),
+					new THREE.Vector2(.5, .66),
+					new THREE.Vector2(.5, 1),
+					new THREE.Vector2(.25, 1)
+				],
+				// four tile
+				[
+					new THREE.Vector2(.25, 0),
+					new THREE.Vector2(.5, 0),
+					new THREE.Vector2(.5, .33),
+					new THREE.Vector2(.25, .33)
+				],
+				// five tile
+				[
+					new THREE.Vector2(.5, .33),
+					new THREE.Vector2(.75, .33),
+					new THREE.Vector2(.75, .66),
+					new THREE.Vector2(.5, .66)
+				],
+				// six tile
+				[
+					new THREE.Vector2(.75, .33),
+					new THREE.Vector2(1, .33),
+					new THREE.Vector2(1, .66),
+					new THREE.Vector2(.75, .66)
+				]
+			];
+
+			// zero out the first layer
+			cube.faceVertexUvs[0] = [];
+
+			// now we map the triangles composing each face
+
+			for (var i = 0; i < 6; i++) {
+				cube.faceVertexUvs[0][2 * i] = [ sideCoords[i][0], sideCoords[i][1], sideCoords[i][3] ];
+				cube.faceVertexUvs[0][2 * i + 1] = [ sideCoords[i][1], sideCoords[i][2], sideCoords[i][3] ];
+			}
+
+
 			var cubeMaterial = new THREE.MeshBasicMaterial( { map: texture, overdraw: 0.5 });
+
 			cubeMesh = new THREE.Mesh( cube, cubeMaterial );
 
 			scene.add(cubeMesh);	
@@ -95,10 +158,10 @@
 	function animate() {
 		requestAnimationFrame( animate );
 
-		if (cubeMesh) {
-			cubeMesh.rotation.x += .01;
-			cubeMesh.rotation.y += .01;
-		}
+		// if (cubeMesh) {
+		// 	cubeMesh.rotation.x += .01;
+		// 	cubeMesh.rotation.y += .01;
+		// }
 
 		controls.update();
 

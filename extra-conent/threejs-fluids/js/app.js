@@ -132,8 +132,11 @@ In other words, one pixel in the image coordinates corresponds to a grid cell of
 
 % TODO in next hour:
 %	1. Fix coordinate scaling for Poisson solver [ Done? ]
-%	2. Texture a point cloud with UV coordinates
+%	2. Texture a point cloud with UV coordinates [ Done ]
 %		Add a grid of particles to the current scene (get scaling right since we are now in world space)
+
+% TODO: 
+Bundle all shader code into one JSON file
 */
 var renderer, mainRenderScene, fluid, particles;
 
@@ -156,7 +159,7 @@ function enableAxes() {
 	// plots the axes:
 	// red: X, green: Y, blue: Z
 	var axisHelper = new THREE.AxisHelper( 4 );
-	mainRenderTarget.scene.add(axisHelper);
+	mainRenderScene.scene.add(axisHelper);
 }
 
 function setupRenderer() {
@@ -185,17 +188,20 @@ function setupFluidSolver() {
 	shaders.defaultVertexShader   = $('#vertexShader').text();
 	shaders.pressureShader 		  = $('#pressureShader').text();
 	shaders.divergenceShader 	  = $('#divergenceShader').text();
-	shaders.particleStepShader 	  	  = $('#particleStepShader').text();
+	shaders.particleStepShader 	  = $('#particleStepShader').text();
+	shaders.velocityShader 		  = $('#velocityShader').text();
 
-	shaders.particles.vertexShader   	= $('#particleVertexShader').text();
-	shaders.particles.fragementShader   = $('#particleFragmentShader').text();
+	shaders.particles = {
+		vertexShader: $('#particleVertexShader').text(),
+		fragmentShader: $('#particleFragmentShader').text()
+	}
 
 	// we don't have a one-to-one mapping between pixels in the viewport
 	// and grid cells in the simulator.
 	// If WIDTH = HEIGHT = 256 and FLUID_SCALE = 1/2 then
 	// horizontalGridPoints = 128.
 	var size = {
-		height: HEIGHT
+		height: HEIGHT,
 		width: WIDTH,
 		fluidScale: FLUID_SCALE,
 		cellSize: FLUID_CELL_SIZE // we choose this arbitrarily?
@@ -204,11 +210,6 @@ function setupFluidSolver() {
 	fluid = new Fluid(size, 
 					  shaders, 
 					  renderer);
-
-	// properly center in world space
-	particles.mesh.position.z = .0001;
-	particles.mesh.position.x -= WIDTH / 2.0;
-	particles.mesh.position.y -= HEIGHT / 2.0;
 
 	// add the point particles visualization to the scene
 	mainRenderScene.scene.add(fluid.particles.mesh);
@@ -228,7 +229,7 @@ function init() {
 
 	setupFluidSolver();
 
-	// enableAxes();	
+	enableAxes();	
 }
 
 function animate() {
