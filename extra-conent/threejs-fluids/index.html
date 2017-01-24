@@ -65,13 +65,13 @@
 
 	attribute vec2 particleUV; // the index into the particle data texture
 
-	uniform sampler2D particleData;
+	uniform sampler2D particleVariable;
 
 	void main() {
 		// we don't scale point size based on world coordinates.
 		gl_PointSize 		  = size;
 
-		vec2 particlePos 	  = texture2D(particleData, particleUV).xy;
+		vec2 particlePos 	  = texture2D(particleVariable, particleUV).xy;
 
 		gl_Position 		  = projectionMatrix * modelViewMatrix * vec4(particlePos, 0, 1);
 	}
@@ -115,7 +115,8 @@ does explicit forward Euler to recover particle trajectories from the velocity f
 		particlePos += dt * v;
 
 		// now store this information in the texture
-		gl_FragColor = vec4(particlePos, particleVelocity);
+		//gl_FragColor = vec4(particlePos, particleVelocity);
+		gl_FragColor = texture2D(particleVariable, uv); // Debugging: just pass through
 	}
 </script>
 

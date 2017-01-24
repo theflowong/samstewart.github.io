@@ -41,13 +41,16 @@ function Particles(particleGridSize, width, height, pointSize, shaders, particle
 
 		sizes[index] = pointSize;
 
-		position.toArray(positions, 3 * index);
+		//position.toArray(positions, 3 * index);
 
 		return Float32Array.from([position.x, position.y, 0, 1]);
 	});
 
 	// bind these attributes to the shader material
 	this.particleGeometry.addAttribute( 'size', 	new THREE.BufferAttribute( sizes, 1 ));
+
+	// Note: one *MUST* add a blank position attribute to correctly initalize the mesh.
+	// This behavior is undesirable since we might be setting the positions with some other method.
 	this.particleGeometry.addAttribute( 'position', 	new THREE.BufferAttribute( positions, 3 ));
 	this.particleGeometry.addAttribute( 'particleUV', new THREE.BufferAttribute( particleUVs, 2 ));
 
@@ -57,7 +60,7 @@ function Particles(particleGridSize, width, height, pointSize, shaders, particle
 		{
 			uniforms: { 
 				color: { value: new THREE.Color( 0xffffff ) },
-				particleData: { value: particleData }
+				particleVariable: { value: particleData }
 
 			},
 			fragmentShader: shaders.fragmentShader,

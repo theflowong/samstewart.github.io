@@ -130,13 +130,26 @@ sampling the fluid every 32 inches.
 
 In other words, one pixel in the image coordinates corresponds to a grid cell of size 32x32.
 
-% TODO in next hour:
+% Done [check!]
 %	1. Fix coordinate scaling for Poisson solver [ Done? ]
 %	2. Texture a point cloud with UV coordinates [ Done ]
 %		Add a grid of particles to the current scene (get scaling right since we are now in world space)
 
 % TODO: 
 Bundle all shader code into one JSON file
+
+Problem: We store the particle positions and velocities in a texture.
+Indexing into the texture with UV coordinates appears to be causing some distortion due to numerical error
+(we are trying to compute 1/3).
+
+Todo: render the particle data to a texture and see how the interpolation skews the result.
+
+The issue is apparently only at the boundary tiles? At least that is the appearance for large values of N.
+
+Todo: fix the strange issue when doing passthrough particle step.
+Next goal: make particles step vertically by one unit.
+Next goal: make complex swirl field and rotate particles.
+Next goal: animate rotation of particles as they are advected by a flow. 
 */
 var renderer, mainRenderScene, fluid, particles;
 
@@ -215,8 +228,11 @@ function setupFluidSolver() {
 	mainRenderScene.scene.add(fluid.particles.mesh);
 
 	// do one test iteration
-	fluid.step(.1);
+	// the spatial and temporal integrators are connected? So we choose so \delta t \approx \delta x (Courant ratio).
+	// TODO: this choice is arbitrary. Make it more general / justified.
+	var dt = 1.0 / (FLUID_SCALE * WIDTH);
 
+	fluid.step(dt);
 
 }
 
@@ -246,7 +262,7 @@ function render() {
 	if (mainRenderScene) {
 		// update the texture data to display the pressure from the fluid solver
 		if (fluid) {
-			mainRenderScene.renderQuad.material.uniforms.outputTexture.value = fluid.gpuComputer.getCurrentRenderTarget( this.fluid.pressureVariable ).texture;	
+			mainRenderScene.renderQuad.material.uniforms.outputTexture.value = fluid.gpuComputer.getCurrentRenderTarget( this.fluid.particleVariable ).texture;	
 		}
 		
 		// render the main quad with texture
