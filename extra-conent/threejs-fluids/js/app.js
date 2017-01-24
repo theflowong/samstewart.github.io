@@ -263,8 +263,14 @@ function render() {
 		// update the texture data to display the pressure from the fluid solver
 		if (fluid) {
 			mainRenderScene.renderQuad.material.uniforms.outputTexture.value = fluid.gpuComputer.getCurrentRenderTarget( this.fluid.particleVariable ).texture;	
+
+			// var pixelValue = new Float32Array(4 * 5 * 5);
+
+			// this.renderer.readRenderTargetPixels(fluid.gpuComputer.getCurrentRenderTarget( this.fluid.particleVariable ), 0, 0, 5, 5, pixelValue);	
 		}
 		
+		
+
 		// render the main quad with texture
 		renderer.render( mainRenderScene.scene, mainRenderScene.camera );
 
@@ -275,7 +281,7 @@ function render() {
 		// DEBUGGING: check pixel value
 		// var pixelValue = new Float32Array(4);
 
-		// this.renderer.readRenderTargetPixels(fluid.gpuComputer.getCurrentRenderTarget( this.fluid.divergenceVariable ), 256, 256, 1, 1, pixelValue);	
+		//this.renderer.readRenderTargetPixels(fluid.gpuComputer.getCurrentRenderTarget( this.fluid.divergenceVariable ), 256, 256, 1, 1, pixelValue);	
 		// console.log(pixelValue);
 	}
 	

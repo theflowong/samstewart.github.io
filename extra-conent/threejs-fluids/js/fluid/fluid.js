@@ -9,7 +9,7 @@ function Fluid(size, shaders, renderer) {
 	*/
 	this.size 			  = size;
 	this.jacobiIterations = 35;
-	this.particleGridSize   = 2 << 4 + 1; // length of one side of the particle grid
+	this.particleGridSize   = (2 << 1) + 1; // length of one side of the particle grid
 
 
 	// a tool to manage the computations that we are doing on the shader.
@@ -58,7 +58,8 @@ function Fluid(size, shaders, renderer) {
 									particleTexture);
 
 	// bind variables to textures
-	// Note that we seed the particleTexture with the initial positions.
+	// Note that we seed the particleTexture with the initial positions in the Particles constructor.
+	// TODO: this separation is a bit unclear. Maybe we should do the texture initialization in here?
 	this.pressureVariable 				= this.gpuComputer.addVariable('pressureVariable', shaders.pressureShader, pressureTexture);
 	this.divergenceVariable 			= this.gpuComputer.addVariable('divergenceVariable', shaders.divergenceShader, divergenceTexture);
 	this.particleVariable 				= this.gpuComputer.addVariable('particleVariable', shaders.particleStepShader, particleTexture);
@@ -101,9 +102,12 @@ Fluid.prototype.step = function(dt) {
 	// update the particle positions according to the velocity field
 	this.gpuComputer.computeVariable(this.particleVariable);
 
-	var texture = this.gpuComputer.getCurrentRenderTarget( this.particleVariable ).texture;
 	// update the actual particle mesh
-	this.particles.mesh.material.uniforms.particleVariable.value = texture;
+	this.particles.mesh.material.uniforms.particleVariable.value = this.gpuComputer.getCurrentRenderTarget( this.particleVariable ).texture;
+
+	var pixelValue = new Float32Array(4 * this.particleGridSize * this.particleGridSize);
+
+	renderer.readRenderTargetPixels(this.gpuComputer.getCurrentRenderTarget( this.particleVariable ), 0, 0, this.particleGridSize, this.particleGridSize, pixelValue);	
 
 	// then update the actual particlel field
 	// this.particles.mesh.material.uniforms.particleData.value = this.gpuComputer.getCurrentRenderTarget( this.particleVariable ).texture;
