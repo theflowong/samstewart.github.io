@@ -1,21 +1,11 @@
-function Fluid(size, shaders, renderer) {
+function Fluid(scale_constants, shaders, renderer) {
 
-	/**
-		size = {
-			horizontalGridPoints: 512, // represents the number of grid points horizontally
-			verticalGridPoints: 512, // represents the number of grid points vertically
-			cellSize: 32 // represents the grid box size in fluid space
-		}
-	*/
-	this.size 			  = size;
+	this.scale_constants = scale_constants;
 	this.jacobiIterations = 35;
-	this.particleGridSize   = (2 << 1) + 1; // length of one side of the particle grid
 
 
 	// a tool to manage the computations that we are doing on the shader.
 	// The scale parameter controls the number of grid points in the fluid we are trying to resolve.
-	var horizontalGridPoints = size.width * size.fluidScale;
-	var verticalGridPoints   = size.height * size.fluidScale;
 
 	this.gpuComputer = new GPUComputationRenderer(
 								horizontalGridPoints, 
@@ -34,7 +24,7 @@ function Fluid(size, shaders, renderer) {
 	fillTexture(divergenceTexture, function(x, y) {
 
 		// we have the Dirichlet conditions of 0 at the boundary.
-		if (y == verticalGridPoints - 1 || x == horizontalGridPoints - 1 || x == 0 || y == 0) {
+		if (y == scale_constants.window.height - 1 || x == scale_constants.window.width - 1 || x == 0 || y == 0) {
 			return Float32Array.from([0.0, 0.0, 0.0, 1.0]);
 		}
 
@@ -47,13 +37,12 @@ function Fluid(size, shaders, renderer) {
 
 		// constant upward facing velocity field. 
 		return Float32Array.from([0, gridSize, 0, 0]);
+		// velocity field with swirl
+		//return Float32Array.from([-y, x, 0, 0]);
 	});
 
 	// setup the particle visualization. This will also initialize the particle texture.
-	this.particles = new Particles(this.particleGridSize, 
-									size.width, 
-									size.height, 
-									128.0 / FLUID_CELL_SIZE, 
+	this.particles = new Particles( scale_constants, 
 									shaders.particles, 
 									particleTexture);
 
@@ -75,11 +64,11 @@ function Fluid(size, shaders, renderer) {
 	this.gpuComputer.setVariableDependencies(this.particleVariable, [ this.particleVariable, this.velocityVariable ]);
 
 	// add the extra parameters for PRESSURE shader
-	this.pressureVariable.material.uniforms.dx = { value: 1.0 / size.cellSize };
+	this.pressureVariable.material.uniforms.dx = { value: scale_constants.fluid.dx };
 
 	// add the extra parameters for the PARTICLE stepping shader
-	this.particleVariable.material.uniforms.dt = { value: 1.0 / size.cellSize };
-	this.particleVariable.material.uniforms.dragCoefficient = { value: .98 };
+	this.particleVariable.material.uniforms.dt = { value: scale_constants.dt };
+	this.particleVariable.material.uniforms.dragCoefficient = { value: scale_constants.particles.drag_coeff };
 
 	// init the renderer
 	var error = this.gpuComputer.init();
@@ -90,9 +79,9 @@ function Fluid(size, shaders, renderer) {
 
 	
 	// center the particles properly in the screen.
-	this.particles.mesh.position.z = .0001;
-	this.particles.mesh.position.x -= WIDTH / 2.0;
-	this.particles.mesh.position.y -= HEIGHT / 2.0;
+	this.particles.mesh.position.z = .0001; // need to move it away from the camera a bit?
+	this.particles.mesh.position.x -= scale_constants.window.width / 2.0;
+	this.particles.mesh.position.y -= scale_constants.window.height / 2.0;
 
 }
 
@@ -105,9 +94,9 @@ Fluid.prototype.step = function(dt) {
 	// update the actual particle mesh
 	this.particles.mesh.material.uniforms.particleVariable.value = this.gpuComputer.getCurrentRenderTarget( this.particleVariable ).texture;
 
-	var pixelValue = new Float32Array(4 * this.particleGridSize * this.particleGridSize);
+	// var pixelValue = new Float32Array(4 * this.scale_constants * this.particleGridSize);
 
-	renderer.readRenderTargetPixels(this.gpuComputer.getCurrentRenderTarget( this.particleVariable ), 0, 0, this.particleGridSize, this.particleGridSize, pixelValue);	
+	// renderer.readRenderTargetPixels(this.gpuComputer.getCurrentRenderTarget( this.particleVariable ), 0, 0, this.particleGridSize, this.particleGridSize, pixelValue);	
 
 	// then update the actual particlel field
 	// this.particles.mesh.material.uniforms.particleData.value = this.gpuComputer.getCurrentRenderTarget( this.particleVariable ).texture;

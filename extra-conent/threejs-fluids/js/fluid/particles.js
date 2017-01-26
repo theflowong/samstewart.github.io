@@ -1,26 +1,17 @@
 /**
-@param particleGridSize: number of particles on side of the grid
-@param pointSize the size of each point
-@param width the width of the area over which to distribute the particles in a grid
-@param height the height of the area over which to distribute the particles in a grid
+@param scale_constants an object with the various scale data (width/height/cell size). See fluid.js for full definition.
 @param particleData an empty texture. We will fill it with the particle positions and velocities.
 */
-function Particles(particleGridSize, width, height, pointSize, shaders, particleData) {
-	this.pointSize 			= pointSize;
-	this.particleGridSize 	= particleGridSize;
-
+function Particles(scale_constants, shaders, particleData) {
 
 	this.particleGeometry 	= new THREE.BufferGeometry();
 
 	// the size (in world units) of the spacing between the particles
 	// we add +1 to properly center the points
-	var cellSizeHorizontal = width / (particleGridSize + 1);
-	var cellSizeVertical = height / (particleGridSize + 1);
-
-	var totalParticles = Math.pow(particleGridSize, 2);
-	var sizes 	  = new Float32Array( totalParticles );
-	var particleUVs = new Float32Array( totalParticles * 2 );
-	var positions = new Float32Array( totalParticles * 3 );
+	
+	var sizes 	  			= new Float32Array( scale_constants.particles.total_particles );
+	var particleUVs 		= new Float32Array( scale_constants.particles.total_particles * 2 );
+	var positions 			= new Float32Array( scale_constants.particles.total_particles * 3 );
 
 	// arrange the particles in model space and in texel coordintaes.
 	var position = new THREE.Vector3();
@@ -30,20 +21,23 @@ function Particles(particleGridSize, width, height, pointSize, shaders, particle
 	fillTexture(particleData, function(x, y) {
 		var index = x * particleGridSize + y;
 
-		position.x = (x + 1) * cellSizeHorizontal;
-		position.y = (y + 1) * cellSizeVertical;
+		position.x = (x + 1) * scale_constants.particles.cell_size_hort;
+		position.y = (y + 1) * scale_constants.particles.cell_size_vert;
 
-		// convert to UV coordinates
-		particleUV.x = x / (particleGridSize - 1);
-		particleUV.y = y / (particleGridSize - 1);
+		// convert to UV coordinates (just normalize)
+		var maxX = (scale_constants.particles.particle_grid_size - 1);
+		var maxY = maxX;
+
+		particleUV.x = x / maxX;
+		particleUV.y = y / maxY;
 
 		particleUV.toArray(particleUVs, 2 * index);
 
-		sizes[index] = pointSize;
+		sizes[index] = scale_constants.particles.particle_size;
 
 		//position.toArray(positions, 3 * index);
 
-		return Float32Array.from([position.x, position.y, 0, 1]);
+		return Float32Array.from([position.x, position.y, 0, 0]);
 	});
 
 	// bind these attributes to the shader material

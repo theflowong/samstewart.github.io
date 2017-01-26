@@ -94,42 +94,6 @@ Immediate TODO
 - GPUComputationRenderer
 - All the places where we make textures?
 
-## Coordinate Systems
-
-There a several layers of coordinate systems that we must track.
-
-1. Viewport
-Coordinates in this space represent the actual graphics on your computer screen.
-
-2. World
-Coordinates in this space represent the 3D world before projecting via camera matrix to viewport coordinates.
-
-3. Object or material
-Local coordinates for a mesh before we apply the affine transformation that maps this object into world coordinates.
-
-4. UV coordinates
-Texture coordinates [0, 1]x[0, 1] that describe how to texture an object when rendered. 
-
-These are also shader coordinates.
-
-5. Image coordinates
-Every texture is just an image. We use UV coordinates to map into this image. 
-
-These are also indices for the texture variables.
-
-6. Fluid coordinates
-Coordinates for the fluid equation. Might be in physical units.
-
-Conversion to image coordinates is just a scaling on two levels: cell size and fluid scale.
-
-Fluid scale is the resolution of our grid (how many grid points) relative to the resolution 
-pixel count of the actual viewport.
-
-Cell size is the width and height of a single grid cell. If cell size is 32 inches, then we are
-sampling the fluid every 32 inches.
-
-In other words, one pixel in the image coordinates corresponds to a grid cell of size 32x32.
-
 % Done [check!]
 %	1. Fix coordinate scaling for Poisson solver [ Done? ]
 %	2. Texture a point cloud with UV coordinates [ Done ]
@@ -154,12 +118,11 @@ Next goal: animate rotation of particles as they are advected by a flow.
 var renderer, mainRenderScene, fluid, particles;
 
 
-var WIDTH   	= 1 << 9;
-var HEIGHT  	= 1 << 9;
-var DT 			= .1;
+// the various constants used for scaling
 var FLUID_SCALE = 1 / 2;
-var FLUID_CELL_SIZE = 1 << 6; 
 
+// the list of scale constants
+var SCALE_CONSTANTS 	  = {};
 var MAIN_RENDERING_SHADER = "#pressureFieldVisualization";
 
 $(document).ready(function() {
@@ -167,6 +130,68 @@ $(document).ready(function() {
 	animate();	
 });
 
+/**
+Generate constants for the various coordinate systems.
+
+## Coordinate Systems (outwards in)
+
+1. Window coordinates 
+	
+2. Camera coordinates
+
+3. World Coordinates
+
+4. Body Coordinates
+
+5. UV / texture coordinates
+
+6. Fluid coordinates
+	- One texture pixel for every grid cell.
+	- Downsample from full window size since too computationally expensive.
+
+7. Particle coordinates
+	- One pixel in texture for every particle.
+
+Conversion to image coordinates is just a scaling on two levels: cell size and fluid scale.
+
+Cell size is the width and height of a single grid cell. If cell size is 32 inches, then we are
+sampling the fluid every 32 inches.
+
+In other words, one pixel in the image coordinates corresponds to a grid cell of size 32x32.
+*/
+function generateScaleConstants(fluid_downscaling_factor) {
+	var coordinateConstants = new Object();
+
+	coordinateConstants.window  = renderer.getSize();
+
+	coordinateConstants.fluid = {
+		// number of horizontal grid points
+		hori_grid_points: fluid_downscaling_factor * coordinateConstants.window.width,
+		// number of vertical grid points
+		vert_grid_points: fluid_downscaling_factor * coordinateConstants.window.height,
+		// the cell size in fluid coords (not the same as dx)
+		// TODO: pick something sensible for this
+		grid_cell_size: 100
+	}
+	// Q: should we assume the grid points are spaced equally apart?
+	coordinateConstants.fluid.dx = 1 / hori_grid_points;
+	coordinateConstants.dt 		 = coordinateConstants.fluid.dx;
+	
+
+	// number of particles in each direction 
+	coordinateConstants.particles.particle_grid_size = (2 << 5) + 1;
+	coordinateConstants.particles.total_particles = Math.pow(scale_constants.particles.particle_grid_size, 2);;
+
+	coordinateConstants.particles.cell_size_hort = scale_constants.window.width / (coordinateConstants.particles.particle_grid_size + 1);
+	coordinateConstants.particles.cell_size_vert = scale_constants.window.height / (coordinateConstants.particles.particle_grid_size + 1);
+
+	coordinateConstants.particles.particle_size = 5;
+	coordinateConstants.particles.drag_coeff = .98; // the factor for simulating drag when the particles move
+
+
+	return generateScaleConstants;
+
+}
 
 function enableAxes() {
 	// plots the axes:
@@ -176,17 +201,16 @@ function enableAxes() {
 }
 
 function setupRenderer() {
-	renderer = new THREE.WebGLRenderer();
+	renderer = new THREE.WebGLRenderer(document.getElement);
 	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( WIDTH, HEIGHT );
 	renderer.autoClear = false;
-
-	document.body.appendChild( renderer.domElement );
 }
 
 function setupMainRenderQuad() {
 	
-	mainRenderScene = new MainRenderScene(WIDTH, HEIGHT, 
+	mainRenderScene = new MainRenderScene(
+		SCALE_CONSTANTS.window.width, 
+		SCALE_CONSTANTS.window.height, 
 	{
 		vertexShader: 	$("#vertexShader").text(), 
 		fragmentShader: $(MAIN_RENDERING_SHADER).text()
@@ -209,36 +233,22 @@ function setupFluidSolver() {
 		fragmentShader: $('#particleFragmentShader').text()
 	}
 
-	// we don't have a one-to-one mapping between pixels in the viewport
-	// and grid cells in the simulator.
-	// If WIDTH = HEIGHT = 256 and FLUID_SCALE = 1/2 then
-	// horizontalGridPoints = 128.
-	var size = {
-		height: HEIGHT,
-		width: WIDTH,
-		fluidScale: FLUID_SCALE,
-		cellSize: FLUID_CELL_SIZE // we choose this arbitrarily?
-	}
 
-	fluid = new Fluid(size, 
+	fluid = new Fluid(SCALE_CONSTANTS, 
 					  shaders, 
 					  renderer);
 
 	// add the point particles visualization to the scene
 	mainRenderScene.scene.add(fluid.particles.mesh);
 
-	// do one test iteration
-	// the spatial and temporal integrators are connected? So we choose so \delta t \approx \delta x (Courant ratio).
-	// TODO: this choice is arbitrary. Make it more general / justified.
-	var dt = 1.0 / (FLUID_SCALE * WIDTH);
-
-	fluid.step(dt);
-
 }
 
 function init() {
 
 	setupRenderer();
+
+	// the fluid world is 1/2 of the real viewport resolution.
+	SCALE_CONSTANTS = generateScaleConstants( FLUID_SCALE );
 
 	setupMainRenderQuad();
 
@@ -251,6 +261,8 @@ function init() {
 function animate() {
 	requestAnimationFrame( animate );
 
+	// step the fluid
+	fluid.step(DT);
 	//  controls.update();
 
 	render();		
@@ -268,8 +280,6 @@ function render() {
 
 			// this.renderer.readRenderTargetPixels(fluid.gpuComputer.getCurrentRenderTarget( this.fluid.particleVariable ), 0, 0, 5, 5, pixelValue);	
 		}
-		
-		
 
 		// render the main quad with texture
 		renderer.render( mainRenderScene.scene, mainRenderScene.camera );

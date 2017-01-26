@@ -4,7 +4,6 @@
 <title>Three.js test diagram</title>
 <style>
 	body { margin: 0; }
-	canvas { width: 100%; height: 100% }
 </style>
 
 <!-- GSL shaders -->
@@ -104,7 +103,9 @@ does explicit forward Euler to recover particle trajectories from the velocity f
 		vec2 particleVelocity = texture2D(particleVariable, uv).zw;
 
 		// look at the velocity field and see where we're going
-		vec2 v = texture2D(particleVariable, particlePos).xy;
+		vec2 v = 100000.0 * texture2D(velocityVariable, particlePos).xy;
+
+		v = vec2(0, 10);
 
 		// we add a bit of drag and account for existing particle velocity
 		v *= dragCoefficient;
@@ -116,7 +117,7 @@ does explicit forward Euler to recover particle trajectories from the velocity f
 
 		// now store this information in the texture
 		//gl_FragColor = vec4(particlePos, particleVelocity);
-		gl_FragColor = texture2D(particleVariable, uv); // Debugging: just pass through
+		gl_FragColor = vec4(particlePos, particleVelocity);
 	}
 </script>
 
@@ -191,5 +192,6 @@ does explicit forward Euler to recover particle trajectories from the velocity f
 </head>
 <body>
 
+<canvas id="fluidDisplay" width="512" height="512"></canvas>
 </body>
 </html>
