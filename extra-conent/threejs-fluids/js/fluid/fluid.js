@@ -6,10 +6,9 @@ function Fluid(scale_constants, shaders, renderer) {
 
 	// a tool to manage the computations that we are doing on the shader.
 	// The scale parameter controls the number of grid points in the fluid we are trying to resolve.
-
 	this.gpuComputer = new GPUComputationRenderer(
-								horizontalGridPoints, 
-								verticalGridPoints, 
+								scale_constants.fluid.hori_grid_points, 
+								scale_constants.fluid.vert_grid_points, 
 								renderer);
 
 	var pressureTexture   = this.gpuComputer.createTexture();
@@ -17,7 +16,7 @@ function Fluid(scale_constants, shaders, renderer) {
 
 	// the particle grid is actually smaller than the other textures.
 	// We have fewer than one particle per point in the velocity field.
-	var particleTexture	  = this.gpuComputer.createTexture(this.particleGridSize, this.particleGridSize);
+	var particleTexture	  = this.gpuComputer.createTexture(scale_constants.particles.grid_size, scale_constants.particles.grid_size);
 	var velocityTexture	  = this.gpuComputer.createTexture();
 
 	// fill the divergence field with 0 boundary conditions and 1 on the inside.
@@ -33,12 +32,21 @@ function Fluid(scale_constants, shaders, renderer) {
 
 	// fill the velocity field with a constant upward field
 	fillTexture(velocityTexture, function(x, y) {
-		var gridSize = 1.0 / verticalGridPoints;
+		// want to move upwards at three fluid grid cell roughly per second
+		// working in fluid coordinates. 
+		var deltaY = scale_constants.fluid.grid_cell_size / scale_constants.best_fps;
+		deltaY *= 3;
+
+		// scale into world space.
+		deltaY *= 1 / scale_constants.fluid.fluid_downscaling_factor;
 
 		// constant upward facing velocity field. 
-		return Float32Array.from([0, gridSize, 0, 0]);
+		//return Float32Array.from([0, deltaY, 0, 0]);
 		// velocity field with swirl
-		//return Float32Array.from([-y, x, 0, 0]);
+		y = y / velocityTexture.image.height;
+		x = x / velocityTexture.image.width;
+		
+		return Float32Array.from([-y, x, 0, 0]);
 	});
 
 	// setup the particle visualization. This will also initialize the particle texture.

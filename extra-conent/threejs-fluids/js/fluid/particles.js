@@ -19,13 +19,13 @@ function Particles(scale_constants, shaders, particleData) {
 
 	// populate the texture locations
 	fillTexture(particleData, function(x, y) {
-		var index = x * particleGridSize + y;
+		var index = x * scale_constants.particles.grid_size + y;
 
 		position.x = (x + 1) * scale_constants.particles.cell_size_hort;
 		position.y = (y + 1) * scale_constants.particles.cell_size_vert;
 
 		// convert to UV coordinates (just normalize)
-		var maxX = (scale_constants.particles.particle_grid_size - 1);
+		var maxX = (scale_constants.particles.grid_size - 1);
 		var maxY = maxX;
 
 		particleUV.x = x / maxX;
@@ -46,7 +46,7 @@ function Particles(scale_constants, shaders, particleData) {
 	// Note: one *MUST* add a blank position attribute to correctly initalize the mesh.
 	// This behavior is undesirable since we might be setting the positions with some other method.
 	this.particleGeometry.addAttribute( 'position', 	new THREE.BufferAttribute( positions, 3 ));
-	this.particleGeometry.addAttribute( 'particleUV', new THREE.BufferAttribute( particleUVs, 2 ));
+	this.particleGeometry.addAttribute( 'particleUV',   new THREE.BufferAttribute( particleUVs, 2 ));
 
 	// the particles should be white
 	this.mesh = new THREE.Points( this.particleGeometry, 

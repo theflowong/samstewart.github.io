@@ -148,6 +148,7 @@ Generate constants for the various coordinate systems.
 6. Fluid coordinates
 	- One texture pixel for every grid cell.
 	- Downsample from full window size since too computationally expensive.
+	- One grid cell in fluid space is 100 units (PDE coordinates). Then one texel correponds to 100 units in fluid space.
 
 7. Particle coordinates
 	- One pixel in texture for every particle.
@@ -162,6 +163,8 @@ In other words, one pixel in the image coordinates corresponds to a grid cell of
 function generateScaleConstants(fluid_downscaling_factor) {
 	var coordinateConstants = new Object();
 
+	coordinateConstants.best_fps = 50; // best scenario for frames per second
+
 	coordinateConstants.window  = renderer.getSize();
 
 	coordinateConstants.fluid = {
@@ -171,25 +174,27 @@ function generateScaleConstants(fluid_downscaling_factor) {
 		vert_grid_points: fluid_downscaling_factor * coordinateConstants.window.height,
 		// the cell size in fluid coords (not the same as dx)
 		// TODO: pick something sensible for this
-		grid_cell_size: 100
+		grid_cell_size: 100,
+
+		fluid_downscaling_factor: fluid_downscaling_factor
 	}
 	// Q: should we assume the grid points are spaced equally apart?
-	coordinateConstants.fluid.dx = 1 / hori_grid_points;
+	coordinateConstants.fluid.dx = 1 / coordinateConstants.fluid.hori_grid_points;
 	coordinateConstants.dt 		 = coordinateConstants.fluid.dx;
 	
 
 	// number of particles in each direction 
-	coordinateConstants.particles.particle_grid_size = (2 << 5) + 1;
-	coordinateConstants.particles.total_particles = Math.pow(scale_constants.particles.particle_grid_size, 2);;
+	coordinateConstants.particles = {
+		grid_size: (2 << 5),
+		particle_size: 1,
+		drag_coeff: .98 // the factor for simulating drag when the particles move
+	};
 
-	coordinateConstants.particles.cell_size_hort = scale_constants.window.width / (coordinateConstants.particles.particle_grid_size + 1);
-	coordinateConstants.particles.cell_size_vert = scale_constants.window.height / (coordinateConstants.particles.particle_grid_size + 1);
+	coordinateConstants.particles.cell_size_hort = coordinateConstants.window.width / (coordinateConstants.particles.grid_size + 1);
+	coordinateConstants.particles.cell_size_vert = coordinateConstants.window.height / (coordinateConstants.particles.grid_size + 1);
+	coordinateConstants.particles.total_particles = Math.pow(coordinateConstants.particles.grid_size, 2);
 
-	coordinateConstants.particles.particle_size = 5;
-	coordinateConstants.particles.drag_coeff = .98; // the factor for simulating drag when the particles move
-
-
-	return generateScaleConstants;
+	return coordinateConstants;
 
 }
 
@@ -201,9 +206,10 @@ function enableAxes() {
 }
 
 function setupRenderer() {
-	renderer = new THREE.WebGLRenderer(document.getElement);
+	renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('fluidDisplay') });
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.autoClear = false;
+	renderer.setSize(512, 512);
 }
 
 function setupMainRenderQuad() {
@@ -262,7 +268,7 @@ function animate() {
 	requestAnimationFrame( animate );
 
 	// step the fluid
-	fluid.step(DT);
+	fluid.step(SCALE_CONSTANTS.dt);
 	//  controls.update();
 
 	render();		

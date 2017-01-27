@@ -103,9 +103,7 @@ does explicit forward Euler to recover particle trajectories from the velocity f
 		vec2 particleVelocity = texture2D(particleVariable, uv).zw;
 
 		// look at the velocity field and see where we're going
-		vec2 v = 100000.0 * texture2D(velocityVariable, particlePos).xy;
-
-		v = vec2(0, 10);
+		vec2 v = texture2D(velocityVariable, particlePos).xy;
 
 		// we add a bit of drag and account for existing particle velocity
 		v *= dragCoefficient;
@@ -192,6 +190,6 @@ does explicit forward Euler to recover particle trajectories from the velocity f
 </head>
 <body>
 
-<canvas id="fluidDisplay" width="512" height="512"></canvas>
+<canvas id="fluidDisplay"></canvas>
 </body>
 </html>
