@@ -41,10 +41,10 @@ The formula is quite simple. Given a coordinate pair $[i, j]$ we can convert the
 
 How do we know this doesn't assign two different coordinates to the same index? We can find an explicit formula to convert *back* from a single index $k$ to a coordinate pair $[i, j]$. If we mod $k$ by matrixSize, then
 
-	k mod matrixSize = (i * matrixSize + j) mod matrixSize = j mod matrixWidth = j
+	k mod matrixSize = (i * matrixSize + j) mod matrixSize = (i * matrixWidth) mod matrixWidth + j mod matrixWidth = 0 + j mod matrixWidth = j
 
 To recover i, we can divide by matrixSize and then round down since j / matrixSize < 1.
 
 	floor(k / matrixSize) = floor(i + j / matrixSize) = i.
 
-We have found a map between $[i, j]$ and $k$ that is one-to-one. This proves that $\Z$ has the same size as $\Z^2$ and also demonstrates how to store a 2D array in memory as a 1D array.
+We have found a map between $[i, j]$ and $k$ that is one-to-one. This proves that $\Z$ is the same size as $\Z^2$ and also demonstrates how to store a 2D array in memory as a 1D array.
