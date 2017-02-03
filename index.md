@@ -3,7 +3,7 @@ layout: page
 ---
 
 	
-{% include image.html src="/images/front-image.jpg" caption="A section of the Via Alpina in the Italian alps." width=600 align="center" %}
+<img src="/images/front-image.jpg" width="400px" />
 
 # Welcome
 I'm Sam Stewart and a second-year math PhD candidate at the University of Minnesota. Originally from Oregon, I worked in Silicon Valley at several startups before deciding that pure math would give me the broader perspective I needed to solve the hard problems. My current interests lie at the intersection of computation and theory in mathematical fluid dynamics. 
