@@ -41,10 +41,10 @@ Personally, I'm not particularly clever or fast (just stubborn), so I just pract
 
 You might hear from peers that the subject GRE does not test your ability to do `real` math. That is irrelevant. A high school will not guarantee admission, but a low score (below 50%) is an easy rejection for most programs. While this might appear unfair, put yourself in the position of the admission committee. If you have several hundred applications, the best normalized score for comparing applicants is the subject GRE. Hence, while some schools (the University of Minnesota is one of them) basically ignore the subject GRE, many schools use it as a high-pass filter. 
 
-Personally, I applied to ten schools and was excepted into two of them. Despite a stellar research record, a semester in Budapest, fantastic grades, and great letters, I'm guessing that my low subject GRE score meant some schools didn't open my application. 
+Personally, I applied to ten schools and was accepted into two of them. Despite a stellar research record, a semester in Budapest, fantastic grades, and great letters, I'm guessing that my low subject GRE score meant some schools didn't open my application. 
 
 # Meet in Person
-If you can, try to arrange a meeting with someone related to the program. If the graduate school  is in the same state, consider driving over and speaking with the graduate director. Just like working at McDonalds, talking to the manager separates your name from a pile of similarly qualified applicants. 
+If you can, try to arrange a meeting with someone related to the program. If the graduate school is in the same state, consider driving over and speaking with the graduate director. Just like working at McDonalds, talking to the manager separates your name from a pile of similarly qualified applicants. 
 
 If the graduate school is in another state, find a conference where you know they have a booth, write a travel grant at your university, and attend the conference. I followed exactly these steps and met our graduate director at the 2015 Joint Mathematical Meetings in San Antonio while giving a presentation. The personal connection certainly didn't hurt my admission chances.
 
